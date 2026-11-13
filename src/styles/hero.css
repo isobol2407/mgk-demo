@@ -1,0 +1,458 @@
+/* ===== 1. Обещание ===== */
+.hero {
+  position: relative;
+  background: var(--cobalt);
+  color: var(--white);
+  padding-top: calc(var(--header-h) + var(--s-4));
+  padding-bottom: var(--s-6);
+  overflow: clip;
+}
+.hero :focus-visible {
+  outline-color: var(--white);
+}
+.hero__top {
+  display: grid;
+  gap: var(--s-5);
+}
+
+/* Заголовок: обычный текст, снимки стоят в потоке строки */
+.hero__title {
+  --fs: clamp(48px, 17vw, 78px);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--fs);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.hero__w {
+  white-space: nowrap;
+}
+.hero__br {
+  display: none;
+}
+
+/* Снимок: белая рамка как у моментального фото, наклон, лёгкая тень.
+   Отрицательные поля по вертикали не дают снимку раздвигать строки. */
+.shot {
+  --w: 1.12em;
+  --frame: 0.045em;
+  position: relative;
+  display: inline-block;
+  width: var(--w);
+  margin: -0.2em 0.07em;
+  padding: var(--frame) var(--frame) 0.15em;
+  vertical-align: -0.1em;
+  background: var(--white);
+  border-radius: 2px;
+  box-shadow: var(--shadow-photo);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--t) var(--ease);
+}
+.shot--video {
+  --w: 1.5em;
+}
+.shot--desk {
+  display: none;
+}
+.shot__media {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 1px;
+  background: var(--cobalt-20);
+}
+.shot--video .shot__media {
+  aspect-ratio: 16 / 10;
+}
+/* Подпись в нижнем поле рамки. На телефоне не помещается: скрыта, остаётся для скринридера */
+.shot__cap {
+  position: absolute;
+  left: var(--frame);
+  right: var(--frame);
+  bottom: 0;
+  height: 0.15em;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-text);
+  font-size: clamp(8px, 0.092em, 11px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.shot .mark--demo {
+  position: absolute;
+  top: calc(var(--frame) + 0.04em);
+  left: calc(var(--frame) + 0.04em);
+  font-size: 10px;
+  background: var(--white);
+  color: var(--ink);
+  border: 0;
+  opacity: 1;
+  border-radius: 2px;
+}
+@media (hover: hover) {
+  .shot:hover {
+    transform: rotate(0deg) translateY(-4px) scale(1.04);
+    z-index: 2;
+  }
+}
+/* Снимки «ложатся» на место после заголовка. Только CSS: при сбое скрипта ничего не остаётся скрытым */
+@keyframes shot-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.3em) rotate(calc(var(--tilt, 0deg) + 12deg)) scale(1.18);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--tilt, 0deg));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .shot {
+    animation: shot-in 900ms var(--ease) both;
+    animation-delay: calc(250ms + var(--i, 0) * 140ms);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot {
+    transform: none;
+  }
+}
+
+/* Колонка с оффером */
+.hero__aside {
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+.hero__lead {
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 44ch;
+}
+.hero__cta {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+}
+.hero__cta .btn {
+  width: 100%;
+}
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.proof__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-on-cobalt);
+  border-radius: var(--r-s);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color var(--t-fast) var(--ease);
+}
+.proof__item .i {
+  width: 15px;
+  height: 15px;
+}
+a.proof__item:hover {
+  border-color: var(--white);
+}
+.hero__facts {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-cobalt-2);
+}
+
+/* ===== Карусель привезённых машин по дуге =====
+   Положение карточек считает src/client/arc.js: translate, rotateY, scale.
+   Единственный тяжёлый эффект страницы, без WebGL. */
+.arc {
+  --arc-h: 200px;
+  --card-w: min(70vw, 290px);
+  margin-top: var(--s-6);
+  border-radius: 0;
+}
+.arc:focus-visible {
+  outline-offset: -4px;
+}
+.arc__stage {
+  position: relative;
+  height: var(--arc-h);
+  perspective: 1100px;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.arc__stage.is-dragging {
+  cursor: grabbing;
+}
+.arc__card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--card-w);
+  aspect-ratio: 3 / 2;
+  margin: calc(var(--card-w) / -3) 0 0 calc(var(--card-w) / -2);
+  padding: 6px;
+  background: var(--white);
+  border-radius: var(--r-s);
+  box-shadow: var(--shadow-photo);
+  cursor: inherit;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.arc__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  pointer-events: none;
+}
+/* Пока скрипт не расставил карточки, они не лежат стопкой на виду */
+.js .arc__stage:not(.is-ready) .arc__card {
+  opacity: 0;
+}
+/* Без скрипта: обычная прокручиваемая лента */
+html:not(.js) .arc__stage {
+  display: flex;
+  gap: var(--gap);
+  height: auto;
+  overflow-x: auto;
+  padding-inline: var(--gutter);
+}
+html:not(.js) .arc__card {
+  position: static;
+  margin: 0;
+  flex: none;
+}
+
+.arc__foot {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  text-align: center;
+}
+.arc__caps {
+  display: grid;
+  justify-items: center;
+}
+.arc__cap {
+  grid-area: 1 / 1;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  /* Уходящая подпись гаснет быстро, новая проявляется после неё: тексты не накладываются */
+  transition:
+    opacity 120ms linear,
+    visibility 0s linear 120ms;
+}
+.arc__cap.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 260ms var(--ease) 130ms,
+    visibility 0s linear 130ms;
+}
+html:not(.js) .arc__cap:not(.is-active) {
+  display: none;
+}
+.arc__l1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(24px, 2.3vw, 30px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.arc__l1 span {
+  white-space: nowrap;
+}
+.arc__l2 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.arc__act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2) var(--s-5);
+  margin-top: 6px;
+}
+.arc__dots {
+  display: flex;
+  gap: 2px;
+}
+.arc__dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+.arc__dot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 2px;
+  background: var(--white);
+  opacity: 0.4;
+  transition:
+    opacity var(--t-fast) var(--ease),
+    transform var(--t) var(--ease);
+}
+.arc__dot:hover::before {
+  opacity: 0.75;
+}
+.arc__dot.is-active::before {
+  opacity: 1;
+  transform: scaleX(2.4);
+}
+
+/* ===== Планшет ===== */
+@media (min-width: 768px) {
+  .hero__title {
+    --fs: min(10.3vw, 96px);
+  }
+  .hero__br {
+    display: inline;
+  }
+  .shot--desk {
+    display: inline-block;
+  }
+  .shot__cap {
+    display: flex;
+  }
+  .hero__top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-5) var(--s-6);
+  }
+  .hero__title {
+    grid-column: 1 / -1;
+  }
+  .hero__aside {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-4) var(--s-6);
+  }
+  .hero__lead {
+    grid-row: span 2;
+  }
+  .hero__facts {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+  }
+  .hero__facts li:not(:last-child)::after {
+    content: '·';
+    margin-inline: 10px;
+  }
+  .arc {
+    --arc-h: 250px;
+    --card-w: 340px;
+  }
+  /* Точки стоят справа от второй строки подписи, как в вайрфрейме */
+  .arc__foot {
+    position: relative;
+  }
+  .arc__dots {
+    position: absolute;
+    left: calc(50% + 150px);
+    top: 34px;
+  }
+}
+
+/* ===== Десктоп: первый экран целиком в окне ===== */
+@media (min-width: 1100px) {
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: var(--s-5);
+  }
+  .hero__top {
+    grid-template-columns: minmax(0, 1fr) 352px;
+    grid-template-areas:
+      'title aside'
+      'facts aside';
+    gap: var(--s-4) 40px;
+    align-items: start;
+  }
+  .hero__title {
+    --fs: min(7vw, 11.8vh, 98px);
+    grid-area: title;
+    grid-column: auto;
+  }
+  .hero__aside {
+    grid-area: aside;
+    grid-column: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+    padding-top: 0.5vh;
+  }
+  .hero__lead {
+    grid-row: auto;
+    font-size: 15px;
+  }
+  .hero__facts {
+    grid-area: facts;
+    grid-column: auto;
+  }
+  .arc {
+    --arc-h: clamp(190px, 29vh, 340px);
+    --card-w: calc(var(--arc-h) * 1.28);
+    margin-top: auto;
+    padding-top: var(--s-4);
+  }
+  .arc__stage {
+    /* запас сверху под поднятые края дуги */
+    padding-top: 24px;
+    box-sizing: content-box;
+  }
+  .arc__foot {
+    margin-top: var(--s-3);
+    gap: var(--s-2);
+  }
+  .arc__dots {
+    top: clamp(28px, 2.3vw, 34px);
+  }
+}
+
+/* Низкие окна ноутбуков (например 1536×730): первый экран всё равно целиком */
+@media (min-width: 1100px) and (max-height: 770px) {
+  .hero__title {
+    --fs: min(7vw, 11vh, 98px);
+  }
+  .hero__top {
+    row-gap: var(--s-3);
+  }
+  .arc {
+    --arc-h: clamp(170px, 26.5vh, 340px);
+    padding-top: var(--s-2);
+  }
+  .arc__stage {
+    padding-top: 16px;
+  }
+}

@@ -1,0 +1,24 @@
+// Форматы чисел. Неразрывные пробелы, чтобы сумма и «₽» не разъезжались по строкам.
+const NBSP = ' ';
+
+// 3.98 → «3,98 млн ₽»
+export const mln = (n) =>
+  `${n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}${NBSP}млн${NBSP}₽`;
+
+// 3980000 → «3 980 000 ₽»
+export const rub = (n) => `${Math.round(n).toLocaleString('ru-RU').replace(/\s/g, NBSP)}${NBSP}₽`;
+
+// 48 → «48 дней», 52 → «52 дня», 41 → «41 день»
+export function days(n) {
+  const a = n % 10;
+  const b = n % 100;
+  const word = a === 1 && b !== 11 ? 'день' : a >= 2 && a <= 4 && (b < 12 || b > 14) ? 'дня' : 'дней';
+  return `${n}${NBSP}${word}`;
+}
+
+// Экономия в миллионах с точностью до сотых
+export const saving = (deal) => Math.round((deal.priceRu - deal.turnkey) * 100) / 100;
+
+// К какому диапазону бюджета относится цена под ключ
+export const budgetOf = (turnkey, budgets) =>
+  budgets.find((b) => turnkey >= (b.min ?? 0) && turnkey < (b.max ?? Infinity))?.id ?? '';

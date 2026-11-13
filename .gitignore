@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+.playwright-mcp
+media-src/*.jpg
+media-src/*.jpeg
+media-src/*.png
+media-src/*.webm
+media-src/*.mp4

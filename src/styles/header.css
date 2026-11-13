@@ -1,0 +1,191 @@
+/* ===== 0. Шапка ===== */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--header-h);
+  color: var(--white);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--t) var(--ease),
+    color var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+/* После первого экрана и при открытом меню шапка белая */
+.header.is-solid,
+.header.menu-open {
+  background: var(--white);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+.header:not(.is-solid):not(.menu-open) :focus-visible {
+  outline-color: var(--white);
+}
+.header__in {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+}
+.logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.nav {
+  display: none;
+  margin-inline: auto;
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+}
+.nav a {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+  transition: text-decoration-color var(--t-fast) var(--ease);
+}
+.nav a:hover {
+  text-decoration-color: currentColor;
+}
+.header__act {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin-left: auto;
+}
+.header .icon-btn:hover {
+  background: rgb(255 255 255 / 0.16);
+}
+.header.is-solid .icon-btn:hover,
+.header.menu-open .icon-btn:hover {
+  background: var(--paper);
+}
+.icon-btn--desk,
+.header__cta {
+  display: none;
+}
+/* Кнопка в шапке: контурная на первом экране, заливка после него */
+.header__cta {
+  margin-left: var(--s-2);
+  border-color: var(--white);
+  color: var(--white);
+}
+.header__cta:hover {
+  background: var(--white);
+  color: var(--cobalt);
+}
+.header.is-solid .header__cta {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  color: var(--white);
+}
+.header.is-solid .header__cta:hover {
+  background: var(--cobalt-press);
+  border-color: var(--cobalt-press);
+}
+
+/* Бургер */
+.burger {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-s);
+}
+.burger span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--t) var(--ease);
+}
+.burger span:nth-child(1) {
+  top: 15px;
+}
+.burger span:nth-child(2) {
+  top: 23px;
+}
+.burger[aria-expanded='true'] span:nth-child(1) {
+  transform: translateY(4px) rotate(45deg);
+}
+.burger[aria-expanded='true'] span:nth-child(2) {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* Мобильное меню */
+.mmenu {
+  position: absolute;
+  inset: 100% 0 auto 0;
+  background: var(--white);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding: var(--s-4) var(--gutter) var(--s-6);
+}
+.mmenu a {
+  display: block;
+  padding: 10px 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* Закреплённая кнопка на телефоне: появляется после первого экрана */
+.dock {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 90;
+  padding: var(--s-2) var(--gutter) calc(var(--s-2) + env(safe-area-inset-bottom));
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform var(--t) var(--ease),
+    visibility 0s linear var(--t);
+}
+.dock.is-visible {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform var(--t) var(--ease),
+    visibility 0s;
+}
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+@media (min-width: 768px) {
+  .dock {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    display: block;
+  }
+  .icon-btn--desk {
+    display: inline-flex;
+  }
+  .header__cta {
+    display: inline-flex;
+  }
+  .burger,
+  .mmenu {
+    display: none;
+  }
+}
