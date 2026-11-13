@@ -1,7 +1,7 @@
 // 3. Разбор цены, вариант 3А. Бенто из четырёх карточек: машина, диаграмма, выгода, условия.
 // Диаграмма переворачивается в таблицу с полным расчётом. На телефоне переворота нет:
 // таблица раскрывается под диаграммой. Самая заметная карточка — «Выгода покупателя».
-import { esc, val, demoBadge, isAsk, askBadge } from '../lib/marks.js';
+import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn } from '../lib/ui.js';
 import { rub, days } from '../lib/format.js';
 
@@ -33,18 +33,21 @@ function calcCard(c, d, b) {
   const bar = b.rows.map((r, i) => `<span style="--share:${r.share};--c:${SEGMENT_COLORS[i]}"></span>`).join('');
   const legend = b.rows.map((r, i) => `<li><i style="--c:${SEGMENT_COLORS[i]}"></i>${esc(r.label)}</li>`).join('');
   const rows = b.rows
-    .map(
-      (r, i) => `
-          <li class="calc__item">
-            <button class="calc__row" type="button" aria-expanded="false" aria-controls="calc-${r.key}" data-calc-row>
+    .map((r, i) => {
+      const cells = `
               <span class="calc__name"><i style="--c:${SEGMENT_COLORS[i]}"></i>${esc(r.label)}</span>
               <span class="calc__payee">${esc(r.payee)}${r.payeeNote ? ` ${askBadge(r.payeeNote)}` : ''}</span>
-              <span class="calc__sum">${rub(r.sum)}</span>
+              <span class="calc__sum">${rub(r.sum)}</span>`;
+      // Раскрывается только строка, у которой есть что показать
+      if (!r.details || isHidden(r.details)) return `<li class="calc__item"><div class="calc__row">${cells}</div></li>`;
+      return `
+          <li class="calc__item">
+            <button class="calc__row" type="button" aria-expanded="false" aria-controls="calc-${r.key}" data-calc-row>${cells}
               ${icon('chevron-d', 'calc__chev')}
             </button>
             <div class="calc__more" id="calc-${r.key}" hidden>${detailsHTML(r)}</div>
-          </li>`,
-    )
+          </li>`;
+    })
     .join('');
   return `
     <div class="flip" data-flip>
@@ -63,7 +66,7 @@ function calcCard(c, d, b) {
               <ul class="calc__list">${rows}</ul>
               <p class="calc__total"><span>Итого под ключ ${esc(d.cityIn)}</span><b>${rub(b.total)}</b></p>
             </div>
-            <p class="calc__note">Расчёт на ${esc(d.date)}, курс ${val(b.rate)} ${esc(b.rateUnit)}. Сегодня сумма будет другой.</p>
+            <p class="calc__note">Расчёт на ${esc(d.date)}${isHidden(b.rate) ? '' : `, курс ${val(b.rate)} ${esc(b.rateUnit)}`}. Сегодня сумма будет другой.</p>
             <p class="calc__note">Не входит: ${esc(b.excluded.charAt(0).toLowerCase() + b.excluded.slice(1))}</p>
             <button class="btn btn--line flip__btn flip__btn--back" type="button" data-flip-close>${icon('flip')}<span>Вернуться к схеме</span></button>
           </div>
@@ -78,10 +81,10 @@ function gainCard(d, b) {
       <p class="gain__label"><span>Выгода покупателя</span>${d.demo ? demoBadge() : ''}</p>
       <p class="gain__sum display">${rub(b.priceRu - b.total)}</p>
       <dl class="gain__rows">
-        <div><dt>Такая же в России</dt><dd>${rub(b.priceRu)}</dd></div>
-        <div><dt>Под ключ ${esc(d.from)}</dt><dd>${rub(b.total)}</dd></div>
+        <div><dt>Такая же в России</dt><dd>${rub(b.priceRu)}</dd><dd class="gain__bar gain__bar--ru"><i style="--w:100%"></i></dd></div>
+        <div><dt>Под ключ ${esc(d.from)}</dt><dd>${rub(b.total)}</dd><dd class="gain__bar"><i style="--w:${Math.round((b.total / b.priceRu) * 100)}%"></i></dd></div>
       </dl>
-      <p class="gain__src">Цена в России: ${val(b.priceRuSource)}, ${val(b.priceRuDate)}</p>
+      ${isHidden(b.priceRuSource) && isHidden(b.priceRuDate) ? '' : `<p class="gain__src">Цена в России: ${val(b.priceRuSource)}, ${val(b.priceRuDate)}</p>`}
     </div>`;
 }
 

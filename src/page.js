@@ -1,6 +1,6 @@
 // Сборка страницы из блоков. Выполняется при сборке (vite.config.js), возвращает готовый HTML.
 // Порядок блоков — по вайрфрейму docs/shablon-glavnaya-wireframe.md.
-import { esc } from './lib/marks.js';
+import { esc, configureMarks } from './lib/marks.js';
 import { SPRITE } from './lib/ui.js';
 import { renderHeader } from './sections/header.js';
 import { renderHero } from './sections/hero.js';
@@ -10,6 +10,7 @@ import { renderSteps } from './sections/steps.js';
 import { renderPick, renderQuiz } from './sections/pick.js';
 
 export function renderPage(company) {
+  configureMarks({ showAsk: company.display?.showAsk ?? true });
   const body = `
 ${SPRITE}
 <a class="skip" href="#main">К содержимому</a>

@@ -183,7 +183,7 @@ a.proof__item:hover {
    Единственный тяжёлый эффект страницы, без WebGL. */
 .arc {
   --arc-h: 200px;
-  --card-w: min(70vw, 290px);
+  --card-w: min(66vw, 280px);
   margin-top: var(--s-6);
   border-radius: 0;
 }
@@ -216,6 +216,26 @@ a.proof__item:hover {
   cursor: inherit;
   will-change: transform;
   backface-visibility: hidden;
+}
+/* Год, пробег и мощность: тихая плашка в углу фото, только у центральной карточки */
+.arc__spec {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 4px 7px;
+  border-radius: 2px;
+  background: rgb(14 15 18 / 0.6);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--t) var(--ease);
+  pointer-events: none;
+}
+.arc__card.is-active .arc__spec {
+  opacity: 1;
 }
 .arc__card img {
   width: 100%;
@@ -302,19 +322,22 @@ html:not(.js) .arc__cap:not(.is-active) {
   display: flex;
   gap: 2px;
 }
+.arc__dots {
+  margin-bottom: 2px;
+}
 .arc__dot {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 18px;
 }
 .arc__dot::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
   border-radius: 2px;
   background: var(--white);
   opacity: 0.4;
@@ -327,7 +350,7 @@ html:not(.js) .arc__cap:not(.is-active) {
 }
 .arc__dot.is-active::before {
   opacity: 1;
-  transform: scaleX(2.4);
+  transform: scaleX(2.2);
 }
 
 /* ===== Планшет ===== */
@@ -372,15 +395,6 @@ html:not(.js) .arc__cap:not(.is-active) {
   .arc {
     --arc-h: 250px;
     --card-w: 340px;
-  }
-  /* Точки стоят справа от второй строки подписи, как в вайрфрейме */
-  .arc__foot {
-    position: relative;
-  }
-  .arc__dots {
-    position: absolute;
-    left: calc(50% + 150px);
-    top: 34px;
   }
 }
 
@@ -435,9 +449,6 @@ html:not(.js) .arc__cap:not(.is-active) {
     margin-top: var(--s-3);
     gap: var(--s-2);
   }
-  .arc__dots {
-    top: clamp(28px, 2.3vw, 34px);
-  }
 }
 
 /* Низкие окна ноутбуков (например 1536×730): первый экран всё равно целиком */
@@ -449,7 +460,7 @@ html:not(.js) .arc__cap:not(.is-active) {
     row-gap: var(--s-3);
   }
   .arc {
-    --arc-h: clamp(170px, 26.5vh, 340px);
+    --arc-h: clamp(165px, 25vh, 340px);
     padding-top: var(--s-2);
   }
   .arc__stage {

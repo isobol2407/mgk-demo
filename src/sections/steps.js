@@ -4,7 +4,7 @@ import { esc, val, askBadge } from '../lib/marks.js';
 import { icon, photo, extLink } from '../lib/ui.js';
 
 // Значение шага: строка или список частей (текст и плашки), части склеиваются пробелом
-const parts = (v) => (Array.isArray(v) ? v.map(val).join(' ') : val(v));
+const parts = (v) => (Array.isArray(v) ? v.map(val).filter(Boolean).join(' ') : val(v));
 
 export function renderSteps(c) {
   const s = c.steps;

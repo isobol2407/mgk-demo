@@ -211,18 +211,13 @@ a.reviews__item:hover span {
   font-weight: 600;
   white-space: nowrap;
 }
-/* Строка «Экономия» залита кобальтом */
+/* Строка «Экономия»: кобальтовый текст без заливки, чтобы не путать с кнопкой рядом */
 .prices__row--save {
   align-items: center;
-  margin-top: 2px;
-  padding: 10px 12px;
-  border-top: 0;
-  border-radius: var(--r-s);
-  background: var(--cobalt);
-  color: var(--white);
+  color: var(--cobalt);
 }
 .prices__row--save dt {
-  color: var(--white);
+  color: var(--cobalt);
   font-weight: 600;
 }
 .prices__row--save dd {

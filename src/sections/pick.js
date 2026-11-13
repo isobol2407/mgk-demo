@@ -1,6 +1,6 @@
 // 5. Подбор и контакты. Первый вопрос квиза стоит прямо в блоке, остальные в модалке.
 // Рядом карточка «Каталог одним сообщением», ниже контакты.
-import { esc, isAsk, askBadge } from '../lib/marks.js';
+import { esc, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, chatBtn, extLink, telHref } from '../lib/ui.js';
 import { chatAttrs, primaryKey, messengerLabel, messengerIcon } from '../lib/messenger.js';
 
@@ -41,7 +41,9 @@ export function renderPick(c) {
     .map((x) => `<li>${x}</li>`)
     .join('');
   const office = c.contacts.officePhoto;
-  const officePhoto = isAsk(office)
+  const officePhoto = isHidden(office)
+    ? ''
+    : isAsk(office)
     ? `<div class="snap snap--empty" style="--tilt:4deg"><span>${askBadge(office)}</span></div>`
     : `<div class="snap" style="--tilt:4deg"><img src="${esc(office)}" alt="Офис ${esc(c.name)}" loading="lazy" width="960" height="640" /></div>`;
 
@@ -77,7 +79,7 @@ export function renderPick(c) {
         <p class="contacts__label">Отзывы</p>
         <ul class="contacts__reviews">${reviews}</ul>
       </div>
-      <div class="contacts__photo">${officePhoto}</div>
+      ${officePhoto ? `<div class="contacts__photo">${officePhoto}</div>` : ''}
     </div>
   </div>
 </section>`;

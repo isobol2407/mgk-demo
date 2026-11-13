@@ -42,6 +42,7 @@ export function initArc(root) {
 
   function setActive(i) {
     active = i;
+    cards.forEach((card, k) => card.classList.toggle('is-active', k === i));
     caps.forEach((cap, k) => {
       const on = k === i;
       cap.classList.toggle('is-active', on);
@@ -58,7 +59,7 @@ export function initArc(root) {
     const cw = cards[0].offsetWidth;
     const narrow = stage.clientWidth < 768;
     // Шаг до первого соседа больше: центральная карточка крупнее остальных
-    const step1 = cw * (narrow ? 0.86 : 0.88);
+    const step1 = cw * (narrow ? 0.94 : 0.98);
     const step2 = cw * (narrow ? 0.6 : 0.58);
     stepPx = step1;
     for (let i = 0; i < n; i++) {
@@ -76,7 +77,8 @@ export function initArc(root) {
         const a2 = clamp(a - 1, 0, 1);
         const a3 = Math.max(0, a - 2);
         const x = s * (step1 * a1 + step2 * a2 + step2 * 0.7 * a3);
-        const scale = 1 - 0.27 * a1 - 0.13 * a2 - 0.06 * a3;
+        // Центральная на 15% крупнее, соседние того же размера, что раньше
+        const scale = (1 - 0.27 * a1 - 0.13 * a2 - 0.06 * a3) * (1 + 0.15 * (1 - a1));
         const rotY = -s * ((narrow ? 24 : 32) * a1 + 16 * a2 + 8 * a3); // внутрь дуги
         // Дуга: центр ниже всех, края поднимаются
         const y = -((narrow ? 8 : 16) * a1 * a1 + (narrow ? 14 : 30) * a2 + 20 * a3);

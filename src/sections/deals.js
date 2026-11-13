@@ -1,6 +1,6 @@
 // 2. Привезённые машины. Лента карточек сделок с двумя фильтрами: бюджет и «новые / с пробегом».
 // Только уже привезённые машины, без предложений из каталога. Фильтра по стране нет.
-import { esc, val, demoBadge, isAsk } from '../lib/marks.js';
+import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn, extLink } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
 import { mln, days, saving, budgetOf } from '../lib/format.js';
@@ -36,12 +36,12 @@ function reviewsHTML(c) {
   const y = c.ratings.yandex;
   const a = c.ratings.avito;
   const items = [];
-  if (y) {
+  if (y && !isHidden(y.rating)) {
     const text = `${icon('star')}<span>${val(y.rating)} · ${val(y.count)} отзывов на Яндекс.Картах</span>`;
     items.push(isAsk(y.url) ? `<span class="reviews__item">${text}</span>` : `<a class="reviews__item" href="${esc(y.url)}" target="_blank" rel="noopener">${text}${icon('arrow-ur')}</a>`);
   }
-  if (a) {
-    const text = `<span>${val(a.count)} отзывов на Авито</span>`;
+  if (a && !isHidden(a.count)) {
+    const text = `${a.rating ? `${icon('star')}<span>${val(a.rating)} · ` : '<span>'}${val(a.count)} отзывов на Авито</span>`;
     items.push(isAsk(a.url) ? `<span class="reviews__item">${text}</span>` : `<a class="reviews__item" href="${esc(a.url)}" target="_blank" rel="noopener">${text}${icon('arrow-ur')}</a>`);
   }
   return items.length ? `<ul class="reviews">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';
@@ -94,7 +94,7 @@ export function renderDeals(c) {
       <a class="btn btn--white" ${chatAttrs(c, key, c.messages.budget)} data-empty-link>${icon('tg')}<span>Написать в ${esc(label)}</span></a>
     </div>
     <a class="deal deal--state deal--end" data-state="end" href="${esc(channel)}" target="_blank" rel="noopener">
-      <span class="deal__state-text display">Ещё ${val(c.dealsMore)} машин — в Telegram-канале</span>
+      <span class="deal__state-text display">${isHidden(c.dealsMore) ? 'Остальные машины' : `Ещё ${val(c.dealsMore)} машин`} — в Telegram-канале</span>
       <span class="deal__end-arrow">${icon('arrow-ur')}</span>
     </a>
   </div>

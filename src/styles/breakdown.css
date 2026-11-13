@@ -189,7 +189,7 @@ a.car:focus-visible {
   font-size: 15px;
   border-radius: 0;
 }
-.calc__row:hover .calc__name {
+button.calc__row:hover .calc__name {
   color: var(--cobalt);
 }
 .calc__name {
@@ -281,12 +281,29 @@ a.car:focus-visible {
   margin-top: auto;
   font-size: 15px;
 }
+/* Две полосы вместо разделителей: цена в России длиннее цены под ключ */
+.gain__rows {
+  display: grid;
+  gap: var(--s-4);
+}
 .gain__rows div {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding: 10px 0;
-  border-top: 1px solid rgb(255 255 255 / 0.22);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px var(--s-3);
+}
+.gain__bar {
+  grid-column: 1 / -1;
+  height: 8px;
+}
+.gain__bar i {
+  display: block;
+  width: var(--w);
+  height: 100%;
+  border-radius: 2px;
+  background: var(--cobalt-80);
+}
+.gain__bar--ru i {
+  background: rgb(255 255 255 / 0.4);
 }
 .gain__rows dt {
   color: rgb(255 255 255 / 0.78);

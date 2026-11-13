@@ -16,6 +16,9 @@ export function days(n) {
   return `${n}${NBSP}${word}`;
 }
 
+// 0 → «без пробега», 48000 → «48 000 км»
+export const km = (n) => (n ? `${n.toLocaleString('ru-RU').replace(/\s/g, NBSP)}${NBSP}км` : 'без пробега');
+
 // Экономия в миллионах с точностью до сотых
 export const saving = (deal) => Math.round((deal.priceRu - deal.turnkey) * 100) / 100;
 
