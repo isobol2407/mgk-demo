@@ -1,0 +1,168 @@
+/* ===== 4. Этапы и оплата ===== */
+.steps .h2 {
+  max-width: 22ch;
+}
+/* Телефон и планшет: шаги вертикально, линия слева */
+.steps__list {
+  display: grid;
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--s-4);
+  padding-bottom: var(--s-6);
+}
+.step::before {
+  content: '';
+  position: absolute;
+  left: 27px;
+  top: 76px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--line);
+}
+.step:last-child {
+  padding-bottom: 0;
+}
+.step:last-child::before {
+  display: none;
+}
+/* Номера шагов огромными цифрами тем же узким шрифтом */
+.step__n {
+  font-size: 88px;
+  line-height: 0.8;
+  color: var(--cobalt);
+  text-align: center;
+}
+.step__title {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: var(--s-3);
+}
+.step__dl {
+  display: grid;
+  gap: var(--s-3);
+}
+.step__dl dt {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 2px;
+}
+.step__dl dd {
+  font-size: 15px;
+  line-height: 1.4;
+}
+.step__dl div:first-child dd {
+  font-weight: 600;
+}
+
+/* Карточки договора и отчёта */
+.docs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
+  margin-top: var(--s-7);
+}
+.doc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  border-radius: var(--r-m);
+  background: var(--paper);
+}
+.doc__text {
+  display: grid;
+  gap: var(--s-2);
+  align-content: start;
+}
+.doc__text p {
+  color: var(--ink-2);
+}
+.doc__act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+.doc__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-5) var(--s-4);
+}
+.doc__snaps {
+  display: flex;
+  padding: 0 8px 4px;
+}
+
+/* Снимок в белой рамке с небольшим наклоном: общий для блоков 4 и 5 */
+.snap {
+  display: block;
+  width: 104px;
+  padding: 5px 5px 16px;
+  background: var(--white);
+  border-radius: 2px;
+  box-shadow: var(--shadow-photo);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform var(--t) var(--ease);
+}
+.snap + .snap {
+  margin-left: -22px;
+}
+.snap img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 1px;
+}
+@media (hover: hover) {
+  .snap:hover {
+    transform: rotate(0deg) translateY(-4px);
+    z-index: 2;
+    position: relative;
+  }
+}
+
+@media (min-width: 768px) {
+  .docs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .doc {
+    padding: var(--s-6);
+    min-height: 260px;
+  }
+}
+/* Десктоп: пять шагов в ряд, линия сверху */
+@media (min-width: 1100px) {
+  .steps__list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s-5);
+  }
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    align-content: start;
+    gap: var(--s-5);
+    padding: var(--s-5) 0 0;
+    border-top: 2px solid var(--ink);
+  }
+  /* Заголовки шагов в одну или две строки: строки «Платите» стоят на одном уровне */
+  .step__title {
+    min-height: 2em;
+  }
+  .step::before {
+    display: none;
+  }
+  .step__n {
+    font-size: clamp(120px, 11vw, 160px);
+    text-align: left;
+  }
+  .snap {
+    width: 132px;
+  }
+}

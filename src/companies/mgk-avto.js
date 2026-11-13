@@ -174,6 +174,7 @@ const company = {
     total: 3980000,
     priceRu: 4700000,
     rate: ask('курс юаня на дату расчёта'),
+    rateUnit: '₽ за юань',
     priceRuSource: ask('источник цены в России'),
     priceRuDate: ask('дата цены в России'),
     excluded: 'Постановка на учёт и ОСАГО.',

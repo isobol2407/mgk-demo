@@ -270,7 +270,7 @@ a.link:hover use[href='#i-arrow-down'] {
   display: inline-block;
   vertical-align: 0.12em;
   font-family: var(--font-text);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -295,7 +295,9 @@ a.link:hover use[href='#i-arrow-down'] {
   background: var(--white);
   color: var(--ink);
 }
-.card .mark--ask {
+.card .mark--ask,
+.flip__face .mark--ask,
+.snap .mark--ask {
   background: var(--ink);
   color: var(--white);
 }

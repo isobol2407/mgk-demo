@@ -1,0 +1,332 @@
+/* ===== 2. Привезённые машины ===== */
+.sec-head {
+  display: grid;
+  gap: var(--s-4);
+  margin-bottom: var(--s-7);
+}
+.deals__head {
+  display: grid;
+  gap: var(--s-5);
+  margin-bottom: var(--s-6);
+}
+.deals__head .h2 {
+  max-width: 18ch;
+  margin-bottom: var(--s-4);
+}
+.deals__sub .link {
+  white-space: nowrap;
+}
+.reviews {
+  display: grid;
+  gap: var(--s-2);
+  align-content: end;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.reviews__item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+.reviews__item .i {
+  margin-top: 3px;
+}
+.reviews__item .i {
+  width: 15px;
+  height: 15px;
+}
+a.reviews__item:hover span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Фильтры */
+.deals__bar {
+  display: grid;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+.chips {
+  display: flex;
+  gap: var(--s-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding: 3px var(--gutter);
+}
+.chips::-webkit-scrollbar {
+  display: none;
+}
+.chip,
+.seg__btn {
+  flex: none;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--r-s);
+  background: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease);
+}
+.chip:hover,
+.seg__btn:hover {
+  background: var(--cobalt-10);
+}
+.chip[aria-pressed='true'],
+.seg__btn[aria-pressed='true'] {
+  background: var(--cobalt);
+  color: var(--white);
+}
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  padding: 2px;
+  background: var(--white);
+  border-radius: var(--r-s);
+}
+.seg__btn {
+  min-height: 40px;
+  padding: 0 12px;
+}
+.deals__nav {
+  display: none;
+  gap: var(--s-2);
+}
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border-radius: var(--r-s);
+  transition:
+    background-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    opacity var(--t-fast) var(--ease);
+}
+.arrow:hover:not(:disabled) {
+  background: var(--cobalt);
+  color: var(--white);
+}
+.arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Лента: уходит за правый край, видно, что машин много */
+.rail {
+  --deal-w: min(calc(100vw - var(--gutter) * 2 - 40px), 340px);
+  --pad: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--pad);
+  padding: 4px var(--pad) 12px;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail:focus-visible {
+  outline-offset: -2px;
+}
+.deal {
+  flex: none;
+  width: var(--deal-w);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+.deal__media {
+  position: relative;
+  padding: 8px 8px 0;
+}
+.deal__media img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-s);
+  background: var(--paper);
+}
+.deal__date {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 8px;
+  background: var(--white);
+  border-radius: var(--r-s);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.deal__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-4) var(--s-4) var(--s-5);
+}
+.deal__model {
+  font-size: 32px;
+  line-height: 1;
+}
+.deal__meta {
+  margin-top: 6px;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+.deal__badge {
+  align-self: start;
+  margin-top: var(--s-3);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+}
+.prices {
+  margin-top: auto;
+  padding-top: var(--s-4);
+  font-size: 15px;
+}
+.prices__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+}
+.prices__row dt {
+  color: var(--ink-2);
+}
+.prices__row dd {
+  font-weight: 600;
+  white-space: nowrap;
+}
+/* Строка «Экономия» залита кобальтом */
+.prices__row--save {
+  align-items: center;
+  margin-top: 2px;
+  padding: 10px 12px;
+  border-top: 0;
+  border-radius: var(--r-s);
+  background: var(--cobalt);
+  color: var(--white);
+}
+.prices__row--save dt {
+  color: var(--white);
+  font-weight: 600;
+}
+.prices__row--save dd {
+  font-size: 17px;
+}
+.deal__act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-4);
+}
+.deal__more {
+  align-self: start;
+  margin-top: var(--s-3);
+}
+
+/* Состояния фильтра: мало машин, пусто, конец ленты. Человек не упирается в тупик */
+.deal--state {
+  justify-content: space-between;
+  gap: var(--s-5);
+  min-height: 320px;
+  padding: var(--s-5);
+  border-radius: var(--r-m);
+  background: var(--cobalt);
+  color: var(--white);
+}
+.deal--state :focus-visible,
+.deal--state:focus-visible {
+  outline-color: var(--ink);
+}
+.deal__state-text {
+  font-size: 36px;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+.deal--state .btn {
+  align-self: start;
+}
+.deal--end {
+  transition: background-color var(--t-fast) var(--ease);
+}
+.deal--end:hover {
+  background: var(--cobalt-press);
+}
+.deal__end-arrow {
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--white);
+  color: var(--cobalt);
+  border-radius: var(--r-s);
+  transition: transform var(--t-fast) var(--ease);
+}
+.deal--end:hover .deal__end-arrow {
+  transform: translate(2px, -2px);
+}
+.deal__end-arrow .i {
+  width: 22px;
+  height: 22px;
+}
+
+@media (hover: hover) {
+  .deal.card {
+    transition: transform var(--t) var(--ease);
+  }
+  .deal.card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (min-width: 768px) {
+  .deals__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+  .reviews {
+    justify-items: end;
+    text-align: right;
+  }
+  .deals__bar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: var(--s-4);
+  }
+  .chips {
+    margin: 0;
+    padding: 3px;
+    margin-left: -3px;
+  }
+  .deals__nav {
+    display: flex;
+  }
+  .rail {
+    /* две карточки целиком и край третьей */
+    --deal-w: calc((100vw - var(--gutter) * 2 - var(--gap) * 2 - 56px) / 2);
+  }
+}
+@media (min-width: 1100px) {
+  .rail {
+    /* три карточки целиком и край четвёртой */
+    --deal-w: calc((min(100vw, var(--container)) - var(--gutter) * 2 - var(--gap) * 3 - 72px) / 3);
+  }
+}

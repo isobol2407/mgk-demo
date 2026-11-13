@@ -5,6 +5,7 @@ import { icon, photo, chatBtn, extLink } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
 import { mln, saving } from '../lib/format.js';
 
+// Снимки стоят внутри h1, поэтому для скринридера скрыты: заголовок читается как чистый текст.
 function shotHTML(shot, i) {
   const cls = `shot shot--${shot.type}${shot.mobile === false ? ' shot--desk' : ''}`;
   const style = `--tilt:${shot.tilt ?? 0}deg;--i:${i}`;
@@ -13,10 +14,10 @@ function shotHTML(shot, i) {
     // preload="none": файл подтягивает скрипт после появления заголовка (src/client/hero.js).
     const cap =
       (shot.caption ? `<span class="shot__cap">${esc(shot.caption)}</span>` : '') + (shot.demo ? demoBadge() : '');
-    return `<span class="${cls}" style="${style}" data-shot>
-      <video class="shot__media" muted loop playsinline preload="none" poster="/media/${shot.poster}-480.webp" width="480" height="360" aria-label="${esc(shot.alt)}" data-hero-video><source src="${shot.src}" type="video/mp4" /></video>${cap}</span>`;
+    return `<span class="${cls}" style="${style}" data-shot aria-hidden="true">
+      <video class="shot__media" muted loop playsinline preload="none" poster="/media/${shot.poster}-480.webp" width="480" height="360" tabindex="-1" data-hero-video><source src="${shot.src}" type="video/mp4" /></video>${cap}</span>`;
   }
-  return `<span class="${cls}" style="${style}" data-shot>${photo(shot.src, { alt: shot.alt, widths: [240, 480], ratio: 4 / 3, sizes: '160px', cls: 'shot__media' })}</span>`;
+  return `<span class="${cls}" style="${style}" data-shot aria-hidden="true">${photo(shot.src, { alt: '', widths: [240, 480], ratio: 4 / 3, sizes: '160px', cls: 'shot__media' })}</span>`;
 }
 
 function titleHTML(c) {
@@ -74,7 +75,7 @@ function arcHTML(c) {
   <div class="arc" data-arc role="group" aria-roledescription="карусель" aria-label="Привезённые машины. Листайте стрелками" tabindex="0">
     <div class="arc__stage" data-arc-stage>${cards}</div>
     <div class="arc__foot container">
-      <div class="arc__caps" aria-live="polite">${caps}</div>
+      <div class="arc__caps" aria-live="off" data-arc-caps>${caps}</div>
       <div class="arc__dots">${dots}</div>
     </div>
   </div>`;

@@ -27,7 +27,7 @@ export function renderHeader(c) {
   return `
 <header class="header" data-header>
   <div class="header__in container">
-    <a class="logo" href="#top" aria-label="${esc(c.name)}, к началу страницы">${esc(c.name)}</a>
+    <a class="logo" href="#top" translate="no" aria-label="${esc(c.name)}, к началу страницы">${esc(c.name)}</a>
     <nav class="nav" aria-label="Основное меню"><ul>${links}</ul></nav>
     <div class="header__act">
       ${icons}

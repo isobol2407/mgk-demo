@@ -1,0 +1,453 @@
+/* ===== 3. Разбор цены: бенто из четырёх карточек ===== */
+.price .h2 {
+  max-width: 21ch;
+}
+.bento {
+  display: grid;
+  gap: var(--gap);
+}
+/* Телефон: машина → выгода → диаграмма → условия */
+.car {
+  order: 1;
+}
+.gain {
+  order: 2;
+}
+.flip {
+  order: 3;
+}
+.cond {
+  order: 4;
+}
+
+/* А. Машина: вся карточка ведёт на пост о выдаче */
+.car {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.car__photo {
+  display: block;
+  padding: 8px 8px 0;
+  flex: 1;
+  min-height: 0;
+}
+.car__photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-s);
+}
+.car__body {
+  display: grid;
+  gap: 4px;
+  padding: var(--s-4) var(--s-5) var(--s-5);
+}
+.car__model {
+  margin-bottom: 4px;
+}
+.car__line {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.car__link {
+  justify-self: start;
+  margin-top: var(--s-2);
+}
+a.car:hover .car__link {
+  text-decoration-color: currentColor;
+}
+a.car:hover .car__link .i {
+  transform: translate(2px, -2px);
+}
+a.car:focus-visible {
+  outline-color: var(--white);
+}
+
+/* Б. Диаграмма и таблица. На телефоне таблица раскрывается под диаграммой */
+.flip__face {
+  background: var(--white);
+  color: var(--ink);
+  padding: var(--s-5);
+}
+.flip__front {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  border-radius: var(--r-m);
+}
+.flip :focus-visible {
+  outline-color: var(--cobalt);
+}
+/* Диаграмма: одна полоса из пяти сегментов. Намеренно непропорциональная и без цифр:
+   визуальный якорь, а не график. На телефоне вместо полосы список с цветными метками. */
+.bar {
+  display: none;
+  height: clamp(64px, 9vw, 104px);
+  gap: 3px;
+}
+.bar span {
+  flex: var(--share) 1 0;
+  background: var(--c);
+  border-radius: 2px;
+}
+.legend {
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend i,
+.calc__name i {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--c);
+}
+.flip__note {
+  font-size: 15px;
+  color: var(--ink-2);
+  max-width: 48ch;
+}
+.flip__btn {
+  align-self: start;
+  margin-top: auto;
+}
+.flip__btn--back {
+  display: none;
+}
+.flip__btn .i {
+  transition: transform var(--t) var(--ease);
+}
+.flip__btn[aria-expanded='true'] .i {
+  transform: rotate(180deg);
+}
+.flip__back {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding-block: 0;
+  border-radius: 0 0 var(--r-m) var(--r-m);
+  transition: grid-template-rows var(--t-slow) var(--ease);
+}
+.flip__front {
+  transition: border-radius 0s linear var(--t-slow);
+}
+.flip.is-open .flip__front {
+  border-radius: var(--r-m) var(--r-m) 0 0;
+  transition-delay: 0s;
+}
+.flip.is-open .flip__back {
+  grid-template-rows: 1fr;
+}
+.flip__back-in {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.flip__back-in > :last-child {
+  margin-bottom: var(--s-5);
+}
+
+/* Таблица расчёта: статья → кому платите → сумма */
+.calc__head,
+.calc__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 2px var(--s-3);
+}
+.calc__head {
+  padding-bottom: var(--s-2);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.calc__head span:nth-child(2) {
+  display: none;
+}
+.calc__head span:nth-child(3) {
+  text-align: right;
+  grid-column: 2 / 4;
+}
+.calc__item {
+  border-top: 1px solid var(--line);
+}
+.calc__row {
+  width: 100%;
+  padding: 12px 0;
+  text-align: left;
+  font-size: 15px;
+  border-radius: 0;
+}
+.calc__row:hover .calc__name {
+  color: var(--cobalt);
+}
+.calc__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  transition: color var(--t-fast) var(--ease);
+}
+.calc__payee {
+  grid-column: 1;
+  grid-row: 2;
+  padding-left: 24px;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+.calc__sum {
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: right;
+}
+.calc__chev {
+  grid-column: 3;
+  grid-row: 1;
+  color: var(--ink-2);
+  transition: transform var(--t) var(--ease);
+}
+.calc__row[aria-expanded='true'] .calc__chev {
+  transform: rotate(180deg);
+}
+.calc__more {
+  padding: 0 0 14px 24px;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+.calc__more ul {
+  display: grid;
+  gap: 4px;
+  list-style: disc;
+  padding-left: 18px;
+}
+.calc__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--ink);
+  font-weight: 600;
+}
+.calc__total b {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 36px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.calc__note {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+/* В. Выгода покупателя: самая заметная карточка блока, инвертирована */
+.gain {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-5);
+  border-radius: var(--r-m);
+  background: var(--ink);
+  color: var(--white);
+}
+.gain__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-size: 15px;
+  font-weight: 600;
+}
+.gain__sum {
+  margin-block: var(--s-3) var(--s-5);
+  font-size: clamp(72px, 21vw, 128px);
+  line-height: 0.85;
+  white-space: nowrap;
+}
+.gain__rows {
+  margin-top: auto;
+  font-size: 15px;
+}
+.gain__rows div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 10px 0;
+  border-top: 1px solid rgb(255 255 255 / 0.22);
+}
+.gain__rows dt {
+  color: rgb(255 255 255 / 0.78);
+}
+.gain__rows dd {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.gain__src {
+  margin-top: var(--s-2);
+  font-size: var(--fs-small);
+  color: rgb(255 255 255 / 0.78);
+}
+
+/* Г. Условия */
+.cond {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+}
+.cond__list li {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-text);
+}
+.cond__list b {
+  font-weight: 600;
+}
+.cond .btn {
+  align-self: start;
+  margin-top: auto;
+}
+.cond :focus-visible {
+  outline-color: var(--cobalt);
+}
+
+/* ===== От 900 px: сетка 2×2 и переворот карточки ===== */
+@media (min-width: 900px) {
+  .bento {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      'car calc'
+      'gain cond';
+  }
+  .car {
+    grid-area: car;
+  }
+  .flip {
+    grid-area: calc;
+  }
+  .gain {
+    grid-area: gain;
+  }
+  .cond {
+    grid-area: cond;
+  }
+  .flip__face,
+  .gain,
+  .cond {
+    padding: var(--s-6);
+  }
+  .bar {
+    display: flex;
+    flex: 1;
+    min-height: 104px;
+    max-height: 240px;
+  }
+  .gain__sum {
+    font-size: clamp(88px, 9.2vw, 128px);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+  }
+
+  .flip {
+    perspective: 1800px;
+  }
+  .flip__in {
+    display: grid;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 800ms var(--ease-io);
+  }
+  .flip__face {
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--r-m);
+  }
+  .flip__front,
+  .flip.is-open .flip__front {
+    border-radius: var(--r-m);
+    transition: none;
+  }
+  .flip__back {
+    display: block;
+    transform: rotateY(180deg);
+    transition: none;
+    border-radius: var(--r-m);
+    padding-block: var(--s-6);
+  }
+  .flip__back-in {
+    height: 100%;
+    overflow: visible;
+  }
+  .flip__back-in > :last-child {
+    margin-bottom: 0;
+  }
+  .flip.is-open .flip__in {
+    transform: rotateY(180deg);
+  }
+  .flip__btn--back {
+    display: inline-flex;
+    margin-top: auto;
+  }
+  .flip__btn[aria-expanded='true'] .i {
+    transform: none;
+  }
+  .calc__head,
+  .calc__row {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto 20px;
+  }
+  .calc__head span:nth-child(2) {
+    display: block;
+  }
+  .calc__head span:nth-child(3) {
+    grid-column: 3 / 5;
+    padding-right: 32px;
+  }
+  .calc__payee {
+    grid-column: 2;
+    grid-row: 1;
+    padding-left: 0;
+    font-size: 15px;
+  }
+  .calc__sum {
+    grid-column: 3;
+  }
+  .calc__chev {
+    grid-column: 4;
+  }
+
+  /* prefers-reduced-motion: вместо переворота простая смена содержимого */
+  @media (prefers-reduced-motion: reduce) {
+    .flip__in,
+    .flip.is-open .flip__in {
+      transform: none;
+      transition: none;
+    }
+    .flip__back {
+      transform: none;
+      visibility: hidden;
+    }
+    .flip.is-open .flip__back {
+      visibility: visible;
+    }
+    .flip.is-open .flip__front {
+      visibility: hidden;
+    }
+  }
+}

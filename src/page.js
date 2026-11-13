@@ -4,6 +4,10 @@ import { esc } from './lib/marks.js';
 import { SPRITE } from './lib/ui.js';
 import { renderHeader } from './sections/header.js';
 import { renderHero } from './sections/hero.js';
+import { renderDeals } from './sections/deals.js';
+import { renderBreakdown } from './sections/breakdown.js';
+import { renderSteps } from './sections/steps.js';
+import { renderPick, renderQuiz } from './sections/pick.js';
 
 export function renderPage(company) {
   const body = `
@@ -12,7 +16,12 @@ ${SPRITE}
 ${renderHeader(company)}
 <main id="main">
 ${renderHero(company)}
+${renderDeals(company)}
+${renderBreakdown(company)}
+${renderSteps(company)}
+${renderPick(company)}
 </main>
+${renderQuiz(company)}
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>`;
 
   return {

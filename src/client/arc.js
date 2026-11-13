@@ -116,9 +116,12 @@ export function initArc(root) {
       animateTo(Math.round(pos) + 1, AUTO_MOVE, easeInOut, () => scheduleAuto());
     }, delay);
   }
+  const capsBox = root.querySelector('[data-arc-caps]');
   function stopForGood() {
     stopped = true;
     clearTimeout(autoTimer);
+    // Пока карусель листается сама, подписи скринридеру не зачитываются; после действия человека зачитываются
+    capsBox?.setAttribute('aria-live', 'polite');
   }
 
   // К карточке i по кратчайшему пути

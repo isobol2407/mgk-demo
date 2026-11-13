@@ -6,13 +6,25 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/header.css';
 import './styles/hero.css';
+import './styles/deals.css';
+import './styles/breakdown.css';
+import './styles/steps.css';
+import './styles/pick.css';
+
+import company from '@company';
 
 import { initHeader } from './client/header.js';
 import { initArc } from './client/arc.js';
 import { initHeroVideo } from './client/hero.js';
 import { initMessengerLinks } from './client/messenger.js';
+import { initDeals } from './client/deals.js';
+import { initFlip } from './client/flip.js';
+import { initQuiz } from './client/quiz.js';
 
 initHeader();
 initMessengerLinks();
 document.querySelectorAll('[data-arc]').forEach(initArc);
 initHeroVideo();
+document.querySelectorAll('[data-deals]').forEach((el) => initDeals(el, company));
+document.querySelectorAll('[data-flip]').forEach(initFlip);
+initQuiz(company);
