@@ -35,6 +35,7 @@ export function initArc(root) {
   let hovering = false;
   let stopped = false; // после первого действия пользователя автолистание выключается насовсем
   let onScreen = true;
+  let introDone = false; // пока идёт стартовый въезд, автолистание не запускается
   let stepPx = 300;
 
   const mod = (i) => ((i % n) + n) % n;
@@ -111,7 +112,7 @@ export function initArc(root) {
   // ── Автолистание ──
   function scheduleAuto(delay = AUTO_REST) {
     clearTimeout(autoTimer);
-    if (reduce || stopped || hovering || !onScreen || document.hidden) return;
+    if (reduce || stopped || hovering || !onScreen || document.hidden || !introDone) return;
     autoTimer = setTimeout(() => {
       animateTo(Math.round(pos) + 1, AUTO_MOVE, easeInOut, () => scheduleAuto());
     }, delay);
@@ -119,6 +120,7 @@ export function initArc(root) {
   const capsBox = root.querySelector('[data-arc-caps]');
   function stopForGood() {
     stopped = true;
+    introDone = true;
     clearTimeout(autoTimer);
     // Пока карусель листается сама, подписи скринридеру не зачитываются; после действия человека зачитываются
     capsBox?.setAttribute('aria-live', 'polite');
@@ -250,5 +252,8 @@ export function initArc(root) {
     ],
     { duration: 900, delay: 150, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' },
   );
-  animateTo(0, 1700, easeOut, () => scheduleAuto(1400));
+  animateTo(0, 1700, easeOut, () => {
+    introDone = true;
+    scheduleAuto(1400);
+  });
 }
