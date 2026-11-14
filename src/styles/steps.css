@@ -124,6 +124,8 @@
 }
 .doc__art {
   display: none;
+  /* Скрепка торчит над листом: при наведении не обрезается границей самой картинки */
+  overflow: visible;
 }
 .doc__page {
   transform-box: fill-box;

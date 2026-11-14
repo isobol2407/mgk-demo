@@ -87,14 +87,29 @@ export function renderPick(c) {
 </section>`;
 }
 
-// Служебная плашка о демо-версии: под контактами, серая, как техническое сообщение.
+// Гифка в плашке демо. Не скачиваем к себе: показываем с серверов Giphy (WebP легче GIF в 3 раза).
+const DEMO_GIF = 'https://media.giphy.com/media/bQtUQp1wRZIUujzJ7E';
+
+// Служебная плашка о демо-версии: под контактами, серая с «телевизионным» шумом,
+// чтобы читалась как сообщение поверх сайта, а не его часть.
 export function renderDemoNote(c) {
   if (c.display?.demoNote === false) return '';
   return `
 <aside class="demo-note" aria-label="О демо-версии">
   <div class="container demo-note__in">
+    <div class="demo-note__body">
     <p class="demo-note__title">Это демо: показаны 5 самых важных блоков</p>
-    <p class="demo-note__text">Всего в готовом сайте будет 10 блоков. Здесь те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+    <p class="demo-note__text">Всего в готовом сайте будет 10 блоков. Здесь те, от которых зависит, напишет человек или нет.</p>
+    <p class="demo-note__text">Машины, цены и сроки на странице — демонстрационные. В тексты и порядок блоков заложены приёмы, которые поднимают конверсию. Когда возьмёмся за ваш сайт, подстроим каждый момент под ваш бизнес.</p>
+    <p class="demo-note__text">Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+    </div>
+    <figure class="demo-note__gif">
+      <picture>
+        <source srcset="${DEMO_GIF}/giphy.webp" type="image/webp" />
+        <img src="${DEMO_GIF}/giphy.gif" width="480" height="400" alt="Майкл Скотт из сериала «Офис»" loading="lazy" decoding="async" />
+      </picture>
+      <figcaption>via GIPHY</figcaption>
+    </figure>
   </div>
 </aside>`;
 }
