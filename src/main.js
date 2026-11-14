@@ -28,3 +28,6 @@ initHeroVideo();
 document.querySelectorAll('[data-deals]').forEach((el) => initDeals(el, company));
 document.querySelectorAll('[data-flip]').forEach(initFlip);
 initQuiz(company);
+
+// Панель пометок для правок с Claude: только в `npm run dev`, в сборку не попадает.
+if (import.meta.env.DEV) import('./dev/agentation.js');
