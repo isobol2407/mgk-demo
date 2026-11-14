@@ -25,8 +25,9 @@ export function renderHeader(c) {
     .join('');
 
   // В мобильном меню все мессенджеры компании, как в контактах
+  // Главный мессенджер — большой кнопкой, остальные — ровной строкой под ней (без дубля)
   const menuMessengers = (c.contacts?.messengers ?? iconKeys)
-    .filter((k) => c.messengers[k] && k !== 'avito')
+    .filter((k) => c.messengers[k] && k !== 'avito' && k !== key)
     .map((k) => `<li><a class="mmenu__link" ${chatAttrs(c, k, k === key ? c.messages.write : '')}>${icon(messengerIcon(k))}<span>${esc(messengerLabel(c, k))}</span></a></li>`)
     .join('');
 
@@ -44,9 +45,8 @@ export function renderHeader(c) {
   <div class="mmenu" id="mmenu" data-menu hidden>
     <ul>${links}</ul>
     <div class="mmenu__chat">
-      <p class="mmenu__label">Написать</p>
-      <ul class="mmenu__msg">${menuMessengers}</ul>
       ${chatBtn(c, { text: c.messages.write, label: writeLabel, cls: 'btn--cobalt btn--block' })}
+      <ul class="mmenu__msg">${menuMessengers}</ul>
     </div>
   </div>
 </header>

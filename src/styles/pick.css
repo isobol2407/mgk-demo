@@ -92,7 +92,12 @@
 }
 .contacts__title {
   font-size: clamp(40px, 4.4vw, 56px);
-  max-width: 14ch;
+  text-wrap: balance;
+}
+@media (min-width: 1100px) {
+  .contacts__title {
+    max-width: 14ch;
+  }
 }
 .contacts__offices {
   display: grid;
@@ -412,17 +417,17 @@ html:has(dialog[open]) {
 .demo-note__in {
   display: grid;
   align-content: center;
-  gap: var(--s-7);
+  gap: var(--s-6);
   min-height: 100svh;
   padding-block: var(--s-8);
 }
 .demo-note__body {
   display: grid;
   gap: var(--s-4);
-  align-content: center;
+  align-content: start;
 }
 .demo-note__title {
-  max-width: 16ch;
+  max-width: 20ch;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: var(--fs-h2);
@@ -460,14 +465,30 @@ html:has(dialog[open]) {
   color: var(--ink-2);
   text-align: right;
 }
+/* Десктоп: слева заголовок и текст одной колонкой, справа гифка от линии заголовка.
+   Блок занимает всю ширину контейнера, без пустой трети справа */
 @media (min-width: 900px) {
   .demo-note__in {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: center;
-    gap: var(--s-7);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    grid-template-areas:
+      'title gif'
+      'body gif';
+    grid-template-rows: auto auto;
+    column-gap: var(--s-9);
+    row-gap: var(--s-5);
+    align-content: center;
+  }
+  .demo-note__title {
+    grid-area: title;
+  }
+  .demo-note__body {
+    grid-area: body;
   }
   .demo-note__gif {
-    justify-self: end;
-    width: min(100%, 440px);
+    grid-area: gif;
+    align-self: start;
+    justify-self: stretch;
+    width: 100%;
   }
 }
+

@@ -168,18 +168,15 @@ html:has(.header.menu-open) {
   padding-top: var(--s-5);
   border-top: 1px solid var(--line);
 }
-.mmenu__label {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  color: var(--ink-2);
-}
 .mmenu__msg {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: var(--s-2);
 }
 .mmenu .mmenu__link {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: var(--s-2);
   min-height: 44px;

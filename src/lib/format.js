@@ -34,3 +34,11 @@ export const carSpecs = (d) =>
 // формат один на весь проект
 export const deliveryLine = (d) => [d.city, d.date, `за${NBSP}${days(d.days)}`];
 export const deliveryText = (d) => deliveryLine(d).join(' · ');
+
+// Тег на фото: длинный город на телефоне заменяется коротким (ЕКБ). Тег не длиннее
+// 34 знаков в полной версии и 26 в короткой — иначе вылезает за фото на 375 px
+export function deliveryTagHTML(d, esc) {
+  const rest = ` · ${d.date} · за${NBSP}${days(d.days)}`;
+  if (!d.cityShort) return esc(d.city + rest);
+  return `<span class="tag-long">${esc(d.city)}</span><span class="tag-short">${esc(d.cityShort)}</span>${esc(rest)}`;
+}

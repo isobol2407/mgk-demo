@@ -228,6 +228,16 @@
   margin-top: var(--s-4);
 }
 
+/* Телефон: у ссылки рядом с кнопкой зона нажатия 44 px по высоте и с запасом по бокам,
+   текст при этом не двигается */
+@media (max-width: 767px) {
+  .deal__act .link {
+    min-height: 44px;
+    padding-inline: 8px;
+    margin-inline: -8px;
+  }
+}
+
 /* Состояния фильтра: мало машин, пусто, конец ленты. Человек не упирается в тупик */
 .deal--state {
   justify-content: space-between;

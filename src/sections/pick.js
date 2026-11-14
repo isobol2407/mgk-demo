@@ -97,8 +97,8 @@ export function renderDemoNote(c) {
   return `
 <aside class="demo-note" aria-label="О демо-версии">
   <div class="container demo-note__in">
-    <div class="demo-note__body">
     <p class="demo-note__title">Это демо: показаны 5 самых важных блоков</p>
+    <div class="demo-note__body">
     <p class="demo-note__text">Всего в готовом сайте будет 10 блоков. Здесь те, от которых зависит, напишет человек или нет.</p>
     <p class="demo-note__text">Машины, цены и сроки на странице — демонстрационные. В тексты и порядок блоков заложены приёмы, которые поднимают конверсию. Когда возьмёмся за ваш сайт, подстроим каждый момент под ваш бизнес.</p>
     <p class="demo-note__text">Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>

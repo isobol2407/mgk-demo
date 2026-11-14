@@ -3,14 +3,14 @@
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
-import { mln, saving, budgetOf, carSpecs, deliveryText } from '../lib/format.js';
+import { mln, saving, budgetOf, carSpecs, deliveryTagHTML } from '../lib/format.js';
 
 function dealCardHTML(c, d) {
   return `
     <article class="deal card" data-deal data-budget="${budgetOf(d.turnkey, c.budgets)}" data-condition="${d.condition}">
       <div class="deal__media">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 1100px) 380px, (min-width: 768px) 45vw, 80vw' })}
-        <span class="photo-tag deal__tag">${esc(deliveryText(d))}</span>
+        <span class="photo-tag deal__tag">${deliveryTagHTML(d, esc)}</span>
         ${d.badge ? `<p class="deal__badge">${icon('check')}<span>${esc(d.badge)}</span></p>` : ''}
       </div>
       <div class="deal__body">

@@ -3,7 +3,7 @@
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn, proofHTML } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
-import { mln, saving, carSpecs, deliveryText } from '../lib/format.js';
+import { mln, saving, carSpecs, deliveryTagHTML } from '../lib/format.js';
 
 // Снимки стоят внутри h1, поэтому для скринридера скрыты: заголовок читается как чистый текст.
 function shotHTML(shot, i) {
@@ -38,7 +38,7 @@ function arcHTML(c) {
       (d, i) => `
       <button class="arc__card" type="button" data-arc-card="${i}" aria-label="${esc(`${d.model}, ${d.year}`)}" tabindex="-1">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 768px) 440px, 80vw', eager: true })}
-        <span class="photo-tag arc__tag">${esc(deliveryText(d))}</span>
+        <span class="photo-tag arc__tag">${deliveryTagHTML(d, esc)}</span>
       </button>`,
     )
     .join('');
