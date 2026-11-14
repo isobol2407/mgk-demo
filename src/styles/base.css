@@ -137,6 +137,12 @@ ol {
 .section--cobalt .eyebrow {
   color: var(--white);
 }
+/* Без висячего одного слова в последней строке абзаца */
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
 .sub {
   font-size: 17px;
   color: var(--ink-2);
@@ -310,6 +316,36 @@ a.proof__item:hover {
 }
 .section--paper a.proof__item:hover {
   border-color: var(--ink);
+}
+
+/* Те же рейтинги тихими ссылками столбиком: справа от заголовка ленты */
+.proof-links {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+.proof-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.proof-link .i {
+  width: 14px;
+  height: 14px;
+}
+a.proof-link span {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--t-fast) var(--ease);
+}
+a.proof-link:hover {
+  color: var(--ink);
+}
+a.proof-link:hover span {
+  text-decoration-color: currentColor;
 }
 
 /* ===== Плашки «демо» и «уточнить» =====

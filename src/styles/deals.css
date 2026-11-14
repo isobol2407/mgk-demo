@@ -16,6 +16,11 @@
 .deals__sub .link {
   white-space: nowrap;
 }
+/* Рейтинги в ленте: на телефоне скрыты, экран и так плотный */
+.deals__proof {
+  display: none;
+}
+
 /* Фильтры */
 .deals__bar {
   display: grid;
@@ -223,10 +228,6 @@
   gap: var(--s-2) var(--s-4);
   margin-top: var(--s-4);
 }
-.deal__more {
-  align-self: start;
-  margin-top: var(--s-3);
-}
 
 /* Состояния фильтра: мало машин, пусто, конец ленты. Человек не упирается в тупик */
 .deal--state {
@@ -291,7 +292,7 @@
     align-items: end;
   }
   .deals__proof {
-    justify-content: flex-end;
+    display: grid;
   }
   .deals__bar {
     grid-template-columns: minmax(0, 1fr) auto auto;

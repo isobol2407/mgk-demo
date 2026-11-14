@@ -2,12 +2,13 @@
 // Порядок блоков — по вайрфрейму docs/shablon-glavnaya-wireframe.md.
 import { esc, configureMarks } from './lib/marks.js';
 import { SPRITE } from './lib/ui.js';
+import { typograph } from './lib/typo.js';
 import { renderHeader } from './sections/header.js';
 import { renderHero } from './sections/hero.js';
 import { renderDeals } from './sections/deals.js';
 import { renderBreakdown } from './sections/breakdown.js';
 import { renderSteps } from './sections/steps.js';
-import { renderPick, renderQuiz } from './sections/pick.js';
+import { renderPick, renderQuiz, renderDemoNote } from './sections/pick.js';
 
 export function renderPage(company) {
   configureMarks({ showAsk: company.display?.showAsk ?? true });
@@ -22,12 +23,14 @@ ${renderBreakdown(company)}
 ${renderSteps(company)}
 ${renderPick(company)}
 </main>
+${renderDemoNote(company)}
 ${renderQuiz(company)}
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>`;
 
   return {
     title: esc(company.meta.title),
     description: esc(company.meta.description),
-    body,
+    // Неразрывные пробелы: короткие слова, числа, тире (src/lib/typo.js)
+    body: typograph(body),
   };
 }

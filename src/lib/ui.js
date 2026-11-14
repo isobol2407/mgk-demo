@@ -26,17 +26,21 @@ export function extLink(label, url, { cls = 'link', arrow = 'arrow-ur' } = {}) {
 
 // Плашки доверия: рейтинги Яндекс.Карт и Авито плюс подписчики канала. Один компонент
 // для первого экрана и ленты сделок; цвет задаёт фон секции (см. .proof в base.css).
-export function proofHTML(c, { cls = '' } = {}) {
+export function proofHTML(c, { cls = '', variant = 'pills' } = {}) {
   const y = c.ratings?.yandex;
   const a = c.ratings?.avito;
   const tg = c.messengers?.telegram;
+  // pills: плашки (первый экран). links: тихие ссылки столбиком (лента сделок), чтобы
+  // не путались с фильтрами рядом: плашка с рамкой читается как кнопка интерфейса.
+  const itemCls = variant === 'links' ? 'proof-link' : 'proof__item';
   const item = (url, inner) =>
-    isAsk(url) || !url ? `<span class="proof__item">${inner}</span>` : `<a class="proof__item" href="${esc(url)}" target="_blank" rel="noopener">${inner}</a>`;
+    isAsk(url) || !url ? `<span class="${itemCls}">${inner}</span>` : `<a class="${itemCls}" href="${esc(url)}" target="_blank" rel="noopener">${inner}${variant === 'links' ? icon('arrow-ur') : ''}</a>`;
   const items = [];
   if (y && !isHidden(y.rating)) items.push(item(y.url, `${icon('star')}<span>${val(y.rating)} на Яндекс.Картах</span>`));
   if (a && !isHidden(a.rating)) items.push(item(a.url, `${icon('star')}<span>${val(a.rating)} на Авито</span>`));
   if (tg?.channel && !isHidden(tg.subscribers)) items.push(item(tg.channel, `${icon('tg')}<span>${val(tg.subscribers)} в Telegram</span>`));
-  return items.length ? `<ul class="proof${cls ? ` ${cls}` : ''}">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';
+  const listCls = variant === 'links' ? 'proof-links' : 'proof';
+  return items.length ? `<ul class="${listCls}${cls ? ` ${cls}` : ''}">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';
 }
 
 export const telHref = (phone) => `tel:${phone.replace(/[^\d+]/g, '')}`;

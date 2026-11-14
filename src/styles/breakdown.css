@@ -6,57 +6,60 @@
   display: grid;
   gap: var(--gap);
 }
-/* Телефон: машина → выгода → диаграмма → условия */
-.car {
-  order: 1;
-}
-.gain {
-  order: 2;
-}
-.flip {
-  order: 3;
-}
-.cond {
-  order: 4;
-}
+/* Порядок везде один: машина → статьи расхода → выгода → условия */
 
-/* А. Машина: вся карточка ведёт на пост о выдаче */
+/* А. Машина: узкая полоса, вся ведёт на пост о выдаче */
 .car {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.car__photo {
-  display: block;
-  padding: 8px 8px 0;
-  flex: 1;
-  min-height: 0;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  padding: 8px var(--s-4) 8px 8px;
 }
 .car__photo img {
+  display: block;
   width: 100%;
-  height: 100%;
-  min-height: 200px;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: var(--r-s);
 }
 .car__body {
   display: grid;
-  gap: 4px;
-  padding: var(--s-4) var(--s-5) var(--s-5);
+  gap: 2px;
+  min-width: 0;
 }
 .car__model {
-  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 26px;
+  line-height: 1;
 }
-.car__line {
-  font-size: 15px;
+.car__specs {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--fs-small);
   color: var(--ink-2);
 }
-.car__link {
-  justify-self: start;
-  margin-top: var(--s-2);
+.car__specs span:not(:last-child)::after {
+  content: '·';
+  margin-inline: 6px;
+}
+.car__side {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  padding: 0 0 var(--s-2) 8px;
+}
+.car__line {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
 }
 a.car:hover .car__link {
+  color: var(--ink);
   text-decoration-color: currentColor;
 }
 a.car:hover .car__link .i {
@@ -86,10 +89,10 @@ a.car:focus-visible {
   outline-color: var(--cobalt);
 }
 /* Диаграмма: одна полоса из пяти сегментов. Намеренно непропорциональная и без цифр:
-   визуальный якорь, а не график. На телефоне вместо полосы список с цветными метками. */
+   визуальный якорь, а не график. На телефоне полоса ниже, подписи списком под ней. */
 .bar {
-  display: none;
-  height: clamp(64px, 9vw, 104px);
+  display: flex;
+  height: 56px;
   gap: 3px;
 }
 .bar span {
@@ -331,10 +334,26 @@ button.calc__row:hover .calc__name {
 /* ===== От 900 px: сетка 2×2 и переворот карточки ===== */
 @media (min-width: 900px) {
   .bento {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     grid-template-areas:
-      'car calc'
-      'gain cond';
+      'car car'
+      'calc gain'
+      'calc cond';
+  }
+  .car {
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+    gap: var(--s-5);
+    padding: 8px var(--s-6) 8px 8px;
+  }
+  .car__model {
+    font-size: 32px;
+  }
+  .car__side {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    padding: 0;
   }
   .car {
     grid-area: car;
@@ -354,10 +373,9 @@ button.calc__row:hover .calc__name {
     padding: var(--s-6);
   }
   .bar {
-    display: flex;
     flex: 1;
     min-height: 104px;
-    max-height: 240px;
+    max-height: 280px;
   }
   .gain__sum {
     font-size: clamp(88px, 9.2vw, 128px);

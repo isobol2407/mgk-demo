@@ -31,7 +31,7 @@ export function renderHeader(c) {
     <nav class="nav" aria-label="Основное меню"><ul>${links}</ul></nav>
     <div class="header__act">
       ${icons}
-      ${chatBtn(c, { text: c.messages.write, label: writeLabel, cls: 'btn--sm header__cta' })}
+      ${chatBtn(c, { text: c.messages.write, label: 'Написать', cls: 'btn--sm header__cta', attrs: `aria-label="${esc(writeLabel)}"` })}
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mmenu" data-burger><span></span><span></span></button>
     </div>
   </div>

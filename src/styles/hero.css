@@ -379,7 +379,8 @@ html:not(.js) .arc__cap:not(.is-active) {
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    padding-bottom: var(--s-5);
+    /* Подпись карусели не липнет к нижнему краю окна */
+    padding-bottom: clamp(32px, 5vh, 56px);
   }
   .hero__top {
     grid-template-columns: minmax(0, 1fr) 352px;
@@ -410,7 +411,7 @@ html:not(.js) .arc__cap:not(.is-active) {
     grid-column: auto;
   }
   .arc {
-    --arc-h: clamp(190px, 29vh, 340px);
+    --arc-h: clamp(180px, 25vh, 320px);
     --card-w: calc(var(--arc-h) * 1.28);
     margin-top: auto;
     padding-top: var(--s-4);
@@ -435,7 +436,7 @@ html:not(.js) .arc__cap:not(.is-active) {
     row-gap: var(--s-3);
   }
   .arc {
-    --arc-h: clamp(165px, 25vh, 340px);
+    --arc-h: clamp(150px, 21vh, 320px);
     padding-top: var(--s-2);
   }
   .arc__stage {

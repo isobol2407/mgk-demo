@@ -27,7 +27,6 @@ function dealCardHTML(c, d) {
           ${chatBtn(c, { text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--cobalt btn--sm' })}
           ${extLink('Пост о выдаче', d.post, { cls: 'link link--muted' })}
         </div>
-        ${d.breakdown ? `<a class="link link--muted deal__more" href="#price">Разбор цены${icon('arrow-down')}</a>` : ''}
       </div>
     </article>`;
 }
@@ -55,7 +54,7 @@ export function renderDeals(c) {
         <h2 class="display h2">Что уже привезли на ваш бюджет</h2>
         <p class="sub deals__sub">По каждой машине: цена под ключ и срок. Подробный отчёт о выдаче — в постах в Telegram. ${extLink(`Все машины в ${esc(label)}`, channel)}</p>
       </div>
-      ${proofHTML(c, { cls: 'deals__proof' })}
+      ${proofHTML(c, { variant: 'links', cls: 'deals__proof' })}
     </header>
     <div class="deals__bar">
       <div class="chips" role="group" aria-label="Бюджет под ключ">${chips}</div>

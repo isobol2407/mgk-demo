@@ -36,7 +36,21 @@ export function renderSteps(c) {
     </header>
     <ol class="steps__list">${steps}</ol>
     <div class="docs">
-      <article class="doc">
+      <article class="doc doc--contract">
+        <svg class="doc__art" viewBox="0 0 160 190" aria-hidden="true">
+            <g transform="rotate(4 80 95)">
+              <rect x="22" y="22" width="116" height="150" rx="3" fill="var(--white)" stroke="var(--line)"/>
+              <rect x="38" y="42" width="56" height="6" rx="1" fill="var(--ink)"/>
+              <g fill="var(--line)">
+                <rect x="38" y="60" width="84" height="4" rx="1"/><rect x="38" y="70" width="76" height="4" rx="1"/>
+                <rect x="38" y="80" width="84" height="4" rx="1"/><rect x="38" y="90" width="60" height="4" rx="1"/>
+                <rect x="38" y="106" width="84" height="4" rx="1"/><rect x="38" y="116" width="70" height="4" rx="1"/>
+              </g>
+              <path d="M84 150h38" stroke="var(--line)" stroke-width="1.5"/>
+              <path d="M88 147c4-10 8-12 9-6s-3 9 2 4 7-11 9-5-2 7 3 4 6-5 9-3" fill="none" stroke="var(--cobalt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <path d="M54 6v36a9 9 0 0 0 18 0V12a5.5 5.5 0 0 0-11 0v28" fill="none" stroke="var(--ink-2)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
         <div class="doc__text">
           <h3 class="display h3">Договор можно прочитать заранее</h3>
           <p>Все шаги и суммы записаны в нём.</p>

@@ -128,11 +128,11 @@ const company = {
   // Модели и города взяты из отзывов на сайте МГК. Цены, даты, сроки, страна и состояние — демо.
   // turnkey и priceRu в миллионах рублей. Экономия считается сама.
   // post: ссылка на пост о выдаче. Пока у всех стоит канал.
-  // badge: плашка на карточке, если подходит. breakdown: true — у этой сделки ссылка «Разбор цены».
+  // badge: плашка на карточке, если подходит. breakdown: true — эта сделка разобрана в блоке 3.
   // mileage (км, 0 — без пробега) и hp: подпись на фото в карусели. Мощность по паспортным данным
   // модели, пробег у машин с пробегом — демо. У реальных сделок брать из поста.
   deals: [
-    { id: 'monjaro', mileage: 0, hp: 238, model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', post: TG_CHANNEL, demo: true, breakdown: true },
+    { id: 'monjaro', mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', post: TG_CHANNEL, demo: true, breakdown: true },
     { id: 'cx5', mileage: 0, hp: 155, model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', post: TG_CHANNEL, demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
     { id: 'carnival', mileage: 48000, hp: 199, model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', post: TG_CHANNEL, demo: true },
     { id: 'santafe', mileage: 32000, hp: 199, model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', post: TG_CHANNEL, demo: true },
@@ -229,7 +229,7 @@ const company = {
     channels: ['telegram', 'max', 'vk'],
   },
   catalog: {
-    title: 'Каталог машин до 160 л.с. — одним сообщением',
+    title: 'Каталог машин до 160 л.с. под новый утильсбор',
     text: 'Модели с ценами под ключ. На них действует льготный утильсбор.',
     channels: ['telegram', 'max', 'vk'],
   },

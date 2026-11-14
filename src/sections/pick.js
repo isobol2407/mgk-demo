@@ -59,7 +59,6 @@ export function renderPick(c) {
         <p class="sub">Три вопроса. В ответ пришлём 3–5 вариантов с ценой под ключ.</p>
         <p class="pick__q display h3" id="pick-q">Какой бюджет под ключ?</p>
         <div class="pick__opts" role="group" aria-labelledby="pick-q">${opts}</div>
-        <p class="pick__note">Номер телефона не нужен, ответим в мессенджере.</p>
       </div>
       <aside class="catalog card">
         <h3 class="display h3">${esc(c.catalog.title)}</h3>
@@ -70,12 +69,6 @@ export function renderPick(c) {
         </div>
       </aside>
     </div>
-
-    ${c.display?.demoNote === false ? '' : `
-    <aside class="demo-note" aria-label="О демо-версии">
-      <p class="demo-note__title display">Это демо: здесь 5 главных блоков из 10</p>
-      <p class="demo-note__text">В готовом сайте будет 10 блоков. Сюда вынесены те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
-    </aside>`}
 
     <div class="contacts" id="contacts">
       <h2 class="display contacts__title">Приезжайте в офис или напишите</h2>
@@ -92,6 +85,18 @@ export function renderPick(c) {
     </div>
   </div>
 </section>`;
+}
+
+// Служебная плашка о демо-версии: под контактами, серая, как техническое сообщение.
+export function renderDemoNote(c) {
+  if (c.display?.demoNote === false) return '';
+  return `
+<aside class="demo-note" aria-label="О демо-версии">
+  <div class="container demo-note__in">
+    <p class="demo-note__title">Это демо: здесь 5 главных блоков из 10</p>
+    <p class="demo-note__text">В готовом сайте будет 10 блоков. Сюда вынесены те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+  </div>
+</aside>`;
 }
 
 // Модалка квиза: три шага и финальный экран. Открывается сразу на втором шаге
@@ -128,6 +133,7 @@ export function renderQuiz(c) {
     <div class="quiz__pane" data-quiz-pane="3" hidden>
       <h2 class="quiz__title display" tabindex="-1">Куда прислать подборку?</h2>
       <div class="quiz__opts">${channels}</div>
+      <p class="quiz__hint">Номер телефона не нужен, ответим в мессенджере.</p>
     </div>
     <div class="quiz__pane" data-quiz-pane="done" hidden>
       <h2 class="quiz__title display" tabindex="-1">Готово.</h2>

@@ -1,23 +1,33 @@
 // 3. Разбор цены, вариант 3А. Бенто из четырёх карточек: машина, диаграмма, выгода, условия.
+// Порядок: полоса машины → пять статей расхода → выгода → условия (решение Ильи 14.11.2026).
 // Диаграмма переворачивается в таблицу с полным расчётом. На телефоне переворота нет:
-// таблица раскрывается под диаграммой. Самая заметная карточка — «Выгода покупателя».
+// таблица раскрывается под диаграммой.
 import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn } from '../lib/ui.js';
-import { rub, days } from '../lib/format.js';
+import { rub, km } from '../lib/format.js';
 
 // Сегменты диаграммы: оттенки одного кобальта, от самого тёмного к самому светлому
 const SEGMENT_COLORS = ['var(--cobalt)', 'var(--cobalt-80)', 'var(--cobalt-60)', 'var(--cobalt-40)', 'var(--cobalt-20)'];
 
-function carCard(c, d, b) {
+// А. Машина: узкая горизонтальная полоса на всю ширину. Фото маленькое: машин выше
+// и так много, здесь фото только разбавляет. Вся полоса ведёт на пост о выдаче.
+function carCard(c, d) {
+  const specs = [
+    `${d.year}`,
+    d.engine ? esc(d.engine) : '',
+    d.mileage != null ? km(d.mileage) : '',
+    d.hp ? `${d.hp}\u00a0л.с.` : '',
+  ].filter(Boolean);
   const inner = `
-      <span class="car__photo">${photo(d.photo, { alt: `${d.model}, ${d.year}`, sizes: '(min-width: 900px) 480px, 100vw' })}</span>
+      <span class="car__photo">${photo(d.photo, { alt: `${d.model}, ${d.year}`, sizes: '160px' })}</span>
       <span class="car__body">
-        <span class="car__model display h3">${esc(d.model)}, ${d.year}${d.demo ? ` ${demoBadge()}` : ''}</span>
-        <span class="car__line">${esc(b.route)} · ${days(d.days)}</span>
+        <span class="car__model display">${esc(d.model)}${d.demo ? ` ${demoBadge()}` : ''}</span>
+        <span class="car__specs">${specs.map((x) => `<span>${x}</span>`).join('')}</span>
+      </span>
+      <span class="car__side">
         <span class="car__line">Выдали ${esc(d.date)}</span>
-        <span class="link link--ink car__link">Пост о выдаче${icon('arrow-ur')}</span>
+        <span class="link link--muted car__link">Пост о выдаче${icon('arrow-ur')}</span>
       </span>`;
-  // Вся карточка ведёт на пост о выдаче: доказательства в блок не переносим
   return isAsk(d.post)
     ? `<div class="car card">${inner}</div>`
     : `<a class="car card" href="${esc(d.post)}" target="_blank" rel="noopener">${inner}</a>`;
@@ -110,7 +120,7 @@ export function renderBreakdown(c) {
       <p class="sub">На примере машины, которую мы выдали ${esc(d.cityIn)} ${esc(b.dateLong)}.</p>
     </header>
     <div class="bento">
-      ${carCard(c, d, b)}
+      ${carCard(c, d)}
       ${calcCard(c, d, b)}
       ${gainCard(d, b)}
       ${conditionsCard(c, b)}

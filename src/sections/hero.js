@@ -1,7 +1,7 @@
 // 1. Обещание. Кобальтовый экран: заголовок со снимками между словами, справа колонка с оффером,
 // ниже карусель привезённых машин по дуге. Заголовок — обычный текст в h1, снимки стоят в потоке строки.
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
+import { icon, photo, chatBtn, proofHTML } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
 import { mln, saving, km } from '../lib/format.js';
 
@@ -50,7 +50,6 @@ function arcHTML(c) {
         <p class="arc__l2">Экономия ${mln(saving(d))}${d.demo ? ` ${demoBadge()}` : ''}</p>
         <div class="arc__act">
           ${chatBtn(c, { key, text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--white btn--sm' })}
-          ${extLink('Пост о выдаче', d.post, { cls: 'link link--on-cobalt' })}
         </div>
       </div>`,
     )
