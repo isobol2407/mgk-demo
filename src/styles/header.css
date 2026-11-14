@@ -124,13 +124,23 @@
 }
 
 /* Мобильное меню */
+/* Меню на весь экран под шапкой: страница под ним не видна и не прокручивается */
 .mmenu {
   position: absolute;
   inset: 100% 0 auto 0;
+  height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background: var(--white);
   color: var(--ink);
-  border-bottom: 1px solid var(--line);
-  padding: var(--s-4) var(--gutter) var(--s-6);
+  border-top: 1px solid var(--line);
+  padding: var(--s-4) var(--gutter) calc(var(--s-6) + env(safe-area-inset-bottom));
+}
+html:has(.header.menu-open) {
+  overflow: hidden;
+}
+.header.menu-open ~ .dock {
+  visibility: hidden;
 }
 .mmenu a {
   display: block;

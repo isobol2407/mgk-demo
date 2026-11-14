@@ -318,6 +318,15 @@ a.proof__item:hover {
   border-color: var(--ink);
 }
 
+/* Звезда стоит после оценки: «4,9 ★», как принято в рейтингах */
+.i.proof__star {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  margin: 0 0 0 2px;
+  vertical-align: -0.1em;
+}
+
 /* Те же рейтинги тихими ссылками столбиком: справа от заголовка ленты */
 .proof-links {
   display: grid;
@@ -346,6 +355,19 @@ a.proof-link:hover {
 }
 a.proof-link:hover span {
   text-decoration-color: currentColor;
+}
+
+/* Тег на фото машины: белая плашка с мелким текстом (выдача: город, дата, срок) */
+.photo-tag {
+  position: absolute;
+  padding: 4px 8px;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: var(--r-s);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 /* ===== Плашки «демо» и «уточнить» =====

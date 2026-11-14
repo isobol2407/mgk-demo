@@ -3,7 +3,7 @@
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn, proofHTML } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
-import { mln, saving, carSpecs, deliveryLine } from '../lib/format.js';
+import { mln, saving, carSpecs, deliveryText } from '../lib/format.js';
 
 // Снимки стоят внутри h1, поэтому для скринридера скрыты: заголовок читается как чистый текст.
 function shotHTML(shot, i) {
@@ -38,6 +38,7 @@ function arcHTML(c) {
       (d, i) => `
       <button class="arc__card" type="button" data-arc-card="${i}" aria-label="${esc(`${d.model}, ${d.year}`)}" tabindex="-1">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 768px) 440px, 80vw', eager: true })}
+        <span class="photo-tag arc__tag">${esc(deliveryText(d))}</span>
       </button>`,
     )
     .join('');
@@ -47,7 +48,7 @@ function arcHTML(c) {
       <div class="arc__cap${i === 0 ? ' is-active' : ''}" data-arc-cap="${i}"${i === 0 ? '' : ' inert'}>
         <p class="arc__l1">${esc(d.model)}</p>
         <p class="arc__l2">${carSpecs(d).map(esc).join(' · ')}</p>
-        <p class="arc__l3"><span>${deliveryLine(d).map(esc).join(' · ')}</span><span class="arc__save">Экономия ${mln(saving(d))}${d.demo ? ` ${demoBadge()}` : ''}</span></p>
+        <p class="arc__l3">Экономия ${mln(saving(d))}</p>
         <div class="arc__act">
           ${chatBtn(c, { key, text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--white btn--sm' })}
         </div>

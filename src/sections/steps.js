@@ -48,15 +48,15 @@ export function renderSteps(c) {
               </g>
               <path d="M84 150h38" class="doc__rule" stroke-width="1.5"/>
               <path d="M88 147c4-10 8-12 9-6s-3 9 2 4 7-11 9-5-2 7 3 4 6-5 9-3" fill="none" stroke="var(--cobalt)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M54 6v36a9 9 0 0 0 18 0V12a5.5 5.5 0 0 0-11 0v28" fill="none" class="doc__clip" stroke-width="2.4" stroke-linecap="round"/>
             </g>
-            <path d="M54 6v36a9 9 0 0 0 18 0V12a5.5 5.5 0 0 0-11 0v28" fill="none" class="doc__clip" stroke-width="2.4" stroke-linecap="round"/>
           </svg>
         <div class="doc__text">
           <h3 class="display h3">Договор можно прочитать заранее</h3>
           <p>Все шаги и суммы записаны в нём.</p>
         </div>
         <p class="doc__act">
-          <a class="btn btn--white" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}<span>Прочитать договор (PDF)</span></a>
+          <a class="btn btn--cobalt doc__btn" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}<span>Прочитать договор (PDF)</span></a>
           ${c.contract.placeholder ? askBadge({ note: 'ссылка на договор: сейчас заглушка', label: 'уточнить ссылку' }) : ''}
         </p>
       </article>
@@ -66,7 +66,7 @@ export function renderSteps(c) {
           <p>Фото, видео и заключение специалиста до выкупа.</p>
         </div>
         <div class="doc__bottom">
-          <p class="doc__act">${extLink('Пример отчёта в Telegram', s.report.url, { cls: 'link' })}${s.report.placeholder ? ` ${askBadge({ note: 'ссылка на пример отчёта и фото: сейчас заглушки', label: 'уточнить' })}` : ''}</p>
+          <p class="doc__act">${extLink('Пример отчёта в Telegram', s.report.url, { cls: 'link doc__link' })}${s.report.placeholder ? ` ${askBadge({ note: 'ссылка на пример отчёта и фото: сейчас заглушки', label: 'уточнить' })}` : ''}</p>
           <div class="doc__snaps" aria-hidden="true">${reportPhotos}</div>
         </div>
       </article>

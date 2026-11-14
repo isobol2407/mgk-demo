@@ -36,8 +36,8 @@ export function proofHTML(c, { cls = '', variant = 'pills' } = {}) {
   const item = (url, inner) =>
     isAsk(url) || !url ? `<span class="${itemCls}">${inner}</span>` : `<a class="${itemCls}" href="${esc(url)}" target="_blank" rel="noopener">${inner}${variant === 'links' ? icon('arrow-ur') : ''}</a>`;
   const items = [];
-  if (y && !isHidden(y.rating)) items.push(item(y.url, `${icon('star')}<span>${val(y.rating)} на Яндекс.Картах</span>`));
-  if (a && !isHidden(a.rating)) items.push(item(a.url, `${icon('star')}<span>${val(a.rating)} на Авито</span>`));
+  if (y && !isHidden(y.rating)) items.push(item(y.url, `<span>${val(y.rating)}${icon('star', 'proof__star')} на Яндекс.Картах</span>`));
+  if (a && !isHidden(a.rating)) items.push(item(a.url, `<span>${val(a.rating)}${icon('star', 'proof__star')} на Авито</span>`));
   if (tg?.channel && !isHidden(tg.subscribers)) items.push(item(tg.channel, `${icon('tg')}<span>${val(tg.subscribers)} в Telegram</span>`));
   const listCls = variant === 'links' ? 'proof-links' : 'proof';
   return items.length ? `<ul class="${listCls}${cls ? ` ${cls}` : ''}">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';

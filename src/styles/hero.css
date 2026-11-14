@@ -263,19 +263,19 @@ html:not(.js) .arc__cap:not(.is-active) {
   font-size: 15px;
   font-weight: 500;
 }
-/* Строка о выдаче отделена от строки о машине: тише и отдельной строкой */
 .arc__l3 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 2px var(--s-4);
   font-size: var(--fs-small);
   color: var(--on-cobalt-2);
 }
-.arc__save {
-  color: var(--white);
-  font-weight: 500;
+/* Тег о выдаче на фото: только у центральной карточки */
+.arc__tag {
+  left: 14px;
+  bottom: 14px;
+  opacity: 0;
+  transition: opacity var(--t) var(--ease);
+}
+.arc__card.is-active .arc__tag {
+  opacity: 1;
 }
 .arc__act {
   display: flex;

@@ -4,7 +4,7 @@
 // таблица раскрывается под диаграммой.
 import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn } from '../lib/ui.js';
-import { rub, carSpecs, deliveryLine } from '../lib/format.js';
+import { rub, carSpecs, deliveryText } from '../lib/format.js';
 
 // Сегменты диаграммы: оттенки одного кобальта, от самого тёмного к самому светлому
 const SEGMENT_COLORS = ['var(--cobalt)', 'var(--cobalt-80)', 'var(--cobalt-60)', 'var(--cobalt-40)', 'var(--cobalt-20)'];
@@ -19,7 +19,7 @@ function carCard(c, d) {
         <span class="car__specs">${carSpecs(d).map(esc).join(' · ')}</span>
       </span>
       <span class="car__side">
-        <span class="car__line">Выдали: ${deliveryLine(d).map(esc).join(' · ')}</span>
+        <span class="car__line">Выдали: ${esc(deliveryText(d))}</span>
         <span class="link link--muted car__link">Пост о выдаче${icon('arrow-ur')}</span>
       </span>`;
   return isAsk(d.post)

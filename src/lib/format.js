@@ -30,5 +30,7 @@ export const budgetOf = (turnkey, budgets) =>
 export const carSpecs = (d) =>
   [String(d.year), d.engine ?? '', d.mileage != null ? km(d.mileage) : '', d.hp ? `${d.hp}${NBSP}л.с.` : ''].filter(Boolean);
 
-// Строка о выдаче: город · дата · срок. Отдельный блок от строки о машине
-export const deliveryLine = (d) => [d.city, d.date, days(d.days)];
+// Строка о выдаче: «Город · дата · за N дней». Отдельный блок от строки о машине,
+// формат один на весь проект
+export const deliveryLine = (d) => [d.city, d.date, `за${NBSP}${days(d.days)}`];
+export const deliveryText = (d) => deliveryLine(d).join(' · ');

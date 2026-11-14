@@ -76,19 +76,46 @@
   border-radius: var(--r-m);
   background: var(--paper);
 }
-/* Договор: синяя карточка. Крупный лист со скрепкой уходит за нижний и правый край,
-   при наведении чуть приподнимается и выпрямляется */
+/* Карточки документов. Синяя одна: на десктопе отчёт, на телефоне договор.
+   В договоре крупный лист со скрепкой уходит за нижний и правый край и чуть
+   приподнимается при наведении */
 .doc--contract {
   position: relative;
   overflow: hidden;
-  background: var(--cobalt);
-  color: var(--white);
 }
-.doc--contract .doc__text p {
-  color: var(--on-cobalt-2);
+/* Телефон: синий договор */
+@media (max-width: 767px) {
+  .doc--contract {
+    background: var(--cobalt);
+    color: var(--white);
+  }
+  .doc--contract .doc__text p {
+    color: var(--on-cobalt-2);
+  }
+  .doc--contract :focus-visible {
+    outline-color: var(--white);
+  }
+  .doc--contract .doc__btn {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--cobalt);
+  }
 }
-.doc--contract :focus-visible {
-  outline-color: var(--white);
+/* От 768 px: синий отчёт, договор на светло-сером */
+@media (min-width: 768px) {
+  .doc--report {
+    background: var(--cobalt);
+    color: var(--white);
+  }
+  .doc--report .doc__text p {
+    color: var(--on-cobalt-2);
+  }
+  .doc--report :focus-visible {
+    outline-color: var(--white);
+  }
+  .doc--report .doc__link {
+    color: var(--white);
+  }
 }
 .doc__text,
 .doc__act {
@@ -106,21 +133,19 @@
 }
 .doc__sheet {
   fill: var(--white);
+  stroke: var(--line);
 }
 .doc__head {
   fill: var(--ink);
 }
-.doc__lines,
-.doc__rule {
-  fill: var(--cobalt-20);
-  stroke: var(--cobalt-20);
-}
 .doc__lines {
-  stroke: none;
+  fill: var(--line);
+}
+.doc__rule {
+  stroke: var(--line);
 }
 .doc__clip {
-  fill: none;
-  stroke: var(--cobalt-40);
+  stroke: var(--ink-2);
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .doc--contract:hover .doc__page {

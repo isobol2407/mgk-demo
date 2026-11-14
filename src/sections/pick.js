@@ -71,7 +71,7 @@ export function renderPick(c) {
     </div>
 
     <div class="contacts" id="contacts">
-      <h2 class="display contacts__title">Приезжайте в офис или напишите</h2>
+      <h2 class="display contacts__title">Пишите, звоните или приезжайте в офис</h2>
       <ul class="contacts__offices">${offices}</ul>
       <div class="contacts__col">
         <h3 class="contacts__label display">Мессенджеры</h3>
@@ -93,8 +93,8 @@ export function renderDemoNote(c) {
   return `
 <aside class="demo-note" aria-label="О демо-версии">
   <div class="container demo-note__in">
-    <p class="demo-note__title">Это демо: здесь 5 главных блоков из 10</p>
-    <p class="demo-note__text">В готовом сайте будет 10 блоков. Сюда вынесены те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+    <p class="demo-note__title">Это демо: показаны 5 самых важных блоков</p>
+    <p class="demo-note__text">Всего в готовом сайте будет 10 блоков. Здесь те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
   </div>
 </aside>`;
 }
