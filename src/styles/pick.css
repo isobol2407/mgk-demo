@@ -87,6 +87,25 @@
   gap: var(--s-2);
 }
 
+/* Плашка о демо-версии перед контактами: служебная, тихая, только обводка */
+.demo-note {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-9);
+  padding: var(--s-5);
+  border: 1px dashed var(--line-on-cobalt);
+  border-radius: var(--r-m);
+}
+.demo-note__title {
+  font-size: 28px;
+  line-height: 1;
+}
+.demo-note__text {
+  max-width: 72ch;
+  font-size: 15px;
+  color: var(--on-cobalt-2);
+}
+
 /* Контакты */
 .contacts {
   display: grid;
@@ -107,7 +126,9 @@
   display: grid;
   gap: 2px;
 }
-.office__city {
+/* Заголовки колонок контактов одного размера: адреса и ссылки начинаются на одной линии */
+.office__city,
+.contacts__label {
   font-size: 32px;
   line-height: 1;
   margin-bottom: 6px;
@@ -121,22 +142,17 @@
 .office__tel:hover {
   text-decoration-color: currentColor;
 }
-.contacts__label {
-  margin-bottom: var(--s-3);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  color: var(--on-cobalt-2);
-}
 .contacts__links,
 .contacts__reviews {
   display: grid;
-  gap: var(--s-3);
+  gap: 2px;
   justify-items: start;
 }
 .contact-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 32px;
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: transparent;
@@ -196,8 +212,18 @@
     min-height: 88px;
     font-size: 30px;
   }
+  /* Каталог выше левой колонки: чуть выходит над заголовком и под кнопки бюджета.
+     Пустое место внутри оставлено под будущую графику */
   .catalog {
     padding: var(--s-6);
+    align-self: stretch;
+    margin-block: calc(var(--s-6) * -1) calc(var(--s-5) * -1);
+  }
+  .demo-note {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 40px;
+    align-items: baseline;
+    padding: var(--s-5) var(--s-6);
   }
   .contacts {
     grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 2fr) minmax(0, 2fr);

@@ -145,31 +145,6 @@
 .hero__cta .btn {
   width: 100%;
 }
-.proof {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-2);
-}
-.proof__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 34px;
-  padding: 4px 10px;
-  border: 1px solid var(--line-on-cobalt);
-  border-radius: var(--r-s);
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: border-color var(--t-fast) var(--ease);
-}
-.proof__item .i {
-  width: 15px;
-  height: 15px;
-}
-a.proof__item:hover {
-  border-color: var(--white);
-}
 .hero__facts {
   display: grid;
   gap: 4px;

@@ -7,3 +7,6 @@ media-src/*.jpeg
 media-src/*.png
 media-src/*.webm
 media-src/*.mp4
+
+# Доступы для деплоя
+.env.deploy

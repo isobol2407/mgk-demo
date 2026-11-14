@@ -1,7 +1,7 @@
 // 2. Привезённые машины. Лента карточек сделок с двумя фильтрами: бюджет и «новые / с пробегом».
 // Только уже привезённые машины, без предложений из каталога. Фильтра по стране нет.
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn, extLink } from '../lib/ui.js';
+import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
 import { mln, days, saving, budgetOf } from '../lib/format.js';
 
@@ -13,11 +13,11 @@ function dealCardHTML(c, d) {
       <div class="deal__media">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 1100px) 380px, (min-width: 768px) 45vw, 80vw' })}
         <span class="deal__date">${esc(d.date)}</span>
+        ${d.badge ? `<p class="deal__badge">${icon('check')}<span>${esc(d.badge)}</span></p>` : ''}
       </div>
       <div class="deal__body">
         <h3 class="deal__model display">${esc(d.model)}, ${d.year}</h3>
         <p class="deal__meta">${CONDITION[d.condition]} · ${esc(d.city)} · ${days(d.days)}</p>
-        ${d.badge ? `<p class="deal__badge">${esc(d.badge)}</p>` : ''}
         <dl class="prices">
           <div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>
           <div class="prices__row"><dt>Под ключ ${esc(d.from)}</dt><dd>${mln(d.turnkey)}</dd></div>
@@ -25,26 +25,11 @@ function dealCardHTML(c, d) {
         </dl>
         <div class="deal__act">
           ${chatBtn(c, { text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--cobalt btn--sm' })}
-          ${extLink('Пост о выдаче', d.post, { cls: 'link link--ink' })}
+          ${extLink('Пост о выдаче', d.post, { cls: 'link link--muted' })}
         </div>
-        ${d.breakdown ? `<a class="link deal__more" href="#price">Разбор цены${icon('arrow-down')}</a>` : ''}
+        ${d.breakdown ? `<a class="link link--muted deal__more" href="#price">Разбор цены${icon('arrow-down')}</a>` : ''}
       </div>
     </article>`;
-}
-
-function reviewsHTML(c) {
-  const y = c.ratings.yandex;
-  const a = c.ratings.avito;
-  const items = [];
-  if (y && !isHidden(y.rating)) {
-    const text = `${icon('star')}<span>${val(y.rating)} · ${val(y.count)} отзывов на Яндекс.Картах</span>`;
-    items.push(isAsk(y.url) ? `<span class="reviews__item">${text}</span>` : `<a class="reviews__item" href="${esc(y.url)}" target="_blank" rel="noopener">${text}${icon('arrow-ur')}</a>`);
-  }
-  if (a && !isHidden(a.count)) {
-    const text = `${a.rating ? `${icon('star')}<span>${val(a.rating)} · ` : '<span>'}${val(a.count)} отзывов на Авито</span>`;
-    items.push(isAsk(a.url) ? `<span class="reviews__item">${text}</span>` : `<a class="reviews__item" href="${esc(a.url)}" target="_blank" rel="noopener">${text}${icon('arrow-ur')}</a>`);
-  }
-  return items.length ? `<ul class="reviews">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';
 }
 
 export function renderDeals(c) {
@@ -67,11 +52,10 @@ export function renderDeals(c) {
   <div class="container">
     <header class="deals__head">
       <div>
-        <p class="eyebrow">Привезённые машины</p>
         <h2 class="display h2">Что уже привезли на ваш бюджет</h2>
-        <p class="sub deals__sub">По каждой машине: цена под ключ, срок и пост о выдаче. ${extLink(`Все машины в ${esc(label)}`, channel)}</p>
+        <p class="sub deals__sub">По каждой машине: цена под ключ и срок. Подробный отчёт о выдаче — в постах в Telegram. ${extLink(`Все машины в ${esc(label)}`, channel)}</p>
       </div>
-      ${reviewsHTML(c)}
+      ${proofHTML(c, { cls: 'deals__proof' })}
     </header>
     <div class="deals__bar">
       <div class="chips" role="group" aria-label="Бюджет под ключ">${chips}</div>

@@ -1,4 +1,4 @@
-// Шапка: белая после первого экрана, мобильное меню, закреплённая кнопка на телефоне.
+// Шапка: белая сразу после начала прокрутки, мобильное меню, закреплённая кнопка на телефоне.
 export function initHeader() {
   const header = document.querySelector('[data-header]');
   const hero = document.querySelector('[data-hero]');
@@ -8,7 +8,8 @@ export function initHeader() {
   const onScroll = () => {
     const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
     const past = heroBottom <= header.offsetHeight;
-    header.classList.toggle('is-solid', past);
+    // Шапка белеет сразу, как только страницу начали листать
+    header.classList.toggle('is-solid', window.scrollY > 4);
     // Кнопка внизу экрана появляется после первого экрана
     dock?.classList.toggle('is-visible', past);
   };

@@ -16,30 +16,6 @@
 .deals__sub .link {
   white-space: nowrap;
 }
-.reviews {
-  display: grid;
-  gap: var(--s-2);
-  align-content: end;
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-.reviews__item {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 6px;
-}
-.reviews__item .i {
-  margin-top: 3px;
-}
-.reviews__item .i {
-  width: 15px;
-  height: 15px;
-}
-a.reviews__item:hover span {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
 /* Фильтры */
 .deals__bar {
   display: grid;
@@ -75,10 +51,12 @@ a.reviews__item:hover span {
 .seg__btn:hover {
   background: var(--cobalt-10);
 }
+/* Активный фильтр: обводка кобальтом, без заливки. Заливка остаётся только у кнопок действия */
 .chip[aria-pressed='true'],
 .seg__btn[aria-pressed='true'] {
-  background: var(--cobalt);
-  color: var(--white);
+  background: var(--white);
+  color: var(--cobalt);
+  box-shadow: inset 0 0 0 2px var(--cobalt);
 }
 .seg {
   display: grid;
@@ -182,17 +160,32 @@ a.reviews__item:hover span {
   font-size: var(--fs-small);
   color: var(--ink-2);
 }
+/* Тег «актуально» лежит на фото, чтобы не сдвигать строки карточки */
 .deal__badge {
-  align-self: start;
-  margin-top: var(--s-3);
-  padding: 4px 8px;
-  border: 1px solid var(--line);
+  position: absolute;
+  left: 16px;
+  bottom: 8px;
+  max-width: calc(100% - 32px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  background: var(--ok-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   border-radius: var(--r-s);
+  color: var(--ok);
   font-size: var(--fs-micro);
   font-weight: 600;
+  line-height: 1.2;
 }
+.deal__badge .i {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+/* Все строки карточек на одной высоте: блок цен идёт сразу за описанием */
 .prices {
-  margin-top: auto;
   padding-top: var(--s-4);
   font-size: 15px;
 }
@@ -297,9 +290,8 @@ a.reviews__item:hover span {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
   }
-  .reviews {
-    justify-items: end;
-    text-align: right;
+  .deals__proof {
+    justify-content: flex-end;
   }
   .deals__bar {
     grid-template-columns: minmax(0, 1fr) auto auto;

@@ -19,15 +19,32 @@ export function initFlip(root) {
     front.toggleAttribute('inert', open && wide.matches);
   }
 
-  openBtn.addEventListener('click', () => {
+  const openCalc = () => {
     open = wide.matches ? true : !open;
     sync();
     if (open && wide.matches) closeBtn?.focus({ preventScroll: true });
-  });
-  closeBtn?.addEventListener('click', () => {
+  };
+  const closeCalc = () => {
     open = false;
     sync();
     openBtn.focus({ preventScroll: true });
+  };
+  // Переворот по клику на всю карточку, а не только на кнопку.
+  // Клики по кнопкам и ссылкам внутри (строки таблицы) обрабатываются как обычно.
+  const isControl = (e) => e.target.closest('button, a') && !e.target.closest('[data-flip-open], [data-flip-close]');
+  openBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openCalc();
+  });
+  closeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeCalc();
+  });
+  front.addEventListener('click', (e) => {
+    if (!isControl(e) && !window.getSelection()?.toString()) openCalc();
+  });
+  back.addEventListener('click', (e) => {
+    if (wide.matches && open && !isControl(e) && !window.getSelection()?.toString()) closeCalc();
   });
   wide.addEventListener('change', sync);
   sync();

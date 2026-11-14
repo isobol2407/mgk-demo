@@ -1,7 +1,7 @@
 // 1. Обещание. Кобальтовый экран: заголовок со снимками между словами, справа колонка с оффером,
 // ниже карусель привезённых машин по дуге. Заголовок — обычный текст в h1, снимки стоят в потоке строки.
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn, extLink } from '../lib/ui.js';
+import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
 import { mln, saving, km } from '../lib/format.js';
 
@@ -28,20 +28,6 @@ function titleHTML(c) {
   );
   // Между строками обычный пробел и перенос, который работает только от 768 px
   return lines.join(' <br class="hero__br" />');
-}
-
-function proofHTML(c) {
-  const y = c.ratings.yandex;
-  const tg = c.messengers.telegram;
-  const items = [];
-  if (y && !isHidden(y.rating)) {
-    const inner = `${icon('star')}<span>${val(y.rating)} на Яндекс.Картах</span>`;
-    items.push(isAsk(y.url) ? `<span class="proof__item">${inner}</span>` : `<a class="proof__item" href="${esc(y.url)}" target="_blank" rel="noopener">${inner}</a>`);
-  }
-  if (tg?.channel && !isHidden(tg.subscribers)) {
-    items.push(`<a class="proof__item" href="${esc(tg.channel)}" target="_blank" rel="noopener">${icon('tg')}<span>${val(tg.subscribers)} в Telegram</span></a>`);
-  }
-  return items.length ? `<ul class="proof">${items.map((i) => `<li>${i}</li>`).join('')}</ul>` : '';
 }
 
 function arcHTML(c) {

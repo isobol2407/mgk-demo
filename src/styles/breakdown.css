@@ -78,6 +78,10 @@ a.car:focus-visible {
   gap: var(--s-4);
   border-radius: var(--r-m);
 }
+/* Вся карточка переворачивается по клику, не только кнопка */
+.flip__front {
+  cursor: pointer;
+}
 .flip :focus-visible {
   outline-color: var(--cobalt);
 }
@@ -281,29 +285,12 @@ button.calc__row:hover .calc__name {
   margin-top: auto;
   font-size: 15px;
 }
-/* Две полосы вместо разделителей: цена в России длиннее цены под ключ */
-.gain__rows {
-  display: grid;
-  gap: var(--s-4);
-}
 .gain__rows div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 6px var(--s-3);
-}
-.gain__bar {
-  grid-column: 1 / -1;
-  height: 8px;
-}
-.gain__bar i {
-  display: block;
-  width: var(--w);
-  height: 100%;
-  border-radius: 2px;
-  background: var(--cobalt-80);
-}
-.gain__bar--ru i {
-  background: rgb(255 255 255 / 0.4);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 10px 0;
+  border-top: 1px solid rgb(255 255 255 / 0.22);
 }
 .gain__rows dt {
   color: rgb(255 255 255 / 0.78);
@@ -417,6 +404,9 @@ button.calc__row:hover .calc__name {
   }
   .flip.is-open .flip__in {
     transform: rotateY(180deg);
+  }
+  .flip.is-open .flip__back {
+    cursor: pointer;
   }
   .flip__btn--back {
     display: inline-flex;

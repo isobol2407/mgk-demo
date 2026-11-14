@@ -256,12 +256,60 @@ a.link:hover use[href='#i-arrow-down'] {
 .link--ink {
   color: var(--ink);
 }
+/* Второстепенная ссылка рядом с главной кнопкой: приглушённая */
+.link--muted {
+  color: var(--ink-2);
+}
 .link--on-cobalt {
   color: var(--white);
 }
 .link.is-todo {
   text-decoration: none;
   color: inherit;
+}
+
+/* ===== Плашки доверия: рейтинги и подписчики ===== */
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.proof__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: border-color var(--t-fast) var(--ease);
+}
+.proof__item .i {
+  width: 15px;
+  height: 15px;
+}
+a.proof__item:hover {
+  border-color: var(--ink);
+}
+/* На кобальте */
+.hero .proof__item,
+.section--cobalt .proof__item {
+  border-color: var(--line-on-cobalt);
+}
+.hero a.proof__item:hover,
+.section--cobalt a.proof__item:hover {
+  border-color: var(--white);
+}
+/* На светло-сером: белая подложка, как у фильтров */
+.section--paper .proof__item {
+  background: var(--white);
+  border-color: var(--white);
+}
+.section--paper a.proof__item:hover {
+  border-color: var(--ink);
 }
 
 /* ===== Плашки «демо» и «уточнить» =====

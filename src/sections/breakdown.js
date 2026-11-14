@@ -81,8 +81,8 @@ function gainCard(d, b) {
       <p class="gain__label"><span>Выгода покупателя</span>${d.demo ? demoBadge() : ''}</p>
       <p class="gain__sum display">${rub(b.priceRu - b.total)}</p>
       <dl class="gain__rows">
-        <div><dt>Такая же в России</dt><dd>${rub(b.priceRu)}</dd><dd class="gain__bar gain__bar--ru"><i style="--w:100%"></i></dd></div>
-        <div><dt>Под ключ ${esc(d.from)}</dt><dd>${rub(b.total)}</dd><dd class="gain__bar"><i style="--w:${Math.round((b.total / b.priceRu) * 100)}%"></i></dd></div>
+        <div><dt>Такая же в России</dt><dd>${rub(b.priceRu)}</dd></div>
+        <div><dt>Под ключ ${esc(d.from)}</dt><dd>${rub(b.total)}</dd></div>
       </dl>
       ${isHidden(b.priceRuSource) && isHidden(b.priceRuDate) ? '' : `<p class="gain__src">Цена в России: ${val(b.priceRuSource)}, ${val(b.priceRuDate)}</p>`}
     </div>`;

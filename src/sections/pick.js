@@ -1,7 +1,7 @@
 // 5. Подбор и контакты. Первый вопрос квиза стоит прямо в блоке, остальные в модалке.
 // Рядом карточка «Каталог одним сообщением», ниже контакты.
 import { esc, isAsk, askBadge, isHidden } from '../lib/marks.js';
-import { icon, chatBtn, extLink, telHref } from '../lib/ui.js';
+import { icon, chatBtn, telHref } from '../lib/ui.js';
 import { chatAttrs, primaryKey, messengerLabel, messengerIcon } from '../lib/messenger.js';
 
 const budgetOptions = (c) => [...c.budgets.map((b) => ({ id: b.id, label: b.label })), { id: 'unknown', label: c.quiz.unknownLabel }];
@@ -36,7 +36,10 @@ export function renderPick(c) {
     .join('');
   const y = c.ratings.yandex;
   const a = c.ratings.avito;
-  const reviews = [y ? extLink('Яндекс.Карты', y.url, { cls: 'link link--on-cobalt' }) : '', a ? extLink('Авито', a.url, { cls: 'link link--on-cobalt' }) : '']
+  // Отзывы в том же виде, что мессенджеры: иконка и подпись, одна ссылка = один стиль
+  const reviewLink = (label, url, ic) =>
+    isAsk(url) ? `<span class="contact-link">${icon(ic)}<span>${label}</span></span>` : `<a class="contact-link" href="${esc(url)}" target="_blank" rel="noopener">${icon(ic)}<span>${label}</span></a>`;
+  const reviews = [y ? reviewLink('Яндекс.Карты', y.url, 'star') : '', a ? reviewLink('Авито', a.url, 'avito') : '']
     .filter(Boolean)
     .map((x) => `<li>${x}</li>`)
     .join('');
@@ -68,15 +71,21 @@ export function renderPick(c) {
       </aside>
     </div>
 
+    ${c.display?.demoNote === false ? '' : `
+    <aside class="demo-note" aria-label="О демо-версии">
+      <p class="demo-note__title display">Это демо: здесь 5 главных блоков из 10</p>
+      <p class="demo-note__text">В готовом сайте будет 10 блоков. Сюда вынесены те, от которых зависит, напишет человек или нет. Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+    </aside>`}
+
     <div class="contacts" id="contacts">
       <h2 class="display contacts__title">Приезжайте в офис или напишите</h2>
       <ul class="contacts__offices">${offices}</ul>
       <div class="contacts__col">
-        <p class="contacts__label">Мессенджеры</p>
+        <h3 class="contacts__label display">Мессенджеры</h3>
         <ul class="contacts__links">${messengers}</ul>
       </div>
       <div class="contacts__col">
-        <p class="contacts__label">Отзывы</p>
+        <h3 class="contacts__label display">Отзывы</h3>
         <ul class="contacts__reviews">${reviews}</ul>
       </div>
       ${officePhoto ? `<div class="contacts__photo">${officePhoto}</div>` : ''}
