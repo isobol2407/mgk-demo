@@ -440,10 +440,73 @@ html:has(dialog[open]) {
   max-width: 52ch;
   font-size: 17px;
 }
-/* Гифка в белой рамке, как снимки на сайте, с лёгким наклоном */
+/* Кнопка в стиле плашки, а не сайта: как экранная надпись старого телевизора.
+   Прямые углы, прописные с разрядкой, белая рамка на тёмной подложке, мигающая точка
+   «в эфире». При наведении инвертируется. Красная точка — только здесь, вне палитры сайта */
+.demo-note__cta {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-top: var(--s-3);
+  padding: 0 22px;
+  border: 2px solid var(--white);
+  background: rgb(0 0 0 / 0.28);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease);
+}
+.demo-note__cta .i {
+  width: 18px;
+  height: 18px;
+}
+.demo-note__cta:hover {
+  background: var(--white);
+  color: var(--demo-bg);
+}
+.demo-note__rec {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 6px rgb(255 59 48 / 0.8);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .demo-note__rec {
+    animation: demo-rec 1.2s steps(2, jump-none) infinite;
+  }
+}
+@keyframes demo-rec {
+  0% { opacity: 1; }
+  100% { opacity: 0.15; }
+}
+.demo-note :focus-visible {
+  outline-color: var(--white);
+}
+/* Включение «телевизора» (src/client/demo.js): до срабатывания содержимого не видно,
+   в момент включения шум вспыхивает */
+.demo-note.is-off-air .demo-note__in {
+  opacity: 0;
+}
+.demo-note.is-switching::before {
+  opacity: 0.6;
+  transition: opacity 900ms ease-out;
+}
+.demo-note::before {
+  transition: opacity 900ms ease-out;
+}
+/* Гифка в белой рамке, как снимки на сайте, с лёгким наклоном.
+   Телефон: меньше и первой в блоке */
 .demo-note__gif {
-  justify-self: center;
-  width: min(100%, 400px);
+  order: -1;
+  justify-self: start;
+  width: min(62%, 240px);
   margin: 0;
   padding: 8px 8px 0;
   background: var(--white);
@@ -485,6 +548,7 @@ html:has(dialog[open]) {
     grid-area: body;
   }
   .demo-note__gif {
+    order: 0;
     grid-area: gif;
     align-self: start;
     justify-self: stretch;

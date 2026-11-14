@@ -277,6 +277,12 @@ html:not(.js) .arc__cap:not(.is-active) {
 .arc__card.is-active .arc__tag {
   opacity: 1;
 }
+@media (max-width: 767px) {
+  .arc__tag {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 .arc__act {
   display: flex;
   flex-wrap: wrap;

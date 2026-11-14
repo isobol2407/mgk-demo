@@ -157,6 +157,7 @@ html:has(.header.menu-open) {
   display: inline-flex;
   padding: 0 20px;
   font-family: var(--font-text);
+  font-weight: 600;
   font-size: 15px;
   line-height: 1.2;
   text-transform: none;
@@ -209,6 +210,14 @@ html:has(.header.menu-open) {
   transition:
     transform var(--t) var(--ease),
     visibility 0s;
+}
+/* Пока на экране плашка демо, нижняя кнопка уходит: там своя кнопка */
+.dock.is-visible.is-off {
+  transform: translateY(100%);
+  visibility: hidden;
+  transition:
+    transform var(--t) var(--ease),
+    visibility 0s linear var(--t);
 }
 @media (max-width: 767px) {
   body {

@@ -20,6 +20,7 @@ import { initMessengerLinks } from './client/messenger.js';
 import { initDeals } from './client/deals.js';
 import { initFlip } from './client/flip.js';
 import { initQuiz } from './client/quiz.js';
+import { initDemoNote } from './client/demo.js';
 
 initHeader();
 initMessengerLinks();
@@ -28,6 +29,7 @@ initHeroVideo();
 document.querySelectorAll('[data-deals]').forEach((el) => initDeals(el, company));
 document.querySelectorAll('[data-flip]').forEach(initFlip);
 initQuiz(company);
+initDemoNote();
 
 // Панель пометок для правок с Claude: только в `npm run dev`, в сборку не попадает.
 if (import.meta.env.DEV) import('./dev/agentation.js');

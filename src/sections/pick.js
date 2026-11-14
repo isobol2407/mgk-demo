@@ -89,19 +89,22 @@ export function renderPick(c) {
 
 // Гифка в плашке демо. Не скачиваем к себе: показываем с серверов Giphy (WebP легче GIF в 3 раза).
 const DEMO_GIF = 'https://media.giphy.com/media/bQtUQp1wRZIUujzJ7E';
+// Кнопка в плашке ведёт в личный Telegram Ильи, а не в чат компании
+const DEMO_AUTHOR_TG = 'https://t.me/isobol';
 
 // Служебная плашка о демо-версии: под контактами, серая с «телевизионным» шумом,
 // чтобы читалась как сообщение поверх сайта, а не его часть.
 export function renderDemoNote(c) {
   if (c.display?.demoNote === false) return '';
   return `
-<aside class="demo-note" aria-label="О демо-версии">
-  <div class="container demo-note__in">
+<aside class="demo-note" aria-label="О демо-версии" data-demo-note>
+  <div class="container demo-note__in" data-demo-in>
     <p class="demo-note__title">Это демо: показаны 5 самых важных блоков</p>
     <div class="demo-note__body">
     <p class="demo-note__text">Всего в готовом сайте будет 10 блоков. Здесь те, от которых зависит, напишет человек или нет.</p>
     <p class="demo-note__text">Машины, цены и сроки на странице — демонстрационные. В тексты и порядок блоков заложены приёмы, которые поднимают конверсию. Когда возьмёмся за ваш сайт, подстроим каждый момент под ваш бизнес.</p>
     <p class="demo-note__text">Заявки с сайта подключим туда, где вам удобно: Telegram, MAX, Битрикс24 или другая CRM.</p>
+    <a class="demo-note__cta" href="${DEMO_AUTHOR_TG}" target="_blank" rel="noopener"><i class="demo-note__rec" aria-hidden="true"></i>${icon('tg')}<span>Написать мне в Telegram</span></a>
     </div>
     <figure class="demo-note__gif">
       <picture>
