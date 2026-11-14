@@ -357,15 +357,16 @@ a.proof-link:hover span {
   text-decoration-color: currentColor;
 }
 
-/* Тег на фото машины: белая плашка с мелким текстом (выдача: город, дата, срок) */
+/* Тег на фото машины (выдача: город, дата, срок). Второстепенная информация, поэтому
+   тише строки о машине: мельче, тоньше, на полупрозрачной тёмной подложке */
 .photo-tag {
   position: absolute;
-  padding: 4px 8px;
-  background: var(--white);
-  color: var(--ink);
+  padding: 3px 7px;
+  background: rgb(14 15 18 / 0.55);
+  color: var(--white);
   border-radius: var(--r-s);
-  font-size: var(--fs-micro);
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
 }
