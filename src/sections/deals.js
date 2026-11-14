@@ -3,21 +3,19 @@
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
-import { mln, days, saving, budgetOf } from '../lib/format.js';
-
-const CONDITION = { new: 'Новый', used: 'С пробегом' };
+import { mln, saving, budgetOf, carSpecs, deliveryLine } from '../lib/format.js';
 
 function dealCardHTML(c, d) {
   return `
     <article class="deal card" data-deal data-budget="${budgetOf(d.turnkey, c.budgets)}" data-condition="${d.condition}">
       <div class="deal__media">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 1100px) 380px, (min-width: 768px) 45vw, 80vw' })}
-        <span class="deal__date">${esc(d.date)}</span>
         ${d.badge ? `<p class="deal__badge">${icon('check')}<span>${esc(d.badge)}</span></p>` : ''}
       </div>
       <div class="deal__body">
-        <h3 class="deal__model display">${esc(d.model)}, ${d.year}</h3>
-        <p class="deal__meta">${CONDITION[d.condition]} · ${esc(d.city)} · ${days(d.days)}</p>
+        <h3 class="deal__model display">${esc(d.model)}</h3>
+        <p class="deal__specs">${carSpecs(d).map(esc).join(' · ')}</p>
+        <p class="deal__meta">Выдали: ${deliveryLine(d).map(esc).join(' · ')}</p>
         <dl class="prices">
           <div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>
           <div class="prices__row"><dt>Под ключ ${esc(d.from)}</dt><dd>${mln(d.turnkey)}</dd></div>

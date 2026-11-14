@@ -57,7 +57,7 @@ export function renderPick(c) {
       <div class="pick__quiz">
         <h2 class="display h2">Не выбрали машину? Подберём под бюджет</h2>
         <p class="sub">Три вопроса. В ответ пришлём 3–5 вариантов с ценой под ключ.</p>
-        <p class="pick__q display h3" id="pick-q">Какой бюджет под ключ?</p>
+        <p class="pick__q display h3" id="pick-q">Выберите бюджет</p>
         <div class="pick__opts" role="group" aria-labelledby="pick-q">${opts}</div>
       </div>
       <aside class="catalog card">

@@ -8,13 +8,13 @@
 }
 /* Порядок везде один: машина → статьи расхода → выгода → условия */
 
-/* А. Машина: узкая полоса, вся ведёт на пост о выдаче */
+/* А. Машина. Телефон: узкая полоса с теми же полями, что у остальных карточек блока */
 .car {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
+  grid-template-columns: 88px minmax(0, 1fr);
   align-items: center;
-  gap: var(--s-2) var(--s-4);
-  padding: 8px var(--s-4) 8px 8px;
+  gap: var(--s-3) var(--s-4);
+  padding: var(--s-5);
 }
 .car__photo img {
   display: block;
@@ -25,7 +25,7 @@
 }
 .car__body {
   display: grid;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
 }
 .car__model {
@@ -36,14 +36,8 @@
   line-height: 1;
 }
 .car__specs {
-  display: flex;
-  flex-wrap: wrap;
   font-size: var(--fs-small);
-  color: var(--ink-2);
-}
-.car__specs span:not(:last-child)::after {
-  content: '·';
-  margin-inline: 6px;
+  font-weight: 500;
 }
 .car__side {
   grid-column: 1 / -1;
@@ -52,7 +46,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s-2) var(--s-4);
-  padding: 0 0 var(--s-2) 8px;
 }
 .car__line {
   font-size: var(--fs-small);
@@ -129,6 +122,9 @@ a.car:focus-visible {
   margin-top: auto;
 }
 .flip__btn--back {
+  display: none;
+}
+.flip__ico-d {
   display: none;
 }
 .flip__btn .i {
@@ -334,26 +330,47 @@ button.calc__row:hover .calc__name {
 /* ===== От 900 px: сетка 2×2 и переворот карточки ===== */
 @media (min-width: 900px) {
   .bento {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     grid-template-areas:
-      'car car'
-      'calc gain'
-      'calc cond';
+      'car calc'
+      'gain cond';
   }
+  /* Десктоп: карточка машины с крупным фото, как раньше */
   .car {
-    grid-template-columns: 120px minmax(0, 1fr) auto;
-    gap: var(--s-5);
-    padding: 8px var(--s-6) 8px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .car__photo {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    padding: 8px 8px 0;
+  }
+  .car__photo img {
+    height: 100%;
+    min-height: 200px;
+  }
+  .car__body {
+    padding: var(--s-4) var(--s-6) 0;
   }
   .car__model {
-    font-size: 32px;
+    font-size: var(--fs-h3);
+  }
+  .car__specs {
+    font-size: 15px;
   }
   .car__side {
-    grid-column: auto;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    padding: 0;
+    display: grid;
+    justify-items: start;
+    gap: var(--s-2);
+    padding: 4px var(--s-6) var(--s-6);
+  }
+  .car__line {
+    font-size: 15px;
   }
   .car {
     grid-area: car;
@@ -432,6 +449,12 @@ button.calc__row:hover .calc__name {
   }
   .flip__btn[aria-expanded='true'] .i {
     transform: none;
+  }
+  .flip__ico-m {
+    display: none;
+  }
+  .flip__ico-d {
+    display: inline-block;
   }
   .calc__head,
   .calc__row {

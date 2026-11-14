@@ -193,25 +193,6 @@
   backface-visibility: hidden;
 }
 /* Год, пробег и мощность: тихая плашка в углу фото, только у центральной карточки */
-.arc__spec {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  padding: 4px 7px;
-  border-radius: 2px;
-  background: rgb(14 15 18 / 0.6);
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.2;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--t) var(--ease);
-  pointer-events: none;
-}
-.arc__card.is-active .arc__spec {
-  opacity: 1;
-}
 .arc__card img {
   width: 100%;
   height: 100%;
@@ -278,11 +259,22 @@ html:not(.js) .arc__cap:not(.is-active) {
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
-.arc__l1 span {
-  white-space: nowrap;
-}
 .arc__l2 {
   font-size: 15px;
+  font-weight: 500;
+}
+/* Строка о выдаче отделена от строки о машине: тише и отдельной строкой */
+.arc__l3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2px var(--s-4);
+  font-size: var(--fs-small);
+  color: var(--on-cobalt-2);
+}
+.arc__save {
+  color: var(--white);
   font-weight: 500;
 }
 .arc__act {
@@ -411,7 +403,7 @@ html:not(.js) .arc__cap:not(.is-active) {
     grid-column: auto;
   }
   .arc {
-    --arc-h: clamp(180px, 25vh, 320px);
+    --arc-h: clamp(170px, 22vh, 320px);
     --card-w: calc(var(--arc-h) * 1.28);
     margin-top: auto;
     padding-top: var(--s-4);
@@ -424,6 +416,28 @@ html:not(.js) .arc__cap:not(.is-active) {
   .arc__foot {
     margin-top: var(--s-3);
     gap: var(--s-2);
+  }
+}
+
+/* Компактные плашки рейтингов на десктопе. На низких широких окнах колонка шире,
+   и все три плашки встают в одну строку: так первый экран помещается целиком */
+@media (min-width: 1100px) {
+  .hero .proof {
+    gap: 6px;
+  }
+  .hero .proof__item {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+@media (min-width: 1440px) {
+  .arc {
+    --arc-h: clamp(180px, 25vh, 320px);
+  }
+}
+@media (min-width: 1440px) and (max-height: 820px) {
+  .hero__top {
+    grid-template-columns: minmax(0, 1fr) 432px;
   }
 }
 

@@ -4,28 +4,22 @@
 // таблица раскрывается под диаграммой.
 import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, photo, chatBtn } from '../lib/ui.js';
-import { rub, km } from '../lib/format.js';
+import { rub, carSpecs, deliveryLine } from '../lib/format.js';
 
 // Сегменты диаграммы: оттенки одного кобальта, от самого тёмного к самому светлому
 const SEGMENT_COLORS = ['var(--cobalt)', 'var(--cobalt-80)', 'var(--cobalt-60)', 'var(--cobalt-40)', 'var(--cobalt-20)'];
 
-// А. Машина: узкая горизонтальная полоса на всю ширину. Фото маленькое: машин выше
-// и так много, здесь фото только разбавляет. Вся полоса ведёт на пост о выдаче.
+// А. Машина. На телефоне узкая полоса: маленькое фото, машин выше и так много.
+// От 900 px — карточка с крупным фото, как раньше. Вся карточка ведёт на пост о выдаче.
 function carCard(c, d) {
-  const specs = [
-    `${d.year}`,
-    d.engine ? esc(d.engine) : '',
-    d.mileage != null ? km(d.mileage) : '',
-    d.hp ? `${d.hp}\u00a0л.с.` : '',
-  ].filter(Boolean);
   const inner = `
-      <span class="car__photo">${photo(d.photo, { alt: `${d.model}, ${d.year}`, sizes: '160px' })}</span>
+      <span class="car__photo">${photo(d.photo, { alt: `${d.model}, ${d.year}`, sizes: '(min-width: 900px) 480px, 160px' })}</span>
       <span class="car__body">
         <span class="car__model display">${esc(d.model)}${d.demo ? ` ${demoBadge()}` : ''}</span>
-        <span class="car__specs">${specs.map((x) => `<span>${x}</span>`).join('')}</span>
+        <span class="car__specs">${carSpecs(d).map(esc).join(' · ')}</span>
       </span>
       <span class="car__side">
-        <span class="car__line">Выдали ${esc(d.date)}</span>
+        <span class="car__line">Выдали: ${deliveryLine(d).map(esc).join(' · ')}</span>
         <span class="link link--muted car__link">Пост о выдаче${icon('arrow-ur')}</span>
       </span>`;
   return isAsk(d.post)
@@ -67,7 +61,7 @@ function calcCard(c, d, b) {
           <div class="bar" role="img" aria-label="Диаграмма без цифр: самая большая статья — машина, самая маленькая — ${esc(b.rows.at(-1).label.toLowerCase())}">${bar}</div>
           <ul class="legend">${legend}</ul>
           <p class="flip__note">Четыре статьи вы платите напрямую: продавцу, перевозчику, таможне и брокеру.</p>
-          <button class="btn btn--line flip__btn" type="button" aria-expanded="false" aria-controls="calc-back" data-flip-open><span>Посмотреть расчёт подробно</span>${icon('flip')}</button>
+          <button class="btn btn--line flip__btn" type="button" aria-expanded="false" aria-controls="calc-back" data-flip-open><span>Посмотреть расчёт подробно</span>${icon('chevron-d', 'flip__ico-m')}${icon('flip', 'flip__ico-d')}</button>
         </div>
         <div class="flip__face flip__back" id="calc-back" data-flip-back>
           <div class="flip__back-in">

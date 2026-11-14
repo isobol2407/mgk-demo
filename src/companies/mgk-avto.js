@@ -129,15 +129,15 @@ const company = {
   // turnkey и priceRu в миллионах рублей. Экономия считается сама.
   // post: ссылка на пост о выдаче. Пока у всех стоит канал.
   // badge: плашка на карточке, если подходит. breakdown: true — эта сделка разобрана в блоке 3.
-  // mileage (км, 0 — без пробега) и hp: подпись на фото в карусели. Мощность по паспортным данным
-  // модели, пробег у машин с пробегом — демо. У реальных сделок брать из поста.
+  // mileage (км, 0 — без пробега), engine и hp: строка о машине под фото. Объём и мощность — паспортные
+  // данные одной из комплектаций модели, пробег — демо. У реальных сделок брать из поста.
   deals: [
     { id: 'monjaro', mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', post: TG_CHANNEL, demo: true, breakdown: true },
-    { id: 'cx5', mileage: 0, hp: 155, model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', post: TG_CHANNEL, demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
-    { id: 'carnival', mileage: 48000, hp: 199, model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', post: TG_CHANNEL, demo: true },
-    { id: 'santafe', mileage: 32000, hp: 199, model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', post: TG_CHANNEL, demo: true },
-    { id: 'l7', mileage: 0, hp: 449, model: 'LiXiang L7', year: 2025, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '14.09.2026', days: 50, priceRu: 8.1, turnkey: 6.9, photo: 'l7', post: TG_CHANNEL, demo: true },
-    { id: 'x5', mileage: 61000, hp: 340, model: 'BMW X5', year: 2021, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '08.09.2026', days: 55, priceRu: 7.9, turnkey: 6.7, photo: 'x5', post: TG_CHANNEL, demo: true },
+    { id: 'cx5', mileage: 0, hp: 155, engine: '2,0 л', model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', post: TG_CHANNEL, demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
+    { id: 'carnival', mileage: 48000, hp: 202, engine: '2,2 л', model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', post: TG_CHANNEL, demo: true },
+    { id: 'santafe', mileage: 32000, hp: 202, engine: '2,2 л', model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', post: TG_CHANNEL, demo: true },
+    { id: 'l7', mileage: 0, hp: 449, engine: '1,5 л', model: 'LiXiang L7', year: 2025, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '14.09.2026', days: 50, priceRu: 8.1, turnkey: 6.9, photo: 'l7', post: TG_CHANNEL, demo: true },
+    { id: 'x5', mileage: 61000, hp: 340, engine: '3,0 л', model: 'BMW X5', year: 2021, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '08.09.2026', days: 55, priceRu: 7.9, turnkey: 6.7, photo: 'x5', post: TG_CHANNEL, demo: true },
   ],
   // Сколько ещё сделок в канале: подставляется в последнюю карточку ленты «Ещё N машин».
   dealsMore: ask('сколько сделок в Telegram-канале'),

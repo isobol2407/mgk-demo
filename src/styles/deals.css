@@ -139,17 +139,6 @@
   border-radius: var(--r-s);
   background: var(--paper);
 }
-.deal__date {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 4px 8px;
-  background: var(--white);
-  border-radius: var(--r-s);
-  font-size: var(--fs-micro);
-  font-weight: 600;
-  line-height: 1.2;
-}
 .deal__body {
   flex: 1;
   display: flex;
@@ -160,8 +149,14 @@
   font-size: 32px;
   line-height: 1;
 }
-.deal__meta {
+/* Под фото два смысловых блока: машина (год, объём, пробег, мощность) и выдача */
+.deal__specs {
   margin-top: 6px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.deal__meta {
+  margin-top: 2px;
   font-size: var(--fs-small);
   color: var(--ink-2);
 }
@@ -293,6 +288,8 @@
   }
   .deals__proof {
     display: grid;
+    align-self: start;
+    padding-top: 6px;
   }
   .deals__bar {
     grid-template-columns: minmax(0, 1fr) auto auto;

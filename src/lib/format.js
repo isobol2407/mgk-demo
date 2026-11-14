@@ -25,3 +25,10 @@ export const saving = (deal) => Math.round((deal.priceRu - deal.turnkey) * 100) 
 // К какому диапазону бюджета относится цена под ключ
 export const budgetOf = (turnkey, budgets) =>
   budgets.find((b) => turnkey >= (b.min ?? 0) && turnkey < (b.max ?? Infinity))?.id ?? '';
+
+// Строка о машине: год · объём · пробег · мощность. Один смысловой блок, не разделяем
+export const carSpecs = (d) =>
+  [String(d.year), d.engine ?? '', d.mileage != null ? km(d.mileage) : '', d.hp ? `${d.hp}${NBSP}л.с.` : ''].filter(Boolean);
+
+// Строка о выдаче: город · дата · срок. Отдельный блок от строки о машине
+export const deliveryLine = (d) => [d.city, d.date, days(d.days)];

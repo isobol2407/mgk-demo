@@ -142,6 +142,46 @@
   text-transform: uppercase;
 }
 
+/* Кнопка в меню не наследует крупный шрифт пунктов меню */
+.mmenu .btn {
+  display: inline-flex;
+  padding: 0 20px;
+  font-family: var(--font-text);
+  font-size: 15px;
+  line-height: 1.2;
+  text-transform: none;
+}
+.mmenu__chat {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+.mmenu__label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.mmenu__msg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.mmenu .mmenu__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  font-family: var(--font-text);
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+}
+
 /* Закреплённая кнопка на телефоне: появляется после первого экрана */
 .dock {
   position: fixed;
@@ -175,8 +215,18 @@
 }
 
 @media (min-width: 1024px) {
+  /* Три колонки: края равной ширины, поэтому меню стоит ровно по центру страницы,
+     а не по центру места между логотипом и кнопками */
+  .header__in {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
   .nav {
     display: block;
+    margin-inline: 0;
+  }
+  .header__act {
+    justify-self: end;
   }
   .icon-btn--desk {
     display: inline-flex;

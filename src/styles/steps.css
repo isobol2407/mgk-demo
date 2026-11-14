@@ -76,12 +76,56 @@
   border-radius: var(--r-m);
   background: var(--paper);
 }
-/* Договор: мини-графика листа со скрепкой и подписью справа, в бело-серых тонах */
+/* Договор: синяя карточка. Крупный лист со скрепкой уходит за нижний и правый край,
+   при наведении чуть приподнимается и выпрямляется */
 .doc--contract {
   position: relative;
+  overflow: hidden;
+  background: var(--cobalt);
+  color: var(--white);
+}
+.doc--contract .doc__text p {
+  color: var(--on-cobalt-2);
+}
+.doc--contract :focus-visible {
+  outline-color: var(--white);
+}
+.doc__text,
+.doc__act {
+  position: relative;
+  z-index: 1;
 }
 .doc__art {
   display: none;
+}
+.doc__page {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: rotate(6deg);
+  transition: transform var(--t-slow) var(--ease);
+}
+.doc__sheet {
+  fill: var(--white);
+}
+.doc__head {
+  fill: var(--ink);
+}
+.doc__lines,
+.doc__rule {
+  fill: var(--cobalt-20);
+  stroke: var(--cobalt-20);
+}
+.doc__lines {
+  stroke: none;
+}
+.doc__clip {
+  fill: none;
+  stroke: var(--cobalt-40);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .doc--contract:hover .doc__page {
+    transform: rotate(2deg) translateY(-10px);
+  }
 }
 .doc__text {
   display: grid;
@@ -146,16 +190,15 @@
     min-height: 260px;
   }
   .doc--contract {
-    padding-right: 200px;
+    padding-right: 240px;
   }
   .doc__art {
     display: block;
     position: absolute;
-    right: 40px;
-    top: 50%;
-    width: 140px;
+    right: -48px;
+    bottom: -120px;
+    width: 300px;
     height: auto;
-    transform: translateY(-50%);
   }
 }
 /* Десктоп: пять шагов в ряд, линия сверху. Строки шагов (номер, заголовок, «Платите»,
