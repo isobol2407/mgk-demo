@@ -2,6 +2,7 @@
 // файл выполняется при сборке (см. vite.config.js).
 import { esc, val, isAsk, isHidden, askBadge } from './marks.js';
 import { chatAttrs, messengerIcon } from './messenger.js';
+import { actionAttrs } from './actions.js';
 
 export const icon = (name, cls = '') =>
   `<svg class="i${cls ? ` ${cls}` : ''}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
@@ -15,6 +16,14 @@ export function photo(name, { alt = '', widths = [480, 960], ratio = 3 / 2, size
 // Кнопка в мессенджер: всегда с иконкой мессенджера, чтобы было видно, куда попадёшь.
 export function chatBtn(company, { key = company.messengers.primary, text = '', label, cls = 'btn--cobalt', attrs = '' }) {
   return `<a class="btn ${cls}" ${chatAttrs(company, key, text)}${attrs ? ` ${attrs}` : ''}>${icon(messengerIcon(key))}<span>${esc(label)}</span></a>`;
+}
+
+// Кнопка захвата лида (см. src/lib/actions.js): в демо открывает модалку «Что произойдёт дальше»,
+// в бою ведёт в бота. Иконка мессенджера, как у всех кнопок «в мессенджер».
+export function actionBtn(id, { key = 'telegram', ctx = {}, label, cls = 'btn btn--cobalt', iconKey = true } = {}) {
+  const { tag, attrs } = actionAttrs(id, { key, ctx });
+  const ico = iconKey ? icon(messengerIcon(key)) : '';
+  return `<${tag} class="${cls}" ${attrs}>${ico}<span>${esc(label)}</span></${tag}>`;
 }
 
 // Внешняя ссылка со стрелкой. Если адреса нет (ask), вместо ссылки текст с плашкой «уточнить».

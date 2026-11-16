@@ -1,7 +1,7 @@
 // 9. Машины до 160 л.с. Отвечает на «почему сейчас и какую брать»: слева условия
 // льготного утильсбора, справа 4 модели с ценой, внизу каталог одним сообщением.
 import { esc } from '../lib/marks.js';
-import { icon, photo, chatBtn } from '../lib/ui.js';
+import { icon, photo, actionBtn } from '../lib/ui.js';
 import { messengerLabel } from '../lib/messenger.js';
 import { rub } from '../lib/format.js';
 
@@ -24,7 +24,7 @@ export function renderModels160(c) {
     .join('');
   const [main, ...others] = c.catalog.channels;
   const otherLinks = others
-    .map((k) => chatBtn(c, { key: k, text: c.messages.catalog, label: messengerLabel(c, k), cls: 'btn--line btn--sm' }))
+    .map((k) => actionBtn('catalog160', { key: k, label: messengerLabel(c, k), cls: 'btn btn--line btn--sm' }))
     .join('');
   return `
 <section class="m160 section" id="models">
@@ -38,7 +38,7 @@ export function renderModels160(c) {
       <ul class="m160__list">${cards}</ul>
       <p class="m160__price-note">${esc(m.priceNote)}</p>
       <div class="m160__act">
-        ${chatBtn(c, { key: main, text: c.messages.catalog, label: `Каталог одним сообщением в ${messengerLabel(c, main)}`, cls: 'btn--cobalt' })}
+        ${actionBtn('catalog160', { key: main, label: `Каталог одним сообщением в ${messengerLabel(c, main)}`, cls: 'btn btn--cobalt' })}
         <div class="m160__other">${otherLinks}</div>
       </div>
     </div>

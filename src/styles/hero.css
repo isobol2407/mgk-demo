@@ -145,6 +145,14 @@
 .hero__cta .btn {
   width: 100%;
 }
+/* Ссылка к блоку «Посчитаем»: компактная, одной строкой под договором */
+.hero__calc {
+  font-size: 14px;
+}
+.hero__calc .i {
+  width: 14px;
+  height: 14px;
+}
 .hero__facts {
   display: grid;
   gap: 4px;
@@ -397,19 +405,26 @@ html:not(.js) .arc__cap:not(.is-active) {
     grid-area: aside;
     grid-column: auto;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--s-4);
+    gap: var(--s-3);
     padding-top: 0.5vh;
   }
   .hero__lead {
     grid-row: auto;
     font-size: 15px;
   }
+  .hero__cta {
+    gap: var(--s-2);
+  }
+  .hero__calc {
+    font-size: 13px;
+    white-space: nowrap;
+  }
   .hero__facts {
     grid-area: facts;
     grid-column: auto;
   }
   .arc {
-    --arc-h: clamp(170px, 22vh, 320px);
+    --arc-h: clamp(160px, 20vh, 320px);
     --card-w: calc(var(--arc-h) * 1.28);
     margin-top: auto;
     padding-top: var(--s-4);
@@ -456,7 +471,7 @@ html:not(.js) .arc__cap:not(.is-active) {
     row-gap: var(--s-3);
   }
   .arc {
-    --arc-h: clamp(150px, 21vh, 320px);
+    --arc-h: clamp(140px, 19vh, 320px);
     padding-top: var(--s-2);
   }
   .arc__stage {

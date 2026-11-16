@@ -1,9 +1,10 @@
 // 2. Привезённые машины. Лента карточек сделок с двумя фильтрами: бюджет и «новые / с пробегом».
 // Только уже привезённые машины, без предложений из каталога. Фильтра по стране нет.
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn, extLink, proofHTML } from '../lib/ui.js';
+import { icon, photo, actionBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
 import { mln, saving, budgetOf, carSpecs, deliveryTagHTML } from '../lib/format.js';
+import { postHref } from '../lib/links.js';
 
 function dealCardHTML(c, d) {
   return `
@@ -22,8 +23,8 @@ function dealCardHTML(c, d) {
           <div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd>${mln(saving(d))}</dd></div>
         </dl>
         <div class="deal__act">
-          ${chatBtn(c, { text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--cobalt btn--sm' })}
-          ${extLink('Пост о выдаче', d.post, { cls: 'link link--muted' })}
+          ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--cobalt btn--sm' })}
+          ${extLink('Пост о выдаче', postHref(c, d), { cls: 'link link--muted' })}
         </div>
       </div>
     </article>`;
@@ -71,13 +72,24 @@ export function renderDeals(c) {
       <a class="btn btn--white" href="${esc(channel)}" target="_blank" rel="noopener">${icon('tg')}<span>Открыть канал</span></a>
     </div>
     <div class="deal deal--state" data-state="empty" hidden>
-      <p class="deal__state-text display">В этом бюджете пока не привозили. Напишите, посчитаем под вас</p>
-      <a class="btn btn--white" ${chatAttrs(c, key, c.messages.budget)} data-empty-link>${icon('tg')}<span>Написать в ${esc(label)}</span></a>
+      <p class="deal__state-text display">В этом бюджете пока не привозили. Напишите модель, и мы сообщим, когда такая появится по вашей цене</p>
+      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--white' })}
     </div>
     <a class="deal deal--state deal--end" data-state="end" href="${esc(channel)}" target="_blank" rel="noopener">
       <span class="deal__state-text display">${isHidden(c.dealsMore) ? 'Остальные машины' : `Ещё ${val(c.dealsMore)} машин`} — в Telegram-канале</span>
       <span class="deal__end-arrow">${icon('arrow-ur')}</span>
     </a>
+  </div>
+  <div class="container">
+    <form class="watch" data-action-form onsubmit="return false" aria-labelledby="watch-title">
+      <div class="watch__text">
+        <h3 class="watch__title display" id="watch-title">Ищете конкретную модель?</h3>
+        <p>Скажите, какую машину и за сколько хотите. Напишем, когда такая появится на аукционе или пройдёт наш осмотр.</p>
+      </div>
+      <label class="field"><span class="vh">Модель</span><input name="model" type="text" placeholder="Модель" autocomplete="off" /></label>
+      <label class="field"><span class="vh">Бюджет под ключ до</span><input name="budget" type="text" inputmode="numeric" placeholder="Бюджет под ключ до" autocomplete="off" /></label>
+      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--cobalt' })}
+    </form>
   </div>
 </section>`;
 }

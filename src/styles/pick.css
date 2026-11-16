@@ -235,7 +235,7 @@ html:has(dialog[open]) {
 .quiz__bar {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 4px;
 }
 .quiz__bar i {
@@ -266,24 +266,24 @@ html:has(dialog[open]) {
   background: var(--cobalt);
   color: var(--white);
 }
-.quiz__text {
-  font-size: 17px;
-  max-width: 36ch;
-}
-.quiz__msg {
-  margin-block: var(--s-4) var(--s-5);
-  padding: var(--s-4);
-  border-radius: var(--r-s);
-  background: var(--paper);
-  font-size: 15px;
-}
-.quiz__go {
-  width: 100%;
-}
 .quiz__hint {
   margin-top: var(--s-3);
   font-size: var(--fs-small);
   color: var(--ink-2);
+}
+/* Шаг 4: модель текстом, «Дальше» и «Пропустить» */
+.quiz__model {
+  display: grid;
+  gap: var(--s-3);
+}
+.quiz__model-act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-5);
+}
+.quiz__skip {
+  min-height: 44px;
 }
 .quiz__foot {
   margin-top: auto;

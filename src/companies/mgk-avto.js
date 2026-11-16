@@ -26,7 +26,8 @@ const company = {
 
   // showAsk: false — плашек «уточнить» на странице нет (показ дизайна).
   // true — плашки видны, удобно для созвона. Все вопросы собраны в docs/utochnit.md.
-  display: { showAsk: false },
+  // demoNote: служебная плашка Ильи под контактами. В ветке bloki-6-10 выключена (16.11.2026)
+  display: { showAsk: false, demoNote: false },
 
   meta: {
     title: 'МГК Авто — машины из Китая и Кореи под заказ в Ижевск и Казань',
@@ -121,7 +122,7 @@ const company = {
       { type: 'image', src: 'shot-3', alt: 'Выдача машины у офиса', tilt: 6, mobile: false },
     ],
     lead: 'Подбираем, осматриваем на месте и растаможиваем. Договор можно прочитать до звонка. Если не найдём подходящую машину, вернём депозит за 3 рабочих дня.',
-    cta: 'Подобрать машину в Telegram',
+    cta: 'Подобрать машину',
     facts: ['300+ машин привезли', 'Офисы в Ижевске и Казани', 'Свои сотрудники в Корее и Киргизии'],
   },
 
@@ -129,18 +130,18 @@ const company = {
   // Шесть последних сделок: они же стоят в карусели первого экрана.
   // Модели и города взяты из отзывов на сайте МГК. Цены, даты, сроки, страна и состояние — демо.
   // turnkey и priceRu в миллионах рублей. Экономия считается сама.
-  // post: ссылка на пост о выдаче. Пока у всех стоит канал.
+  // postUrl: ссылка на конкретный пост о выдаче. Пока [заполнить]: кнопка временно ведёт в канал.
   // badge: плашка на карточке, если подходит. breakdown: true — эта сделка разобрана в блоке 3.
   // cityShort: короткое имя для тега на фото на телефоне, если город длиннее 9 знаков.
   // mileage (км, 0 — без пробега), engine и hp: строка о машине под фото. Объём и мощность — паспортные
   // данные одной из комплектаций модели, пробег — демо. У реальных сделок брать из поста.
   deals: [
-    { id: 'monjaro', mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', post: TG_CHANNEL, demo: true, breakdown: true },
-    { id: 'cx5', mileage: 0, hp: 155, engine: '2,0 л', model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', post: TG_CHANNEL, demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
-    { id: 'carnival', mileage: 48000, hp: 202, engine: '2,2 л', model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityShort: 'ЕКБ', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', post: TG_CHANNEL, demo: true },
-    { id: 'santafe', mileage: 32000, hp: 202, engine: '2,2 л', model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', post: TG_CHANNEL, demo: true },
-    { id: 'l7', mileage: 0, hp: 449, engine: '1,5 л', model: 'LiXiang L7', year: 2025, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '14.09.2026', days: 50, priceRu: 8.1, turnkey: 6.9, photo: 'l7', post: TG_CHANNEL, demo: true },
-    { id: 'x5', mileage: 61000, hp: 340, engine: '3,0 л', model: 'BMW X5', year: 2021, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '08.09.2026', days: 55, priceRu: 7.9, turnkey: 6.7, photo: 'x5', post: TG_CHANNEL, demo: true },
+    { id: 'monjaro', mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', postUrl: ask('ссылка на пост о выдаче'), demo: true, breakdown: true },
+    { id: 'cx5', mileage: 0, hp: 155, engine: '2,0 л', model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', postUrl: ask('ссылка на пост о выдаче'), demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
+    { id: 'carnival', mileage: 48000, hp: 202, engine: '2,2 л', model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityShort: 'ЕКБ', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', postUrl: ask('ссылка на пост о выдаче'), demo: true },
+    { id: 'santafe', mileage: 32000, hp: 202, engine: '2,2 л', model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', postUrl: ask('ссылка на пост о выдаче'), demo: true },
+    { id: 'l7', mileage: 0, hp: 449, engine: '1,5 л', model: 'LiXiang L7', year: 2025, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '14.09.2026', days: 50, priceRu: 8.1, turnkey: 6.9, photo: 'l7', postUrl: ask('ссылка на пост о выдаче'), demo: true },
+    { id: 'x5', mileage: 61000, hp: 340, engine: '3,0 л', model: 'BMW X5', year: 2021, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '08.09.2026', days: 55, priceRu: 7.9, turnkey: 6.7, photo: 'x5', postUrl: ask('ссылка на пост о выдаче'), demo: true },
   ],
   // Сколько ещё сделок в канале: подставляется в последнюю карточку ленты «Ещё N машин».
   dealsMore: ask('сколько сделок в Telegram-канале'),
@@ -287,12 +288,13 @@ const company = {
       { title: 'Выдача', pay: ['Остаток', ask('сумма и порядок оплаты остатка')], get: 'Машину, ЭПТС и акт приёма-передачи. Поможем поставить на учёт' },
     ],
     // Пример отчёта об осмотре: ссылка на пост и фото-превью (сейчас заглушки).
-    report: { url: TG_CHANNEL, photos: ['santafe', 'x5', 'carnival'], placeholder: true },
+    report: { reportUrl: ask('ссылка на пост с отчётом об осмотре'), photos: ['santafe', 'x5', 'carnival'], placeholder: true },
   },
 
   // ── Блок 5. Подбор и контакты ──────────────────────────────────────────────
   quiz: {
-    // msg: как ответ звучит в сообщении «Подберите машину: {бюджет}, {состояние}.»
+    // Квиз из 6 шагов. msg: как ответ звучит в сводке для менеджера
+    // («Бюджет 3–5 млн, для семьи, новая, в ближайший месяц»).
     budgetMsg: {
       lt2: 'бюджет до 2 млн',
       '2-3': 'бюджет 2–3 млн',
@@ -305,6 +307,17 @@ const company = {
       { id: 'new', label: 'Новая', msg: 'новая' },
       { id: 'used', label: 'С пробегом', msg: 'с пробегом' },
       { id: 'any', label: 'Не важно', msg: 'новая или с пробегом' },
+    ],
+    purposes: [
+      { id: 'family', label: 'Семья и дети', msg: 'для семьи' },
+      { id: 'city', label: 'Город', msg: 'для города' },
+      { id: 'road', label: 'Дорога и дача', msg: 'для дороги и дачи' },
+      { id: 'business', label: 'Бизнес', msg: 'для бизнеса' },
+    ],
+    timings: [
+      { id: 'month', label: 'В ближайший месяц', msg: 'в ближайший месяц' },
+      { id: '3m', label: 'В течение 3 месяцев', msg: 'в течение 3 месяцев' },
+      { id: 'look', label: 'Пока присматриваюсь', msg: 'пока присматривается' },
     ],
     channels: ['telegram', 'max', 'vk'],
   },

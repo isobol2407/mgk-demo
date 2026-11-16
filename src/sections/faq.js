@@ -1,7 +1,7 @@
 // 10. Вопросы. Аккордеон на <details>: работает без скрипта, первый вопрос раскрыт.
 // Под ним кнопка «Задать свой вопрос» в мессенджер с готовым началом сообщения.
 import { esc } from '../lib/marks.js';
-import { icon, chatBtn } from '../lib/ui.js';
+import { icon, actionBtn } from '../lib/ui.js';
 
 export function renderFaq(c) {
   const f = c.faq;
@@ -21,7 +21,7 @@ export function renderFaq(c) {
     <div class="faq__head">
       <h2 class="display h2">${esc(f.title)}</h2>
       <p class="sub">Не нашли свой вопрос — напишите, ответим в мессенджере.</p>
-      ${chatBtn(c, { text: c.messages.faq, label: 'Задать свой вопрос', cls: 'btn--cobalt' })}
+      ${actionBtn('faq', { label: 'Задать свой вопрос', cls: 'btn btn--cobalt' })}
     </div>
     <div class="faq__list">${items}</div>
   </div>

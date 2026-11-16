@@ -9,11 +9,13 @@ import './styles/hero.css';
 import './styles/deals.css';
 import './styles/breakdown.css';
 import './styles/check.css';
+import './styles/calc.css';
 import './styles/steps.css';
 import './styles/team.css';
 import './styles/reviews.css';
 import './styles/models160.css';
 import './styles/faq.css';
+import './styles/next.css';
 import './styles/pick.css';
 
 import company from '@company';
@@ -25,6 +27,7 @@ import { initMessengerLinks } from './client/messenger.js';
 import { initDeals } from './client/deals.js';
 import { initFlip } from './client/flip.js';
 import { initQuiz } from './client/quiz.js';
+import { initActions } from './client/actions.js';
 import { initDemoNote } from './client/demo.js';
 
 initHeader();
@@ -33,6 +36,7 @@ document.querySelectorAll('[data-arc]').forEach(initArc);
 initHeroVideo();
 document.querySelectorAll('[data-deals]').forEach((el) => initDeals(el, company));
 document.querySelectorAll('[data-flip]').forEach(initFlip);
+initActions();
 initQuiz(company);
 initDemoNote();
 

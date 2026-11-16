@@ -1,0 +1,135 @@
+/* ===== «Нашли машину? Посчитаем её под ключ» и строка «Ищете конкретную модель?» ===== */
+
+/* Поле ввода: общее для обеих форм */
+.field {
+  display: block;
+}
+.field input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px; /* 16 px: iOS не приближает страницу при фокусе */
+  transition: border-color var(--t-fast) var(--ease);
+}
+.field input::placeholder {
+  color: var(--ink-2);
+}
+.field input:hover {
+  border-color: var(--ink-2);
+}
+.field input:focus {
+  outline: none;
+  border-color: var(--cobalt);
+  box-shadow: inset 0 0 0 1px var(--cobalt);
+}
+
+.calc-link__grid {
+  display: grid;
+  gap: var(--s-6);
+}
+.calc-link .h2 {
+  max-width: 16ch;
+  margin-bottom: var(--s-4);
+}
+.calc-link__list {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+.calc-link__list li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: var(--s-3);
+  max-width: 52ch;
+}
+.calc-link__ico {
+  width: 24px;
+  height: 24px;
+  color: var(--cobalt);
+}
+.calc-link__form {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-5);
+  background: var(--paper);
+}
+.calc-link__alts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 var(--s-2);
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+/* MAX и ВКонтакте: тихие ссылки-кнопки, зона нажатия 44 px */
+.calc-link__alt {
+  min-height: 44px;
+  padding-inline: 4px;
+  font-size: var(--fs-small);
+}
+.calc-link__note {
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+  text-align: center;
+}
+
+@media (min-width: 1100px) {
+  .calc-link__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--s-8);
+    align-items: center;
+  }
+  .calc-link__form {
+    padding: var(--s-6);
+  }
+}
+
+/* Строка «Ищете конкретную модель?» под лентой привезённых машин */
+.watch {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  padding: var(--s-5);
+  border-radius: var(--r-m);
+  background: var(--white);
+}
+.watch__title {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.watch__text p {
+  max-width: 52ch;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.watch .btn {
+  min-height: 52px;
+}
+@media (min-width: 768px) {
+  .watch {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: end;
+  }
+  .watch__text {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1100px) {
+  .watch {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 3fr) auto;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-5) var(--s-6);
+  }
+  .watch__text {
+    grid-column: auto;
+  }
+}

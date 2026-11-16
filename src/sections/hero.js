@@ -1,7 +1,7 @@
 // 1. Обещание. Кобальтовый экран: заголовок со снимками между словами, справа колонка с оффером,
 // ниже карусель привезённых машин по дуге. Заголовок — обычный текст в h1, снимки стоят в потоке строки.
 import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn, proofHTML } from '../lib/ui.js';
+import { icon, photo, actionBtn, proofHTML } from '../lib/ui.js';
 import { primaryKey } from '../lib/messenger.js';
 import { mln, saving, carSpecs, deliveryTagHTML } from '../lib/format.js';
 
@@ -50,7 +50,7 @@ function arcHTML(c) {
         <p class="arc__l2">${carSpecs(d).map(esc).join(' · ')}</p>
         <p class="arc__l3">Экономия ${mln(saving(d))}</p>
         <div class="arc__act">
-          ${chatBtn(c, { key, text: c.messages.sameCar(d), label: 'Хочу такую же', cls: 'btn--white btn--sm' })}
+          ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--white btn--sm' })}
         </div>
       </div>`,
     )
@@ -78,8 +78,9 @@ export function renderHero(c) {
     <div class="hero__aside">
       <p class="hero__lead">${esc(c.hero.lead)}</p>
       <div class="hero__cta">
-        ${chatBtn(c, { key, text: c.messages.pick, label: c.hero.cta, cls: 'btn--white btn--lg', attrs: 'data-hero-cta' })}
+        <button class="btn btn--white btn--lg" type="button" data-quiz-start aria-haspopup="dialog">${esc(c.hero.cta)}</button>
         <a class="link link--on-cobalt" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}Прочитать договор</a>
+        <a class="link link--on-cobalt hero__calc" href="#calc">Уже нашли машину? Пришлите ссылку, посчитаем${icon('arrow-down')}</a>
       </div>
       ${proofHTML(c)}
     </div>

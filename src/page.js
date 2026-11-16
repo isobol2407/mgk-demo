@@ -9,6 +9,8 @@ import { renderDeals } from './sections/deals.js';
 import { renderBreakdown } from './sections/breakdown.js';
 import { renderSteps } from './sections/steps.js';
 import { renderCheck } from './sections/check.js';
+import { renderCalc } from './sections/calc.js';
+import { renderNextModal } from './sections/next.js';
 import { renderTeam } from './sections/team.js';
 import { renderReviews } from './sections/reviews.js';
 import { renderModels160 } from './sections/models160.js';
@@ -25,6 +27,7 @@ ${renderHeader(company)}
 ${renderHero(company)}
 ${renderDeals(company)}
 ${renderBreakdown(company)}
+${renderCalc(company)}
 ${renderCheck(company)}
 ${renderSteps(company)}
 ${renderTeam(company)}
@@ -35,6 +38,7 @@ ${renderPick(company)}
 </main>
 ${renderDemoNote(company)}
 ${renderQuiz(company)}
+${renderNextModal(company)}
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>`;
 
   return {

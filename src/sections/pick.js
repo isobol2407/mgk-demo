@@ -105,49 +105,49 @@ export function renderDemoNote(c) {
 </aside>`;
 }
 
-// Модалка квиза: три шага и финальный экран. Открывается сразу на втором шаге
-// с уже выбранным бюджетом. Поведение в src/client/quiz.js.
+// Модалка квиза: 6 шагов. Открывается с первого шага (кнопка «Подобрать машину» на первом
+// экране) или сразу со второго, если бюджет выбран в блоке. После выбора мессенджера
+// квиз закрывается и открывается модалка «Что произойдёт дальше» со сводкой ответов.
+// Поведение в src/client/quiz.js.
 export function renderQuiz(c) {
-  const key = primaryKey(c);
-  const budgets = budgetOptions(c)
-    .map((o) => `<button class="opt opt--ink" type="button" aria-pressed="false" data-quiz-budget="${o.id}">${esc(o.label)}</button>`)
-    .join('');
-  const conditions = c.quiz.conditions
-    .map((o) => `<button class="opt opt--ink" type="button" aria-pressed="false" data-quiz-condition="${o.id}">${esc(o.label)}</button>`)
-    .join('');
-  const channels = c.quiz.channels
+  const q = c.quiz;
+  const opts = (list, attr) =>
+    list.map((o) => `<button class="opt opt--ink" type="button" aria-pressed="false" ${attr}="${o.id}">${esc(o.label)}</button>`).join('');
+  const budgets = opts(budgetOptions(c), 'data-quiz-budget');
+  const channels = q.channels
     .filter((k) => c.messengers[k])
     .map((k) => `<button class="opt opt--ink" type="button" aria-pressed="false" data-quiz-channel="${k}">${icon(messengerIcon(k))}<span>${esc(messengerLabel(c, k))}</span></button>`)
     .join('');
+  const pane = (n, title, body, hidden = true) => `
+    <div class="quiz__pane" data-quiz-pane="${n}"${hidden ? ' hidden' : ''}>
+      <h2 class="quiz__title display" tabindex="-1">${title}</h2>
+      ${body}
+    </div>`;
 
   return `
-<dialog class="quiz" data-quiz aria-label="Подбор машины: три вопроса">
+<dialog class="quiz" data-quiz aria-label="Подбор машины: шесть вопросов">
   <div class="quiz__box">
     <header class="quiz__head">
-      <p class="quiz__step" data-quiz-step>Шаг 2 из 3</p>
+      <p class="quiz__step" data-quiz-step>Шаг 1 из 6</p>
       <button class="icon-btn quiz__close" type="button" aria-label="Закрыть" data-quiz-close>${icon('close')}</button>
-      <div class="quiz__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="quiz__bar" aria-hidden="true">${'<i></i>'.repeat(6)}</div>
     </header>
-    <div class="quiz__pane" data-quiz-pane="1" hidden>
-      <h2 class="quiz__title display" tabindex="-1">Какой бюджет под ключ?</h2>
-      <div class="quiz__opts">${budgets}</div>
-    </div>
-    <div class="quiz__pane" data-quiz-pane="2">
-      <h2 class="quiz__title display" tabindex="-1">Новая или с пробегом?</h2>
-      <div class="quiz__opts">${conditions}</div>
-    </div>
-    <div class="quiz__pane" data-quiz-pane="3" hidden>
-      <h2 class="quiz__title display" tabindex="-1">Куда прислать подборку?</h2>
-      <div class="quiz__opts">${channels}</div>
-      <p class="quiz__hint">Номер телефона не нужен, ответим в мессенджере.</p>
-    </div>
-    <div class="quiz__pane" data-quiz-pane="done" hidden>
-      <h2 class="quiz__title display" tabindex="-1">Готово.</h2>
-      <p class="quiz__text">Откройте чат и отправьте сообщение, подборка придёт туда.</p>
-      <p class="quiz__msg" data-quiz-msg></p>
-      <a class="btn btn--cobalt btn--lg quiz__go" ${chatAttrs(c, key, '')} data-quiz-go><svg class="i" aria-hidden="true"><use href="#i-${messengerIcon(key)}" data-quiz-go-icon /></svg><span data-quiz-go-label>Открыть ${esc(messengerLabel(c, key))}</span></a>
-      <p class="quiz__hint" data-quiz-hint hidden>Текст сообщения скопируется при нажатии: вставьте его в чат.</p>
-    </div>
+    ${pane(1, 'Какой бюджет под ключ?', `<div class="quiz__opts">${budgets}</div>`, false)}
+    ${pane(2, 'Для чего машина?', `<div class="quiz__opts">${opts(q.purposes, 'data-quiz-purpose')}</div>`)}
+    ${pane(3, 'Новая или с пробегом?', `<div class="quiz__opts">${opts(q.conditions, 'data-quiz-condition')}</div>`)}
+    ${pane(
+      4,
+      'Есть модель на примете?',
+      `<form class="quiz__model" data-quiz-model-form>
+        <label class="field"><span class="vh">Модель</span><input name="model" type="text" placeholder="Например, Mazda CX-5" autocomplete="off" data-quiz-model /></label>
+        <div class="quiz__model-act">
+          <button class="btn btn--cobalt" type="submit">Дальше</button>
+          <button class="link link--ink quiz__skip" type="button" data-quiz-skip>Пропустить</button>
+        </div>
+      </form>`,
+    )}
+    ${pane(5, 'Когда хотите получить машину?', `<div class="quiz__opts">${opts(q.timings, 'data-quiz-timing')}</div>`)}
+    ${pane(6, 'Куда прислать подборку?', `<div class="quiz__opts">${channels}</div><p class="quiz__hint">Номер телефона не нужен.</p>`)}
     <footer class="quiz__foot">
       <button class="link link--ink" type="button" data-quiz-back>${icon('chevron-l')}Назад</button>
     </footer>

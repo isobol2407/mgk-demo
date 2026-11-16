@@ -3,7 +3,8 @@
 // Диаграмма переворачивается в таблицу с полным расчётом. На телефоне переворота нет:
 // таблица раскрывается под диаграммой.
 import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
-import { icon, photo, chatBtn } from '../lib/ui.js';
+import { icon, photo } from '../lib/ui.js';
+import { postHref } from '../lib/links.js';
 import { rub, carSpecs, deliveryText } from '../lib/format.js';
 
 // Сегменты диаграммы: оттенки одного кобальта, от самого тёмного к самому светлому
@@ -22,9 +23,7 @@ function carCard(c, d) {
         <span class="car__line">Выдали: ${esc(deliveryText(d))}</span>
         <span class="link link--muted car__link">Пост о выдаче${icon('arrow-ur')}</span>
       </span>`;
-  return isAsk(d.post)
-    ? `<div class="car card">${inner}</div>`
-    : `<a class="car card" href="${esc(d.post)}" target="_blank" rel="noopener">${inner}</a>`;
+  return `<a class="car card" href="${esc(postHref(c, d))}" target="_blank" rel="noopener">${inner}</a>`;
 }
 
 function detailsHTML(row) {
@@ -98,7 +97,7 @@ function conditionsCard(c, b) {
     <div class="cond card">
       <h3 class="display h3">Если что-то пошло не так</h3>
       <ul class="cond__list">${items}</ul>
-      ${chatBtn(c, { text: c.messages.calc(c.cities[0]), label: 'Рассчитать мою машину', cls: 'btn--cobalt' })}
+      <a class="btn btn--cobalt" href="#calc">${icon('arrow-down')}<span>Рассчитать мою машину</span></a>
     </div>`;
 }
 
