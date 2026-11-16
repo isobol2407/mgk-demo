@@ -57,31 +57,6 @@
   grid-column: 1 / -1;
 }
 
-/* Каталог одним сообщением */
-.catalog {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-  padding: var(--s-5);
-}
-.catalog :focus-visible {
-  outline-color: var(--cobalt);
-}
-.catalog p {
-  color: var(--ink-2);
-}
-.catalog__act {
-  display: grid;
-  gap: var(--s-2);
-  margin-top: auto;
-  padding-top: var(--s-4);
-}
-.catalog__other {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-2);
-}
-
 /* Контакты */
 .contacts {
   display: grid;
@@ -181,30 +156,12 @@
   }
 }
 @media (min-width: 1100px) {
-  .pick__grid {
-    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-    gap: 40px;
-    align-items: end;
-  }
   .pick__opts {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .opt {
     min-height: 88px;
     font-size: 30px;
-  }
-  /* Каталог выше левой колонки: чуть выходит над заголовком и под кнопки бюджета.
-     Пустое место внутри оставлено под будущую графику */
-  .catalog {
-    padding: var(--s-6);
-    align-self: stretch;
-    /* Низ ниже кнопок бюджета на 24 + 64 px (просили ~60, ближайший шаг шкалы — 64) */
-    margin-block: calc(var(--s-6) * -1) calc((var(--s-5) + var(--s-8)) * -1);
-  }
-  /* Каталог выходит вниз за сетку на 88 px: отступ до разделителя контактов
-     считаем от низа каталога, а не от низа сетки */
-  .pick__grid + .contacts {
-    margin-top: calc(var(--s-9) + var(--s-5) + var(--s-8));
   }
   .contacts {
     grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 2fr) minmax(0, 2fr);

@@ -76,7 +76,7 @@
   border-radius: var(--r-m);
   background: var(--paper);
 }
-/* Карточки документов. Синяя одна: на десктопе отчёт, на телефоне договор.
+/* Карточка договора: на телефоне синяя, от 768 px светло-серая.
    В договоре крупный лист со скрепкой уходит за нижний и правый край и чуть
    приподнимается при наведении */
 .doc--contract {
@@ -99,22 +99,6 @@
     background: var(--white);
     border-color: var(--white);
     color: var(--cobalt);
-  }
-}
-/* От 768 px: синий отчёт, договор на светло-сером */
-@media (min-width: 768px) {
-  .doc--report {
-    background: var(--cobalt);
-    color: var(--white);
-  }
-  .doc--report .doc__text p {
-    color: var(--on-cobalt-2);
-  }
-  .doc--report :focus-visible {
-    outline-color: var(--white);
-  }
-  .doc--report .doc__link {
-    color: var(--white);
   }
 }
 .doc__text,
@@ -210,7 +194,7 @@
 
 @media (min-width: 768px) {
   .docs {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
   }
   .doc {
     padding: var(--s-6);

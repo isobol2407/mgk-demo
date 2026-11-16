@@ -8,6 +8,7 @@ import './styles/header.css';
 import './styles/hero.css';
 import './styles/deals.css';
 import './styles/breakdown.css';
+import './styles/check.css';
 import './styles/steps.css';
 import './styles/pick.css';
 

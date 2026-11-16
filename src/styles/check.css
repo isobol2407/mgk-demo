@@ -1,0 +1,64 @@
+/* ===== 6. Проверка машины ===== */
+.check__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+.check .h2 {
+  max-width: 20ch;
+  margin-bottom: var(--s-4);
+}
+/* Три снимка из отчёта внахлёст, в белых рамках */
+.check__photos {
+  display: flex;
+  justify-content: center;
+  padding: var(--s-2) var(--s-4) var(--s-4);
+}
+.check .check__snap {
+  width: 48%;
+  max-width: 300px;
+}
+.check .check__snap + .check__snap {
+  margin-left: -12%;
+}
+.check .check__snap:nth-child(2) {
+  margin-top: var(--s-6);
+}
+.check__list {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+.check__item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: start;
+}
+.check__ico {
+  width: 28px;
+  height: 28px;
+  color: var(--cobalt);
+}
+.check__name {
+  margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.check__item p {
+  max-width: 46ch;
+  color: var(--ink-2);
+}
+.check__link {
+  margin-top: var(--s-6);
+}
+
+@media (min-width: 900px) {
+  .check__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    align-items: center;
+    gap: var(--s-8);
+  }
+  .check__photos {
+    order: 0;
+  }
+}

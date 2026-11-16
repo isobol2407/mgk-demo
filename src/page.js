@@ -8,6 +8,7 @@ import { renderHero } from './sections/hero.js';
 import { renderDeals } from './sections/deals.js';
 import { renderBreakdown } from './sections/breakdown.js';
 import { renderSteps } from './sections/steps.js';
+import { renderCheck } from './sections/check.js';
 import { renderPick, renderQuiz, renderDemoNote } from './sections/pick.js';
 
 export function renderPage(company) {
@@ -20,6 +21,7 @@ ${renderHeader(company)}
 ${renderHero(company)}
 ${renderDeals(company)}
 ${renderBreakdown(company)}
+${renderCheck(company)}
 ${renderSteps(company)}
 ${renderPick(company)}
 </main>

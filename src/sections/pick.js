@@ -1,5 +1,5 @@
 // 5. Подбор и контакты. Первый вопрос квиза стоит прямо в блоке, остальные в модалке.
-// Рядом карточка «Каталог одним сообщением», ниже контакты.
+// Ниже контакты. Каталог одним сообщением — в блоке «Машины до 160 л.с.».
 import { esc, isAsk, askBadge, isHidden } from '../lib/marks.js';
 import { icon, chatBtn, telHref } from '../lib/ui.js';
 import { chatAttrs, primaryKey, messengerLabel, messengerIcon } from '../lib/messenger.js';
@@ -10,10 +10,6 @@ export function renderPick(c) {
   const key = primaryKey(c);
   const opts = budgetOptions(c)
     .map((o) => `<button class="opt" type="button" data-quiz-open="${o.id}">${esc(o.label)}</button>`)
-    .join('');
-  const [mainChannel, ...otherChannels] = c.catalog.channels;
-  const catalogOther = otherChannels
-    .map((k) => chatBtn(c, { key: k, text: c.messages.catalog, label: messengerLabel(c, k), cls: 'btn--line' }))
     .join('');
 
   const offices = c.contacts.offices
@@ -60,14 +56,6 @@ export function renderPick(c) {
         <p class="pick__q display h3" id="pick-q">Выберите бюджет</p>
         <div class="pick__opts" role="group" aria-labelledby="pick-q">${opts}</div>
       </div>
-      <aside class="catalog card">
-        <h3 class="display h3">${esc(c.catalog.title)}</h3>
-        <p>${esc(c.catalog.text)}</p>
-        <div class="catalog__act">
-          ${chatBtn(c, { key: mainChannel, text: c.messages.catalog, label: `Получить в ${messengerLabel(c, mainChannel)}`, cls: 'btn--cobalt btn--block' })}
-          <div class="catalog__other">${catalogOther}</div>
-        </div>
-      </aside>
     </div>
 
     <div class="contacts" id="contacts">
