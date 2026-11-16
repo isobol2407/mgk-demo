@@ -43,6 +43,8 @@ const renderPage = () => {
 
 // 4321 и 4322 заняты другими проектами
 export default defineConfig({
+  // Относительные пути: сайт работает в любой папке (GitHub Pages, FTP, свой домен).
+  base: './',
   plugins: [renderPage()],
   resolve: { alias: { '@company': companyFile } },
   server: { port: 4323, strictPort: true },

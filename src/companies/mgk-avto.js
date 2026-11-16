@@ -78,7 +78,7 @@ const company = {
   },
 
   // Договор: PDF. Ссылки на сайте МГК не нашёл, стоит заглушка.
-  contract: { url: '/media/dogovor-demo.pdf', placeholder: true },
+  contract: { url: 'media/dogovor-demo.pdf', placeholder: true },
 
   // ── Тексты сообщений в мессенджер ──────────────────────────────────────────
   // Тексты из вайрфрейма: sameCar, calc, quiz. Остальные в вайрфрейме не заданы
@@ -109,7 +109,7 @@ const company = {
       { type: 'image', src: 'shot-1', alt: 'Выдача машины у офиса', tilt: -5 },
       {
         type: 'video',
-        src: '/media/vydacha.mp4',
+        src: 'media/vydacha.mp4',
         poster: 'shot-2',
         alt: 'Видео выдачи машины',
         caption: 'Выдача в Ижевске, 12.10.2026',

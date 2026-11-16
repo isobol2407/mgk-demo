@@ -9,7 +9,7 @@ export const icon = (name, cls = '') =>
 // Фото из public/media: два размера WebP, размеры заданы, чтобы вёрстка не прыгала.
 export function photo(name, { alt = '', widths = [480, 960], ratio = 3 / 2, sizes = '100vw', cls = '', eager = false } = {}) {
   const [w1, w2] = widths;
-  return `<img${cls ? ` class="${cls}"` : ''} src="/media/${name}-${w1}.webp" srcset="/media/${name}-${w1}.webp ${w1}w, /media/${name}-${w2}.webp ${w2}w" sizes="${sizes}" width="${w2}" height="${Math.round(w2 / ratio)}" alt="${esc(alt)}" decoding="async"${eager ? '' : ' loading="lazy"'} draggable="false" />`;
+  return `<img${cls ? ` class="${cls}"` : ''} src="media/${name}-${w1}.webp" srcset="media/${name}-${w1}.webp ${w1}w, media/${name}-${w2}.webp ${w2}w" sizes="${sizes}" width="${w2}" height="${Math.round(w2 / ratio)}" alt="${esc(alt)}" decoding="async"${eager ? '' : ' loading="lazy"'} draggable="false" />`;
 }
 
 // Кнопка в мессенджер: всегда с иконкой мессенджера, чтобы было видно, куда попадёшь.

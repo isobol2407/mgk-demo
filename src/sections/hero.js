@@ -15,7 +15,7 @@ function shotHTML(shot, i) {
     const cap =
       (shot.caption ? `<span class="shot__cap">${esc(shot.caption)}</span>` : '') + (shot.demo ? demoBadge() : '');
     return `<span class="${cls}" style="${style}" data-shot aria-hidden="true">
-      <video class="shot__media" muted loop playsinline preload="none" poster="/media/${shot.poster}-480.webp" width="480" height="360" tabindex="-1" data-hero-video><source src="${shot.src}" type="video/mp4" /></video>${cap}</span>`;
+      <video class="shot__media" muted loop playsinline preload="none" poster="media/${shot.poster}-480.webp" width="480" height="360" tabindex="-1" data-hero-video><source src="${shot.src}" type="video/mp4" /></video>${cap}</span>`;
   }
   return `<span class="${cls}" style="${style}" data-shot aria-hidden="true">${photo(shot.src, { alt: '', widths: [240, 480], ratio: 4 / 3, sizes: '160px', cls: 'shot__media' })}</span>`;
 }
