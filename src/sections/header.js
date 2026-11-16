@@ -8,6 +8,8 @@ export const NAV = [
   { href: '#deals', label: 'Привезённые' },
   { href: '#price', label: 'Цена' },
   { href: '#steps', label: 'Как работаем' },
+  { href: '#reviews', label: 'Отзывы' },
+  { href: '#faq', label: 'Вопросы' },
   { href: '#contacts', label: 'Контакты' },
 ];
 

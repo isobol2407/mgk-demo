@@ -1,0 +1,65 @@
+/* ===== 10. Вопросы ===== */
+.faq__grid {
+  display: grid;
+  gap: var(--s-6);
+}
+.faq__head {
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+.faq__head .btn {
+  justify-self: start;
+  margin-top: var(--s-2);
+}
+.faq__list {
+  border-top: 1px solid var(--line);
+}
+.qa {
+  border-bottom: 1px solid var(--line);
+}
+.qa__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: 56px;
+  padding: var(--s-4) 0;
+  font-size: 17px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease);
+}
+.qa__q::-webkit-details-marker {
+  display: none;
+}
+.qa__q:hover {
+  color: var(--cobalt);
+}
+.qa__chev {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--ink-2);
+  transition: transform var(--t) var(--ease);
+}
+.qa[open] .qa__chev {
+  transform: rotate(180deg);
+}
+.qa__a {
+  max-width: 62ch;
+  padding: 0 var(--s-6) var(--s-5) 0;
+  color: var(--ink-2);
+}
+
+@media (min-width: 1100px) {
+  .faq__grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--s-8);
+  }
+  .faq__head {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-6));
+  }
+}

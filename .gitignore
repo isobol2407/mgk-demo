@@ -5,6 +5,7 @@ dist
 media-src/*.jpg
 media-src/*.jpeg
 media-src/*.png
+media-src/*.webp
 media-src/*.webm
 media-src/*.mp4
 

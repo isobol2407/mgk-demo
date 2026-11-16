@@ -1,0 +1,67 @@
+/* ===== 7. Команда ===== */
+.team .h2 {
+  max-width: 18ch;
+}
+.team :focus-visible {
+  outline-color: var(--white);
+}
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-6) var(--gap);
+}
+.person {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+/* Портрет в белой рамке, как снимки в заголовке */
+.team .person__photo {
+  width: 100%;
+  margin-bottom: var(--s-3);
+}
+.team .person__photo img {
+  aspect-ratio: 4 / 5;
+}
+.person__name {
+  font-weight: 600;
+}
+.person__role {
+  font-size: var(--fs-small);
+  color: var(--on-cobalt-2);
+}
+.team__foot {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line-on-cobalt);
+}
+.team__more {
+  font-size: 15px;
+  color: var(--on-cobalt-2);
+}
+.team__more .i {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+.team__foot .btn {
+  justify-self: start;
+}
+
+@media (min-width: 768px) {
+  .team__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .team__foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+@media (min-width: 1100px) {
+  .team__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}

@@ -10,6 +10,10 @@ import './styles/deals.css';
 import './styles/breakdown.css';
 import './styles/check.css';
 import './styles/steps.css';
+import './styles/team.css';
+import './styles/reviews.css';
+import './styles/models160.css';
+import './styles/faq.css';
 import './styles/pick.css';
 
 import company from '@company';

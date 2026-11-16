@@ -9,6 +9,10 @@ import { renderDeals } from './sections/deals.js';
 import { renderBreakdown } from './sections/breakdown.js';
 import { renderSteps } from './sections/steps.js';
 import { renderCheck } from './sections/check.js';
+import { renderTeam } from './sections/team.js';
+import { renderReviews } from './sections/reviews.js';
+import { renderModels160 } from './sections/models160.js';
+import { renderFaq } from './sections/faq.js';
 import { renderPick, renderQuiz, renderDemoNote } from './sections/pick.js';
 
 export function renderPage(company) {
@@ -23,6 +27,10 @@ ${renderDeals(company)}
 ${renderBreakdown(company)}
 ${renderCheck(company)}
 ${renderSteps(company)}
+${renderTeam(company)}
+${renderReviews(company)}
+${renderModels160(company)}
+${renderFaq(company)}
 ${renderPick(company)}
 </main>
 ${renderDemoNote(company)}

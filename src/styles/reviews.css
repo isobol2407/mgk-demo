@@ -1,0 +1,90 @@
+/* ===== 8. Отзывы: сообщения в стиле Telegram ===== */
+.reviews-sec__head {
+  display: grid;
+  gap: var(--s-5);
+  margin-bottom: var(--s-6);
+}
+.reviews-sec .h2 {
+  max-width: 18ch;
+}
+/* Сообщения колонками разной высоты, как переписка */
+.msgs {
+  columns: 1;
+  column-gap: var(--gap);
+}
+.msg {
+  position: relative;
+  break-inside: avoid;
+  margin: 0 0 var(--gap) 10px;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  background: var(--white);
+  border-radius: var(--r-m) var(--r-m) var(--r-m) 2px;
+}
+/* Хвостик пузыря слева внизу */
+.msg::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  bottom: 0;
+  width: 10px;
+  height: 14px;
+  background: var(--white);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.msg__from {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.msg__from b {
+  color: var(--cobalt);
+  font-weight: 600;
+}
+.msg__car {
+  margin-top: 2px;
+  font-size: var(--fs-micro);
+  color: var(--ink-2);
+}
+.msg__text {
+  margin-top: var(--s-3);
+  font-size: 15px;
+  line-height: 1.5;
+}
+/* Источник отзыва: тихая подпись в углу, как время в Telegram */
+.msg__src {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  margin-top: var(--s-2);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.msg__src .i {
+  width: 12px;
+  height: 12px;
+}
+a.msg__src:hover {
+  color: var(--ink);
+}
+.reviews-sec__more {
+  margin-top: var(--s-4);
+}
+
+@media (min-width: 768px) {
+  .reviews-sec__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+  .reviews-sec__proof {
+    padding-top: 6px;
+  }
+  .msgs {
+    columns: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .msgs {
+    columns: 3;
+  }
+}

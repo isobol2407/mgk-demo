@@ -12,6 +12,8 @@ mkdirSync(OUT, { recursive: true });
 // ratio: ширина / высота кадра на странице. widths: 1x и 2x.
 const CAR = { ratio: 3 / 2, widths: [480, 960] };
 const SHOT = { ratio: 4 / 3, widths: [240, 480] };
+// Портреты команды с сайта МГК (mgk-auto.ru), исходник 560×560
+const TEAM = { ratio: 4 / 5, widths: [280, 448], position: 'top' };
 
 const JOBS = [
   { file: 'monjaro.jpg', name: 'monjaro', ...CAR },
@@ -23,6 +25,17 @@ const JOBS = [
   { file: 'shot-monjaro.jpg', name: 'shot-1', ...SHOT },
   { file: 'shot-l7.jpg', name: 'shot-2', ...SHOT },
   { file: 'shot-cx5.jpg', name: 'shot-3', ...SHOT },
+  { file: 'team-mirzahamdamov.png', name: 'team-mirzahamdamov', ...TEAM },
+  { file: 'team-kosarev.png', name: 'team-kosarev', ...TEAM },
+  { file: 'team-fedorov.png', name: 'team-fedorov', ...TEAM },
+  { file: 'team-kazantsev.png', name: 'team-kazantsev', ...TEAM },
+  { file: 'team-menshchikov.png', name: 'team-menshchikov', ...TEAM },
+  { file: 'team-lambin.png', name: 'team-lambin', ...TEAM },
+  // Модели до 160 л.с.: фото из карточек на сайте МГК
+  { file: 'm160-cx5.jpg', name: 'm160-cx5', ...CAR },
+  { file: 'm160-qashqai.jpg', name: 'm160-qashqai', ...CAR },
+  { file: 'm160-seltos.png', name: 'm160-seltos', ...CAR },
+  { file: 'm160-cx30.webp', name: 'm160-cx30', ...CAR },
 ];
 
 for (const job of JOBS) {
