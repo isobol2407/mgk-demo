@@ -15,9 +15,14 @@
   gap: var(--gap);
 }
 /* Три условия и лаймовая карточка-кнопка */
+/* Левая часть: условия и под ними карточка-кнопка каталога */
+.m160__side {
+  display: grid;
+  gap: var(--gap);
+}
 .m160__rules {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap);
 }
 .m160__rule {
@@ -143,6 +148,7 @@
 
 /* Телефон: условия в столбик, модели горизонтальными карточками одной высоты */
 @media (max-width: 767px) {
+
   .m160__rules {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--s-2);
@@ -188,11 +194,31 @@
   }
 }
 
+/* Телефон и планшет: условия → машины → каталог в конце блока, после машин */
+@media (max-width: 1099px) {
+  .m160__side {
+    display: contents;
+  }
+  .m160__rules {
+    order: 1;
+  }
+  .m160__list {
+    order: 2;
+  }
+  .m160__cta-wrap {
+    order: 3;
+  }
+}
+
 /* Десктоп: две колонки. Слева условия по высоте текста и кнопка «Получить каталог»,
    которая забирает остаток высоты и становится главным акцентом блока; справа машины 2×2 */
 @media (min-width: 1100px) {
   .m160__layout {
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+  .m160__side {
+    display: flex;
+    flex-direction: column;
   }
   .m160__rules {
     display: flex;

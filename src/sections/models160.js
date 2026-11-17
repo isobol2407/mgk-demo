@@ -34,13 +34,13 @@ export function renderModels160(c) {
   const { tag, attrs } = actionAttrs('catalog160', {});
   const icons = c.catalog.channels.map((k) => icon(messengerIcon(k))).join('');
   const cta = `
-    <li class="m160__cta-wrap">
+    <div class="m160__cta-wrap">
       <${tag} class="m160__cta" ${attrs}>
         <span class="m160__cta-t display">Получить каталог</span>
         <span class="m160__cta-sub">Модели и цены под ключ одним сообщением</span>
         <span class="m160__cta-icons" aria-label="Telegram, MAX или ВКонтакте">${icons}</span>
       </${tag}>
-    </li>`;
+    </div>`;
   return `
 <section class="m160 section section--cobalt" id="models">
   <div class="container">
@@ -49,7 +49,10 @@ export function renderModels160(c) {
       <p class="sub">${esc(m.note)}</p>
     </header>
     <div class="m160__layout">
-      <ul class="m160__rules">${rules}${cta}</ul>
+      <div class="m160__side">
+        <ul class="m160__rules">${rules}</ul>
+        ${cta}
+      </div>
       <ul class="m160__list">${cards}</ul>
     </div>
   </div>
