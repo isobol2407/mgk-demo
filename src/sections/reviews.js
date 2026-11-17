@@ -1,33 +1,64 @@
-// 8. Отзывы. Оформлены как сообщения в Telegram: пузырь, имя, город, машина.
-// Это вёрстка, а не снимки экрана. Тексты дословно из настоящих отзывов, у каждого
-// подпись, откуда он взят, и ссылка на оригинал. Справа рейтинги со ссылками на карты.
+// 8. Отзывы, по референсу gohelper.io. Один экран: слева большая карточка с перелистыванием
+// настоящих отзывов с сайта МГК в виде сообщений Telegram, справа четыре карточки
+// со скринами переписок (пока размытые заглушки: по клику — «здесь будут ваши отзывы»).
+// Внизу ссылка на все отзывы на картах. Перелистывание — src/client/reviews.js.
 import { esc } from '../lib/marks.js';
-import { extLink, proofHTML } from '../lib/ui.js';
+import { icon, extLink, proofHTML } from '../lib/ui.js';
+import { actionAttrs } from '../lib/actions.js';
+
+// Размытая заглушка скрина переписки: пузыри разной длины вместо текста
+function chatStub(seed) {
+  const widths = [[70, 45, 80], [55, 85, 40, 60], [80, 50, 65], [45, 75, 55, 70]][seed % 4];
+  return `<span class="rv-stub" aria-hidden="true">${widths
+    .map((w, i) => `<span class="rv-stub__b${i % 2 ? ' rv-stub__b--me' : ''}" style="width:${w}%"></span>`)
+    .join('')}</span>`;
+}
 
 export function renderReviews(c) {
   const r = c.reviews;
   if (!r?.list?.length) return '';
-  const items = r.list
+  const slides = r.list
     .map(
-      (x) => `
-        <li class="msg">
-          <p class="msg__from"><b>${esc(x.name)}</b> · ${esc(x.city)}</p>
-          <p class="msg__car">${esc(x.car)}</p>
-          <p class="msg__text">${esc(x.text)}</p>
-          ${extLink(esc(r.source.label), r.source.url, { cls: 'msg__src' })}
-        </li>`,
+      (x, i) => `
+        <figure class="rv-slide${i === 0 ? ' is-active' : ''}" data-rv-slide${i === 0 ? '' : ' hidden'}>
+          <blockquote class="rv-msg">
+            <span class="rv-msg__from"><b>${esc(x.name)}</b> · ${esc(x.city)}</span>
+            <span class="rv-msg__text">${esc(x.text)}</span>
+          </blockquote>
+          <figcaption class="rv-slide__car">${esc(x.car)}</figcaption>
+        </figure>`,
     )
+    .join('');
+  const shots = (r.shots ?? [])
+    .map((s, i) => {
+      const { tag, attrs } = actionAttrs('reviews', { ctx: { title: s.title } });
+      return `
+        <${tag} class="rv-shot" ${attrs}>
+          <span class="rv-shot__t display">${esc(s.title)}</span>
+          <span class="rv-shot__screen">${chatStub(i)}</span>
+        </${tag}>`;
+    })
     .join('');
   const y = c.ratings?.yandex;
   return `
-<section class="reviews-sec section section--paper" id="reviews">
+<section class="rv section section--paper" id="reviews">
   <div class="container">
-    <header class="reviews-sec__head">
-      <h2 class="display h2">${esc(r.title)}</h2>
-      ${proofHTML(c, { variant: 'links', cls: 'reviews-sec__proof' })}
-    </header>
-    <ul class="msgs">${items}</ul>
-    ${y?.url ? `<p class="reviews-sec__more">${extLink('Все отзывы на Яндекс.Картах', y.url, { cls: 'link' })}</p>` : ''}
+    <div class="rv__grid">
+      <div class="rv-main card">
+        <h2 class="display h2 rv-main__h">${esc(r.title)}</h2>
+        <div class="rv-main__slider" data-rv>
+          <button class="rv-arrow rv-arrow--prev" type="button" aria-label="Предыдущий отзыв" data-rv-prev>${icon('chevron-l')}</button>
+          <div class="rv-main__slides" aria-live="polite">${slides}</div>
+          <button class="rv-arrow rv-arrow--next" type="button" aria-label="Следующий отзыв" data-rv-next>${icon('chevron-r')}</button>
+        </div>
+        <p class="rv-main__src">${extLink(esc(r.source.label), r.source.url, { cls: 'link link--muted' })}</p>
+      </div>
+      <div class="rv__shots">${shots}</div>
+    </div>
+    <div class="rv__foot">
+      ${proofHTML(c, { cls: 'rv__proof' })}
+      ${y?.url ? extLink('Все отзывы на Яндекс.Картах', y.url, { cls: 'btn btn--cobalt' }) : ''}
+    </div>
   </div>
 </section>`;
 }

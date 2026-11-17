@@ -1,90 +1,198 @@
-/* ===== 8. Отзывы: сообщения в стиле Telegram ===== */
-.reviews-sec__head {
+/* ===== 8. Отзывы, по референсу gohelper.io: один экран, большая карточка и четыре скрина ===== */
+.rv__grid {
   display: grid;
-  gap: var(--s-5);
-  margin-bottom: var(--s-6);
+  gap: var(--gap);
 }
-.reviews-sec .h2 {
-  max-width: 18ch;
+.rv-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  overflow: hidden;
 }
-/* Сообщения колонками разной высоты, как переписка */
-.msgs {
-  columns: 1;
-  column-gap: var(--gap);
+.rv-main__h {
+  max-width: 20ch;
+  font-size: clamp(36px, 3.4vw, 52px);
 }
-.msg {
+/* Перелистывание: сообщение в стиле Telegram, стрелки по бокам */
+.rv-main__slider {
   position: relative;
-  break-inside: avoid;
-  margin: 0 0 var(--gap) 10px;
-  padding: var(--s-4) var(--s-4) var(--s-3);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: var(--s-2);
+  flex: 1;
+}
+.rv-main__slides {
+  display: grid;
+  min-height: 260px;
+}
+.rv-slide {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: center;
+  gap: var(--s-2);
+  margin: 0;
+}
+.rv-slide.is-active {
+  animation: rv-in 360ms var(--ease);
+}
+@keyframes rv-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.rv-msg {
+  position: relative;
+  display: grid;
+  gap: var(--s-2);
+  margin: 0 0 0 10px;
+  padding: var(--s-4);
   border-radius: var(--r-m) var(--r-m) var(--r-m) 2px;
-  background: var(--surface);
+  background: var(--white);
 }
 /* Хвостик пузыря слева внизу */
-.msg::before {
+.rv-msg::before {
   content: '';
   position: absolute;
   left: -8px;
   bottom: 0;
   width: 10px;
   height: 14px;
-  background: var(--surface);
+  background: var(--white);
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
-.msg__from {
-  font-size: 15px;
+.rv-msg__from {
+  font-size: 14px;
   color: var(--ink-2);
 }
-.msg__from b {
+.rv-msg__from b {
   color: var(--cobalt);
   font-weight: 600;
 }
-.msg__car {
-  margin-top: 2px;
-  font-size: var(--fs-micro);
-  color: var(--ink-2);
-}
-.msg__text {
-  margin-top: var(--s-3);
+/* Длинный отзыв обрезаем по строкам: карточка не должна выходить за экран */
+.rv-msg__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
   font-size: 15px;
   line-height: 1.5;
 }
-/* Источник отзыва: тихая подпись в углу, как время в Telegram */
-.msg__src {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 4px;
-  min-height: 32px;
-  margin-top: var(--s-2);
-  font-size: 12px;
+.rv-slide__car {
+  padding-left: 10px;
+  font-size: var(--fs-micro);
   color: var(--ink-2);
 }
-.msg__src .i {
-  width: 12px;
-  height: 12px;
+.rv-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
 }
-a.msg__src:hover {
-  color: var(--ink);
+.rv-arrow--next {
+  background: var(--ink);
+  color: var(--white);
 }
-.reviews-sec__more {
-  margin-top: var(--s-4);
+.rv-arrow:hover {
+  background: var(--cobalt);
+  color: var(--white);
+}
+.rv-main__src {
+  font-size: var(--fs-small);
 }
 
-@media (min-width: 768px) {
-  .reviews-sec__head {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-  }
-  .reviews-sec__proof {
-    padding-top: 6px;
-  }
-  .msgs {
-    columns: 2;
+/* Четыре карточки со скринами переписки: подпись сверху, размытый скрин снизу */
+.rv__shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.rv-shot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-height: 0;
+  padding: var(--s-4) var(--s-4) 0;
+  overflow: hidden;
+  border-radius: var(--r-m);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--t) var(--ease);
+}
+.rv-shot__t {
+  font-size: 22px;
+  line-height: 1;
+}
+/* Заглушка скрина: «телефон» с пузырями, размыт — настоящих скринов пока нет */
+.rv-shot__screen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 140px;
+}
+.rv-stub {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  width: 72%;
+  height: 100%;
+  min-height: 140px;
+  padding: 14px 10px;
+  border-radius: 12px 12px 0 0;
+  background: var(--cobalt-20);
+  filter: blur(2.5px);
+}
+.rv-stub__b {
+  justify-self: start;
+  height: 18px;
+  border-radius: 8px;
+  background: var(--white);
+}
+.rv-stub__b--me {
+  justify-self: end;
+  background: var(--cobalt-40);
+}
+@media (hover: hover) {
+  .rv-shot:hover {
+    transform: translateY(-4px);
   }
 }
+.rv-shot:focus-visible {
+  outline-color: var(--cobalt);
+}
+
+.rv__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+
+@media (min-width: 900px) {
+  .rv-main {
+    padding: var(--s-6);
+  }
+}
+/* Десктоп: всё на одном экране — большая карточка слева, четыре скрина справа 2×2 */
 @media (min-width: 1100px) {
-  .msgs {
-    columns: 3;
+  .rv__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    height: min(640px, calc(100vh - var(--header-h) - 180px));
+  }
+  .rv__shots {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  .rv-main__slides {
+    min-height: 0;
   }
 }

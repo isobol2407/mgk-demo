@@ -27,10 +27,14 @@ export function openNext(id, { key = 'telegram', ctx = {}, trigger = null } = {}
   dialog.querySelector('[data-next-heading]').innerHTML = typograph(esc(a.heading ?? defaults.heading));
   dialog.querySelector('[data-next-choice]').hidden = info;
   dialog.querySelector('[data-next-demo]').innerHTML = typograph(esc(a.demo ?? defaults.demo));
-  const link = a.link?.(ctx) ?? defaults.link;
+  // link: функция в конфиге — своя ссылка; вернула null — ссылки нет; нет функции — ссылка на канал
+  const link = a.link ? a.link(ctx) : defaults.link;
   const linkEl = dialog.querySelector('[data-next-link]');
-  linkEl.href = link.url;
-  linkEl.querySelector('[data-next-link-label]').textContent = link.label;
+  linkEl.hidden = !link;
+  if (link) {
+    linkEl.href = link.url;
+    linkEl.querySelector('[data-next-link-label]').textContent = link.label;
+  }
   if (!dialog.open) dialog.showModal();
   dialog.querySelector('.next__title')?.focus({ preventScroll: true });
 }
