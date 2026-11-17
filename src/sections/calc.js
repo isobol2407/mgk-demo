@@ -15,8 +15,8 @@ export function renderCalc(c) {
 <section class="calc-link section" id="calc">
   <div class="container calc-link__grid">
     <div class="calc-link__text">
-      <h2 class="display h2">Нашли машину? Посчитаем её под ключ</h2>
-      <p class="sub">Пришлите ссылку на объявление с Encar, Che168, Авито или Дрома.</p>
+      <h2 class="display h2">Пришлите ссылку на машину, посчитаем под ключ</h2>
+      <p class="sub">Подойдёт объявление с Encar, Che168, Авито или Дрома.</p>
       <ul class="calc-link__list">
         <li>${icon('check', 'calc-link__ico')}<span>Машина в Корее или Китае: посчитаем цену под ключ в Ижевске или Казани и проверим историю.</span></li>
         <li>${icon('check', 'calc-link__ico')}<span>Машина в России: найдём такую же за рубежом и покажем разницу.</span></li>

@@ -148,13 +148,13 @@
 .hero__cta .btn {
   width: 100%;
 }
-/* Ссылка к блоку «Посчитаем»: компактная, одной строкой под договором */
-.hero__calc {
+/* «Прочитать договор» и «Уже нашли машину?»: одна пара ссылок одного размера, иконка слева у обеих */
+.hero__link {
   font-size: 14px;
 }
-.hero__calc .i {
-  width: 14px;
-  height: 14px;
+.hero__link .i {
+  width: 16px;
+  height: 16px;
 }
 .hero__facts {
   display: grid;
@@ -422,7 +422,7 @@ html:not(.js) .arc__cap:not(.is-active) {
   .hero__cta {
     gap: var(--s-2);
   }
-  .hero__calc {
+  .hero__link {
     font-size: 13px;
     white-space: nowrap;
   }

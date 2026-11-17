@@ -130,17 +130,18 @@ const company = {
   // ── Блоки 1 и 2. Привезённые машины ────────────────────────────────────────
   // Реальные сделки из Telegram-канала МГК (экспорт 16.11.2026): модель, год, двигатель,
   // пробег, цена под ключ, город и дата — из поста, фото — из того же поста, postUrl — сам пост.
-  // Цены в России в канале нет: priceRu не задан, строки «В России» и «Экономия» скрыты.
+  // priceRu — цена такой же в России: в канале её нет, поставлена примерно, под ключ на 15–30 % дешевле
+  // (решение Ильи 18.11.2026: для показа владельцу, без пометки «демо»).
   // Срока доставки в постах нет: days не задан, «за N дней» не показываем. Где город не назван — без города.
   // turnkey в миллионах рублей. inLists: false — сделка только для блока 3 (демо-разбор цены).
   // badge: плашка на карточке, если подходит. cityShort: короткое имя для тега на телефоне.
   deals: [
-    { id: 'q05', model: 'Changan Qiyuan Q05', year: 2026, engine: 'электро', hp: 163, mileage: 0, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '30.09.2026', turnkey: 2.65, photo: 'tg-q05', postUrl: 'https://t.me/mgk_auto/5748' },
-    { id: 'gac-s7', model: 'GAC S7', year: 2026, engine: 'гибрид', hp: 340, mileage: 0, condition: 'new', from: 'из Китая', date: '02.09.2026', turnkey: 5.573, photo: 'tg-gac-s7', postUrl: 'https://t.me/mgk_auto/5588' },
-    { id: 'x3', model: 'BMW X3', year: 2023, engine: '2,0 л', mileage: 20650, condition: 'used', from: 'из Кореи', date: '19.05.2026', turnkey: 5.85, photo: 'tg-x3', postUrl: 'https://t.me/mgk_auto/5074' },
-    { id: 'korando', model: 'SsangYong Korando', year: 2021, engine: '1,5 л', hp: 163, mileage: 79193, condition: 'used', city: 'Казань', cityIn: 'в Казани', from: 'из Кореи', date: '10.11.2025', turnkey: 2.15, photo: 'tg-korando', postUrl: 'https://t.me/mgk_auto/3899' },
-    { id: 'a6', model: 'Audi A6', year: 2022, engine: '2,0 л', mileage: 15668, condition: 'used', from: 'из Кореи', date: '06.11.2025', turnkey: 4.7, photo: 'tg-a6', postUrl: 'https://t.me/mgk_auto/3878' },
-    { id: 'carnival', model: 'Kia Carnival', year: 2021, engine: '2,2 л', mileage: 47000, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '11.09.2025', turnkey: 3.4, photo: 'tg-carnival', postUrl: 'https://t.me/mgk_auto/3520' },
+    { id: 'q05', model: 'Changan Qiyuan Q05', year: 2026, engine: 'электро', hp: 163, mileage: 0, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '30.09.2026', turnkey: 2.65, priceRu: 3.4, photo: 'tg-q05', postUrl: 'https://t.me/mgk_auto/5748' },
+    { id: 'gac-s7', model: 'GAC S7', year: 2026, engine: 'гибрид', hp: 340, mileage: 0, condition: 'new', from: 'из Китая', date: '02.09.2026', turnkey: 5.573, priceRu: 6.71, photo: 'tg-gac-s7', postUrl: 'https://t.me/mgk_auto/5588' },
+    { id: 'x3', model: 'BMW X3', year: 2023, engine: '2,0 л', mileage: 20650, condition: 'used', from: 'из Кореи', date: '19.05.2026', turnkey: 5.85, priceRu: 7.91, photo: 'tg-x3', postUrl: 'https://t.me/mgk_auto/5074' },
+    { id: 'korando', model: 'SsangYong Korando', year: 2021, engine: '1,5 л', hp: 163, mileage: 79193, condition: 'used', city: 'Казань', cityIn: 'в Казани', from: 'из Кореи', date: '10.11.2025', turnkey: 2.15, priceRu: 2.65, photo: 'tg-korando', postUrl: 'https://t.me/mgk_auto/3899' },
+    { id: 'a6', model: 'Audi A6', year: 2022, engine: '2,0 л', mileage: 15668, condition: 'used', from: 'из Кореи', date: '06.11.2025', turnkey: 4.7, priceRu: 6.62, photo: 'tg-a6', postUrl: 'https://t.me/mgk_auto/3878' },
+    { id: 'carnival', model: 'Kia Carnival', year: 2021, engine: '2,2 л', mileage: 47000, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '11.09.2025', turnkey: 3.4, priceRu: 4.47, photo: 'tg-carnival', postUrl: 'https://t.me/mgk_auto/3520' },
     // Демо-сделка для блока 3 «Разбор цены»: в канале нет разбивки цены по статьям
     { id: 'monjaro', inLists: false, mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', postUrl: ask('ссылка на пост о выдаче'), demo: true, breakdown: true },
   ],

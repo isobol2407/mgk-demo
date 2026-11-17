@@ -42,7 +42,7 @@ function arcHTML(c) {
   const cards = deals
     .map(
       (d, i) => `
-      <button class="arc__card" type="button" data-arc-card="${i}" aria-label="${esc(`${d.model}, ${d.year}`)}" tabindex="-1">
+      <button class="arc__card" type="button" data-arc-card="${i}" data-ctx-model="${esc(d.model)}" data-ctx-year="${d.year}" aria-label="${esc(`${d.model}, ${d.year}`)}" tabindex="-1">
         ${photo(d.photo, { alt: `${d.model}, ${d.year}${d.cityIn ? `: выдача ${d.cityIn}` : ''}`, sizes: '(min-width: 768px) 440px, 80vw', eager: true })}
         <span class="photo-tag arc__tag">${deliveryTagHTML(d, esc)}</span>
       </button>`,
@@ -54,10 +54,7 @@ function arcHTML(c) {
       <div class="arc__cap${i === 0 ? ' is-active' : ''}" data-arc-cap="${i}"${i === 0 ? '' : ' inert'}>
         <p class="arc__l1">${esc(d.model)}</p>
         <p class="arc__l2">${carSpecs(d).map(esc).join(' · ')}</p>
-        <p class="arc__l3"><b>${mln(d.turnkey)}</b> под ключ${d.priceRu ? ` · на ${mln(saving(d))} меньше, чем в России` : ''}</p>
-        <div class="arc__act">
-          ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--white btn--sm' })}
-        </div>
+        <p class="arc__l3"><b>${mln(d.turnkey)}</b> под ключ${d.priceRu ? ` · экономия <span class="money is-in">${mln(saving(d))}</span>` : ''}</p>
       </div>`,
     )
     .join('');
@@ -71,6 +68,10 @@ function arcHTML(c) {
     <div class="arc__foot container">
       <div class="arc__dots">${dots}</div>
       <div class="arc__caps" aria-live="off" data-arc-caps>${caps}</div>
+      <!-- Кнопка одна на всю карусель: меняется только модель в сообщении, сама кнопка не мигает -->
+      <div class="arc__act" data-arc-act>
+        ${actionBtn('same', { ctx: { model: deals[0].model, year: deals[0].year }, label: 'Хочу такую же', cls: 'btn btn--white btn--sm' })}
+      </div>
     </div>
   </div>`;
 }
@@ -86,8 +87,8 @@ export function renderHero(c) {
       <p class="hero__lead">${esc(c.hero.lead)}</p>
       <div class="hero__cta">
         <button class="btn btn--lime btn--lg" type="button" data-quiz-start aria-haspopup="dialog">${esc(c.hero.cta)}</button>
-        <a class="link link--on-cobalt" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}Прочитать договор</a>
-        <a class="link link--on-cobalt hero__calc" href="#calc">Уже нашли машину? Пришлите ссылку, посчитаем${icon('arrow-down')}</a>
+        <a class="link link--on-cobalt hero__link" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}Прочитать договор</a>
+        <a class="link link--on-cobalt hero__link" href="#calc">${icon('arrow-down')}Уже нашли машину? Пришлите ссылку, посчитаем</a>
       </div>
       ${proofHTML(c)}
     </div>

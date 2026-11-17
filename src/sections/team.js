@@ -27,7 +27,6 @@ export function renderTeam(c) {
     <ul class="team__grid">${people}</ul>
     <div class="team__foot">
       <p class="team__more">${esc(t.more)}<br />${icon('pin')}${offices}</p>
-      <a class="btn btn--white" href="#contacts">${icon('pin')}<span>Приехать в офис</span></a>
     </div>
   </div>
 </section>`;

@@ -40,8 +40,13 @@ export function initArc(root) {
 
   const mod = (i) => ((i % n) + n) % n;
 
+  const sameBtn = root.querySelector('[data-arc-act] [data-action]');
   function setActive(i) {
     active = i;
+    // Единственная кнопка «Хочу такую же»: подставляем модель активной машины
+    if (sameBtn && cards[i]) {
+      sameBtn.dataset.ctx = JSON.stringify({ model: cards[i].dataset.ctxModel, year: Number(cards[i].dataset.ctxYear) });
+    }
     cards.forEach((card, k) => card.classList.toggle('is-active', k === i));
     caps.forEach((cap, k) => {
       const on = k === i;

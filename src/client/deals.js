@@ -35,6 +35,9 @@ export function initDeals(root, company) {
     });
     const filtered = Boolean(budget) || condition !== 'all';
     states.empty.hidden = shown !== 0;
+    // Когда в фильтре пусто, «Следить» уже есть в пустом состоянии: карточку не дублируем
+    const watch = rail.querySelector('[data-watch-card]');
+    if (watch) watch.hidden = shown === 0;
     states.few.hidden = !(filtered && shown >= 1 && shown <= 2);
     states.end.hidden = shown === 0 || !states.few.hidden;
 

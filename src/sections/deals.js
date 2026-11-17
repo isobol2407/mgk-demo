@@ -19,8 +19,8 @@ function dealCardHTML(c, d) {
         <p class="deal__specs">${carSpecs(d).map(esc).join(' · ')}</p>
         <dl class="prices">
           ${d.priceRu ? `<div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>` : ''}
-          <div class="prices__row prices__row--total"><dt>Под ключ ${esc(d.from)}</dt><dd><span class="money">${mln(d.turnkey)}</span></dd></div>
-          ${d.priceRu ? `<div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd>${mln(saving(d))}</dd></div>` : ''}
+          <div class="prices__row"><dt>Под ключ ${esc(d.from)}</dt><dd>${mln(d.turnkey)}</dd></div>
+          ${d.priceRu ? `<div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd><span class="money">${mln(saving(d))}</span></dd></div>` : ''}
         </dl>
         <div class="deal__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--cobalt btn--sm' })}
@@ -28,6 +28,25 @@ function dealCardHTML(c, d) {
         </div>
       </div>
     </article>`;
+}
+
+// Карточка «Ищете конкретную модель?» стоит в ленте третьей: справа видно, что машины продолжаются
+function watchCardHTML() {
+  return `
+    <form class="deal deal--watch" data-watch-card data-action-form onsubmit="return false" aria-labelledby="watch-title">
+      <h3 class="watch__title display" id="watch-title">Ищете конкретную модель?</h3>
+      <p class="watch__text">Скажите, какую машину и за сколько хотите. Напишем, когда такая появится на аукционе или пройдёт наш осмотр.</p>
+      <div class="watch__fields">
+        <label class="field"><span class="vh">Модель</span><input name="model" type="text" placeholder="Модель" autocomplete="off" /></label>
+        <label class="field"><span class="vh">Бюджет под ключ до</span><input name="budget" type="text" inputmode="numeric" placeholder="Бюджет под ключ до" autocomplete="off" /></label>
+      </div>
+      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--white btn--block' })}
+    </form>`;
+}
+function dealsWithWatch(c) {
+  const cards = c.deals.filter((d) => d.inLists !== false).map((d) => dealCardHTML(c, d));
+  cards.splice(2, 0, watchCardHTML());
+  return cards.join('');
 }
 
 export function renderDeals(c) {
@@ -66,7 +85,7 @@ export function renderDeals(c) {
     <p class="vh" aria-live="polite" data-deals-status></p>
   </div>
   <div class="rail" data-rail tabindex="0" role="group" aria-label="Лента привезённых машин">
-    ${c.deals.filter((d) => d.inLists !== false).map((d) => dealCardHTML(c, d)).join('')}
+    ${dealsWithWatch(c)}
     <div class="deal deal--state" data-state="few" hidden>
       <p class="deal__state-text display">В этом бюджете показали не всё. Остальные машины — в Telegram-канале</p>
       <a class="btn btn--white" href="${esc(channel)}" target="_blank" rel="noopener">${icon('tg')}<span>Открыть канал</span></a>
@@ -79,17 +98,6 @@ export function renderDeals(c) {
       <span class="deal__state-text display">${isHidden(c.dealsMore) ? 'Остальные машины' : `Ещё ${val(c.dealsMore)} машин`} — в Telegram-канале</span>
       <span class="deal__end-arrow">${icon('arrow-ur')}</span>
     </a>
-  </div>
-  <div class="container">
-    <form class="watch" data-action-form onsubmit="return false" aria-labelledby="watch-title">
-      <div class="watch__text">
-        <h3 class="watch__title display" id="watch-title">Ищете конкретную модель?</h3>
-        <p>Скажите, какую машину и за сколько хотите. Напишем, когда такая появится на аукционе или пройдёт наш осмотр.</p>
-      </div>
-      <label class="field"><span class="vh">Модель</span><input name="model" type="text" placeholder="Модель" autocomplete="off" /></label>
-      <label class="field"><span class="vh">Бюджет под ключ до</span><input name="budget" type="text" inputmode="numeric" placeholder="Бюджет под ключ до" autocomplete="off" /></label>
-      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--cobalt' })}
-    </form>
   </div>
 </section>`;
 }
