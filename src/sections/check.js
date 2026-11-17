@@ -1,7 +1,7 @@
 // 6. Проверка машины. Отвечает на сомнение «а если привезут битую или со скрученным пробегом».
-// Главное — реальная история отказа: Kia Mohave, которую забраковали на осмотре.
-// Рядом превью длинной статьи «Как мы проводим осмотр»: видно начало, текст уходит под край
-// карточки. Вся карточка статьи открывает модалку «статья в блоге» (демо: на сайте — статья для SEO).
+// Слева главное по смыслу: пять шагов проверки, у каждого одна строка, и карточка-ссылка на статью.
+// Справа доказательство: реальный случай отказа (Kia Mohave) коротким отчётом. На фото — кнопка
+// видео (демо: по клику модалка «здесь будет видео осмотра»). Длинных абзацев в блоке нет.
 import { esc } from '../lib/marks.js';
 import { icon, photo, extLink } from '../lib/ui.js';
 import { actionAttrs } from '../lib/actions.js';
@@ -12,18 +12,32 @@ export function renderCheck(c) {
   const st = ins.story;
   const art = ins.article;
 
+  // Строка отчёта: значок и результат слева, сразу за ним — где это выяснили
+  const checks = (st?.checks ?? [])
+    .map(
+      (x) => `
+          <li class="case__row${x.ok ? '' : ' case__row--bad'}">
+            ${icon(x.ok ? 'check' : 'close', 'case__ico')}
+            <span><b class="case__val">${esc(x.value)}</b> <span class="case__label">${esc(x.label)}</span></span>
+          </li>`,
+    )
+    .join('');
+
+  const video = st ? actionAttrs('video', { ctx: { title: `${st.title}: видео с осмотра`, postUrl: st.postUrl } }) : null;
   const story = st
     ? `
-    <article class="story card">
-      <div class="story__media">
-        ${photo(st.photo, { alt: 'Kia Mohave 2021 на осмотре в Корее', sizes: '(min-width: 1100px) 680px, 100vw' })}
-        <span class="story__tag">${icon('close')}<span>${esc(st.tag)}</span></span>
+    <article class="case card">
+      <div class="case__media">
+        ${photo(st.photo, { alt: `${st.title} на осмотре`, sizes: '(min-width: 1100px) 360px, (min-width: 768px) 45vw, 100vw' })}
+        <span class="case__tag">${icon('close')}<span>${esc(st.tag)}</span></span>
+        <${video.tag} class="case__play" ${video.attrs} aria-label="Смотреть видео осмотра">${icon('play')}</${video.tag}>
       </div>
-      <div class="story__body">
-        <p class="story__date">Осмотр в Корее · ${esc(st.date)}</p>
-        <h3 class="story__title display">${esc(st.title)}</h3>
-        <p class="story__text">${esc(st.text)}</p>
-        ${extLink(esc(st.cta), st.postUrl, { cls: 'link story__link' })}
+      <div class="case__body">
+        <p class="case__meta">${esc(st.place)} · ${esc(st.date)}</p>
+        <h3 class="case__title display">${esc(st.title)}</h3>
+        <ul class="case__rows">${checks}</ul>
+        <p class="case__verdict">${esc(st.verdict)}</p>
+        ${extLink(esc(st.cta), st.postUrl, { cls: 'link case__link' })}
       </div>
     </article>`
     : '';
@@ -31,24 +45,25 @@ export function renderCheck(c) {
   const steps = ins.items
     .map(
       (x, i) => `
-          <span class="read__step">
-            <span class="read__n display">${i + 1}</span>
-            <span class="read__h">${esc(x.title)}</span>
-            <span class="read__p">${esc(x.text)}</span>
-          </span>`,
+        <li class="how__step">
+          <span class="how__n display" aria-hidden="true">${i + 1}</span>
+          <span class="how__t">${esc(x.title)}</span>
+          <span class="how__s">${esc(x.short)}</span>
+        </li>`,
     )
     .join('');
-  const { tag, attrs } = actionAttrs('blog', { ctx: { title: art.title } });
+
+  const blog = actionAttrs('blog', { ctx: { title: art?.title, postUrl: st?.postUrl } });
   const article = art
     ? `
-    <${tag} class="read card" ${attrs}>
-      <span class="read__label">Статья</span>
-      <span class="read__title display">${esc(art.title)}</span>
-      <span class="read__lead">${esc(art.lead)}</span>
-      <span class="read__steps">${steps}</span>
-      ${(art.more ?? []).map((x) => `<span class="read__h2 display">${esc(x.h)}</span><span class="read__lead">${esc(x.p)}</span>`).join('')}
-      <span class="read__more"><span class="btn btn--cobalt btn--sm read__btn">${esc(art.cta)}${icon('arrow-ur')}</span></span>
-    </${tag}>`
+      <${blog.tag} class="post card" ${blog.attrs}>
+        <span class="post__img">${photo(art.photo, { alt: art.photoAlt ?? '', sizes: '160px' })}</span>
+        <span class="post__text">
+          <span class="post__label">${esc(art.label)}</span>
+          <span class="post__title">${esc(art.title)}</span>
+        </span>
+        <span class="post__arrow">${icon('arrow-ur')}</span>
+      </${blog.tag}>`
     : '';
 
   return `
@@ -59,8 +74,11 @@ export function renderCheck(c) {
       <p class="sub">${esc(ins.sub)}</p>
     </header>
     <div class="check__grid">
+      <div class="how">
+        <ol class="how__list">${steps}</ol>
+        ${article}
+      </div>
       ${story}
-      ${article}
     </div>
   </div>
 </section>`;
