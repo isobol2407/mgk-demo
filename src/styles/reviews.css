@@ -103,8 +103,18 @@
   background: var(--cobalt);
   color: var(--white);
 }
-.rv-main__src {
-  font-size: var(--fs-small);
+.rv-main__rates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+}
+.rv-rate {
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.rv-rate b {
+  font-weight: 700;
 }
 
 /* Четыре карточки со скринами переписки: подпись сверху, размытый скрин снизу */
@@ -127,8 +137,8 @@
   transition: transform var(--t) var(--ease);
 }
 .rv-shot__t {
-  font-size: 22px;
-  line-height: 1;
+  font-size: 28px;
+  line-height: 0.95;
 }
 /* Заглушка скрина: «телефон» с пузырями, размыт — настоящих скринов пока нет */
 .rv-shot__screen {
@@ -187,7 +197,7 @@
 @media (min-width: 1100px) {
   .rv__grid {
     grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    height: min(640px, calc(100vh - var(--header-h) - 180px));
+    height: min(780px, calc(100vh - var(--header-h) - 120px));
   }
   .rv__shots {
     grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -218,4 +228,19 @@
   .rv-shot__t {
     font-size: 18px;
   }
+}
+.rv-rate {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+.rv-rate .i {
+  width: 14px;
+  height: 14px;
+}
+a.rv-rate:hover {
+  text-decoration-color: currentColor;
 }

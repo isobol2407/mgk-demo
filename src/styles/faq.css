@@ -88,3 +88,17 @@
     font-size: clamp(64px, 7vw, 112px);
   }
 }
+/* Блок — минимум один экран: при раскрытии вопроса растёт место внутри блока,
+   и блоки ниже не дёргаются, пока ответ помещается */
+.faq.section {
+  min-height: 100svh;
+}
+@media (min-width: 1100px) {
+  .faq.section {
+    display: flex;
+    align-items: flex-start;
+  }
+  .faq.section > .container {
+    width: 100%;
+  }
+}

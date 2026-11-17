@@ -1,9 +1,9 @@
 // 8. Отзывы, по референсу gohelper.io. Один экран: слева большая карточка с перелистыванием
 // настоящих отзывов с сайта МГК в виде сообщений Telegram, справа четыре карточки
 // со скринами переписок (пока размытые заглушки: по клику — «здесь будут ваши отзывы»).
-// Внизу ссылка на все отзывы на картах. Перелистывание — src/client/reviews.js.
+// Под отзывом — рейтинги со ссылками на Яндекс.Карты и Авито. Перелистывание — src/client/reviews.js.
 import { esc } from '../lib/marks.js';
-import { icon, extLink, proofHTML } from '../lib/ui.js';
+import { icon, extLink } from '../lib/ui.js';
 import { actionAttrs } from '../lib/actions.js';
 
 // Размытая заглушка скрина переписки: пузыри разной длины вместо текста
@@ -39,7 +39,10 @@ export function renderReviews(c) {
         </${tag}>`;
     })
     .join('');
-  const y = c.ratings?.yandex;
+  // Рейтинги со ссылками: все отзывы на Яндекс.Картах и Авито
+  const rate = (v, label) =>
+    v && v.url ? `<li>${extLink(`<b>${esc(v.rating)} ★</b> ${label}`, v.url, { cls: 'rv-rate' })}</li>` : '';
+  const rates = rate(c.ratings?.yandex, 'все отзывы на Яндекс.Картах') + rate(c.ratings?.avito, 'на Авито');
   return `
 <section class="rv section section--paper" id="reviews">
   <div class="container">
@@ -51,13 +54,9 @@ export function renderReviews(c) {
           <div class="rv-main__slides" aria-live="polite">${slides}</div>
           <button class="rv-arrow rv-arrow--next" type="button" aria-label="Следующий отзыв" data-rv-next>${icon('chevron-r')}</button>
         </div>
-        <p class="rv-main__src">${extLink(esc(r.source.label), r.source.url, { cls: 'link link--muted' })}</p>
+        <ul class="rv-main__rates">${rates}</ul>
       </div>
       <div class="rv__shots">${shots}</div>
-    </div>
-    <div class="rv__foot">
-      ${proofHTML(c, { cls: 'rv__proof' })}
-      ${y?.url ? extLink('Все отзывы на Яндекс.Картах', y.url, { cls: 'btn btn--cobalt' }) : ''}
     </div>
   </div>
 </section>`;

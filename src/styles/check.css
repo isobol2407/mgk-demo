@@ -168,3 +168,48 @@
     contain: size;
   }
 }
+
+/* Десктоп: весь блок — ровно один экран. Сетка занимает остаток экрана под заголовком,
+   фото истории подстраивается по высоте, статья обрезается и сильно растворяется книзу */
+@media (min-width: 1100px) {
+  .check.section {
+    padding-block: var(--s-7);
+  }
+  .check .sec-head {
+    margin-bottom: var(--s-5);
+  }
+  .check .h2 {
+    max-width: none;
+    font-size: clamp(44px, 6vh, 72px);
+  }
+  .check__grid {
+    height: calc(100svh - var(--header-h) - var(--s-7) * 2 - 150px);
+    min-height: 480px;
+  }
+  .story {
+    min-height: 0;
+  }
+  .story__media {
+    flex: 1;
+    min-height: 0;
+  }
+  .story__media img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .story__body {
+    padding: var(--s-5) var(--s-6);
+    gap: var(--s-2);
+  }
+  .story__title {
+    font-size: clamp(28px, 2.6vw, 38px);
+  }
+  .story__text {
+    font-size: 16px;
+  }
+}
+/* Сильнее растворение: видно начало статьи, нижняя половина уходит в подложку */
+.read__more {
+  height: 62%;
+  background: linear-gradient(to bottom, rgb(241 242 246 / 0), var(--surface) 72%);
+}
