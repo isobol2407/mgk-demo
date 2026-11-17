@@ -1,4 +1,4 @@
-/* ===== 6. Проверка машины ===== */
+/* ===== 6. Проверка машины: подход от и до и история отказа ===== */
 .check__grid {
   display: grid;
   gap: var(--s-7);
@@ -7,58 +7,123 @@
   max-width: 20ch;
   margin-bottom: var(--s-4);
 }
-/* Три снимка из отчёта внахлёст, в белых рамках */
-.check__photos {
-  display: flex;
-  justify-content: center;
-  padding: var(--s-2) var(--s-4) var(--s-4);
-}
-.check .check__snap {
-  width: 48%;
-  max-width: 300px;
-}
-.check .check__snap + .check__snap {
-  margin-left: -12%;
-}
-.check .check__snap:nth-child(2) {
-  margin-top: var(--s-6);
-}
+/* Шаги проверки: номера тем же узким шрифтом, что в «Этапах» */
 .check__list {
   display: grid;
-  gap: var(--s-5);
+  gap: var(--s-4);
   margin-top: var(--s-6);
 }
 .check__item {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  gap: var(--s-4);
-  align-items: start;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--s-3);
+  align-items: baseline;
 }
-.check__ico {
-  width: 28px;
-  height: 28px;
+.check__n {
+  font-size: 32px;
+  line-height: 1;
   color: var(--cobalt);
 }
 .check__name {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-size: 17px;
   font-weight: 600;
 }
 .check__item p {
-  max-width: 46ch;
+  max-width: 50ch;
   color: var(--ink-2);
 }
 .check__link {
   margin-top: var(--s-6);
 }
 
-@media (min-width: 900px) {
-  .check__grid {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-    align-items: center;
-    gap: var(--s-8);
+/* История отказа: вся карточка — одна кнопка, открывает «статью в блоге» */
+.story {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--t) var(--ease);
+}
+.story__media {
+  position: relative;
+  display: block;
+  padding: 8px 8px 0;
+}
+.story__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-s);
+}
+/* Метка «Забраковали»: тёмная, а не лаймовая — лаймовый у нас только про деньги и действие */
+.story__tag {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px 6px 8px;
+  border-radius: var(--r-tag);
+  background: var(--ink);
+  color: var(--white);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.story__tag .i {
+  width: 14px;
+  height: 14px;
+}
+.story__body {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-5);
+}
+.story__date {
+  font-size: var(--fs-micro);
+  color: var(--ink-2);
+}
+.story__title {
+  font-size: var(--fs-h3);
+  line-height: 0.95;
+}
+.story__text {
+  max-width: 52ch;
+  color: var(--ink-2);
+}
+.story__cta {
+  justify-self: start;
+  min-height: 44px;
+}
+@media (hover: hover) {
+  .story:hover {
+    transform: translateY(-4px);
   }
-  .check__photos {
-    order: 0;
+  .story:hover .story__cta {
+    text-decoration-color: currentColor;
+  }
+  .story:hover .story__cta .i {
+    transform: translate(2px, -2px);
+  }
+}
+.story:focus-visible {
+  outline-color: var(--cobalt);
+}
+
+@media (min-width: 900px) {
+  .story__body {
+    padding: var(--s-6);
+  }
+}
+@media (min-width: 1100px) {
+  .check__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: var(--s-8);
+    align-items: center;
   }
 }

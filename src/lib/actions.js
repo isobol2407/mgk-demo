@@ -72,6 +72,20 @@ export const ACTIONS = {
     ],
     tag: () => 'catalog160',
   },
+  // Не захват лида, а демо блога: история из блока «Проверка машины» станет статьёй на сайте
+  blog: {
+    kind: 'info',
+    heading: 'Здесь будет статья в вашем блоге',
+    title: (ctx) => ctx.title ?? 'Статья в блоге',
+    steps: () => [
+      'По клику откроется статья на вашем сайте: вся история осмотра с фото и видео, как в Telegram, только подробнее.',
+      'Такие статьи находят в Яндексе и Google по запросам вроде «как проверить машину из Кореи» или «окрасы на Encar». Блог приводит на сайт людей из поиска, и сайт растёт в выдаче.',
+      'В конце статьи — кнопка подбора. Читатель оставляет заявку вам, а не уходит на чужой сайт.',
+    ],
+    demo: 'Это демо. На готовом сайте блок будет вести в ваш блог.',
+    link: (ctx) => (ctx.postUrl ? { label: 'Исходный пост в Telegram', url: ctx.postUrl } : null),
+    tag: () => 'blog',
+  },
   faq: {
     title: () => 'Свой вопрос',
     steps: () => [
@@ -96,5 +110,7 @@ export function botUrl(id, ctx = {}) {
 export function actionAttrs(id, { key = 'telegram', ctx = {} } = {}) {
   const data = `data-action="${id}" data-key="${key}" data-ctx="${JSON.stringify(ctx).replace(/"/g, '&quot;')}"`;
   if (DEMO_MODE) return { tag: 'button', attrs: `type="button" ${data} aria-haspopup="dialog"` };
+  // Блог в бою: ссылка на статью на сайте, а не в бота
+  if (ACTIONS[id]?.kind === 'info') return { tag: 'a', attrs: `href="${ctx.blogUrl ?? '#'}" ${data}` };
   return { tag: 'a', attrs: `href="${botUrl(id, ctx)}" target="_blank" rel="noopener" ${data}` };
 }

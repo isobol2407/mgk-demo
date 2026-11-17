@@ -22,6 +22,15 @@ export function openNext(id, { key = 'telegram', ctx = {}, trigger = null } = {}
     .map((s) => `<li>${typograph(esc(s))}</li>`)
     .join('');
   dialog.querySelectorAll('[data-next-key]').forEach((el) => el.classList.toggle('is-on', el.dataset.nextKey === key));
+  // Информационная модалка (например, блог): без выбора мессенджера, свой заголовок, подпись и ссылка
+  const info = a.kind === 'info';
+  dialog.querySelector('[data-next-heading]').innerHTML = typograph(esc(a.heading ?? defaults.heading));
+  dialog.querySelector('[data-next-choice]').hidden = info;
+  dialog.querySelector('[data-next-demo]').innerHTML = typograph(esc(a.demo ?? defaults.demo));
+  const link = a.link?.(ctx) ?? defaults.link;
+  const linkEl = dialog.querySelector('[data-next-link]');
+  linkEl.href = link.url;
+  linkEl.querySelector('[data-next-link-label]').textContent = link.label;
   if (!dialog.open) dialog.showModal();
   dialog.querySelector('.next__title')?.focus({ preventScroll: true });
 }
@@ -35,8 +44,19 @@ function formCtx(btn) {
   return out;
 }
 
+// Исходные тексты модалки «Что произойдёт дальше»: возвращаются после информационных модалок
+let defaults = {};
+
 export function initActions() {
   dialog = document.querySelector('[data-next]');
+  if (dialog) {
+    const linkEl = dialog.querySelector('[data-next-link]');
+    defaults = {
+      heading: dialog.querySelector('[data-next-heading]')?.textContent,
+      demo: dialog.querySelector('[data-next-demo]')?.textContent,
+      link: { url: linkEl?.getAttribute('href'), label: linkEl?.querySelector('[data-next-link-label]')?.textContent },
+    };
+  }
   if (!dialog || typeof dialog.showModal !== 'function' || !DEMO_MODE) return;
 
   document.addEventListener('click', (e) => {
