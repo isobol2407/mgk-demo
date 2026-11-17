@@ -28,8 +28,8 @@ ${renderHero(company)}
 ${renderDeals(company)}
 ${renderBreakdown(company)}
 ${renderCalc(company)}
-${renderCheck(company)}
 ${renderSteps(company)}
+${renderCheck(company)}
 ${renderTeam(company)}
 ${renderReviews(company)}
 ${renderModels160(company)}

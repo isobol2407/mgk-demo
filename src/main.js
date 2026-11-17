@@ -29,6 +29,7 @@ import { initFlip } from './client/flip.js';
 import { initQuiz } from './client/quiz.js';
 import { initActions } from './client/actions.js';
 import { initMarkers } from './client/marker.js';
+import { initTimeline } from './client/timeline.js';
 import { initDemoNote } from './client/demo.js';
 
 initHeader();
@@ -39,6 +40,7 @@ document.querySelectorAll('[data-deals]').forEach((el) => initDeals(el, company)
 document.querySelectorAll('[data-flip]').forEach(initFlip);
 initActions();
 initMarkers();
+initTimeline();
 initQuiz(company);
 initDemoNote();
 

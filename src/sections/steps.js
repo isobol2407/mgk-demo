@@ -1,7 +1,9 @@
-// 4. Этапы и оплата. Пять шагов, у каждого строки «Платите» и «Получаете»,
+// 4. Как привозим и когда платите. Десктоп: таймлайн (timeline.js). Телефон: пять шагов
+// со строками «Платите» и «Получаете»,
 // плюс карточка договора. Отчёт об осмотре — в своём блоке «Проверка машины».
 import { esc, val, askBadge } from '../lib/marks.js';
 import { icon } from '../lib/ui.js';
+import { timelineHTML } from './timeline.js';
 
 // Значение шага: строка или список частей (текст и плашки), части склеиваются пробелом
 const parts = (v) => (Array.isArray(v) ? v.map(val).filter(Boolean).join(' ') : val(v));
@@ -24,13 +26,17 @@ export function renderSteps(c) {
     )
     .join('');
 
+  // Заголовок один и тот же: на десктопе внутри закреплённой сцены таймлайна, на телефоне над списком
+  const head = (cls) => `
+    <header class="sec-head ${cls}">
+      <h2 class="display h2">Как привозим машину и <span class="steps__accent">когда вы платите</span></h2>
+      <p class="sub">От первого сообщения до ключей — ${esc(s.term)}.</p>
+    </header>`;
   return `
 <section class="steps section" id="steps">
   <div class="container">
-    <header class="sec-head">
-      <h2 class="display h2">Когда вы платите и что получаете</h2>
-      <p class="sub">От первого сообщения до ключей — ${esc(s.term)}.</p>
-    </header>
+    ${timelineHTML(c, head('steps__head--tl'))}
+    ${head('steps__head--list')}
     <ol class="steps__list">${steps}</ol>
     <div class="docs">
       <article class="doc doc--contract">
