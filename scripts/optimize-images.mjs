@@ -56,6 +56,8 @@ const JOBS = [
   // Kia Mohave, которую забраковали на осмотре (пост t.me/mgk_auto/282)
   { file: 'tg-mohave.jpg', name: 'tg-mohave', ...CAR },
   { file: 'tg-mohave-front.jpg', name: 'tg-mohave-front', ...CAR },
+  // Выдача у офиса МГК для блока «Вопросы» (пост t.me/mgk_auto/5988)
+  { file: 'tg-faq.jpg', name: 'tg-faq', ...CAR },
 ];
 
 for (const job of JOBS) {

@@ -196,3 +196,26 @@
     min-height: 0;
   }
 }
+/* Телефон: отзыв на всю ширину, стрелки под ним */
+@media (max-width: 767px) {
+  .rv-main__slider {
+    grid-template-columns: 44px 44px minmax(0, 1fr);
+    grid-template-areas:
+      'slides slides slides'
+      'prev next .';
+    row-gap: var(--s-3);
+  }
+  .rv-main__slides {
+    grid-area: slides;
+    min-height: 0;
+  }
+  .rv-arrow--prev {
+    grid-area: prev;
+  }
+  .rv-arrow--next {
+    grid-area: next;
+  }
+  .rv-shot__t {
+    font-size: 18px;
+  }
+}
