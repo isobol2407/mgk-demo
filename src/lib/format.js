@@ -32,13 +32,13 @@ export const carSpecs = (d) =>
 
 // Строка о выдаче: «Город · дата · за N дней». Отдельный блок от строки о машине,
 // формат один на весь проект
-export const deliveryLine = (d) => [d.city, d.date, `за${NBSP}${days(d.days)}`];
+export const deliveryLine = (d) => [d.city, d.date, d.days ? `за${NBSP}${days(d.days)}` : ''].filter(Boolean);
 export const deliveryText = (d) => deliveryLine(d).join(' · ');
 
 // Тег на фото: длинный город на телефоне заменяется коротким (ЕКБ). Тег не длиннее
 // 34 знаков в полной версии и 26 в короткой — иначе вылезает за фото на 375 px
 export function deliveryTagHTML(d, esc) {
-  const rest = ` · ${d.date} · за${NBSP}${days(d.days)}`;
-  if (!d.cityShort) return esc(d.city + rest);
+  const rest = `${d.city ? ' · ' : ''}${d.date}${d.days ? ` · за${NBSP}${days(d.days)}` : ''}`;
+  if (!d.cityShort) return esc((d.city ?? '') + rest);
   return `<span class="tag-long">${esc(d.city)}</span><span class="tag-short">${esc(d.cityShort)}</span>${esc(rest)}`;
 }

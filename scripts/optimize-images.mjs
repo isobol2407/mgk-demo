@@ -36,6 +36,23 @@ const JOBS = [
   { file: 'm160-qashqai.jpg', name: 'm160-qashqai', ...CAR },
   { file: 'm160-seltos.png', name: 'm160-seltos', ...CAR },
   { file: 'm160-cx30.webp', name: 'm160-cx30', ...CAR },
+  // Реальные фото из Telegram-канала МГК (экспорт 16.11.2026): сделки, модели до 160 л.с.,
+  // осмотр BMW X3, выдачи у офиса. Ссылки на посты — в src/companies/mgk-avto.js
+  { file: 'tg-q05.jpg', name: 'tg-q05', ...CAR },
+  { file: 'tg-gac-s7.jpg', name: 'tg-gac-s7', ...CAR },
+  { file: 'tg-x3.jpg', name: 'tg-x3', ...CAR },
+  { file: 'tg-carnival.jpg', name: 'tg-carnival', ...CAR },
+  { file: 'tg-a6.jpg', name: 'tg-a6', ...CAR },
+  { file: 'tg-korando.jpg', name: 'tg-korando', ...CAR },
+  { file: 'tg-troc.jpg', name: 'tg-troc', ...CAR },
+  { file: 'tg-kx3.jpg', name: 'tg-kx3', ...CAR },
+  { file: 'tg-vezel.jpg', name: 'tg-vezel', ...CAR },
+  { file: 'tg-k3.jpg', name: 'tg-k3', ...CAR },
+  { file: 'tg-x3-salon.jpg', name: 'tg-x3-salon', ...CAR },
+  { file: 'tg-x3-screen.jpg', name: 'tg-x3-screen', ...CAR },
+  { file: 'tg-x3-rear.jpg', name: 'tg-x3-rear', ...CAR },
+  { file: 'tg-shot-1.jpg', name: 'tg-shot-1', ...SHOT },
+  { file: 'tg-shot-3.jpg', name: 'tg-shot-3', ...SHOT },
 ];
 
 for (const job of JOBS) {

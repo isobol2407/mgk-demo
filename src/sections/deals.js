@@ -10,7 +10,7 @@ function dealCardHTML(c, d) {
   return `
     <article class="deal card" data-deal data-budget="${budgetOf(d.turnkey, c.budgets)}" data-condition="${d.condition}">
       <div class="deal__media">
-        ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 1100px) 380px, (min-width: 768px) 45vw, 80vw' })}
+        ${photo(d.photo, { alt: `${d.model}, ${d.year}${d.cityIn ? `: выдача ${d.cityIn}` : ''}`, sizes: '(min-width: 1100px) 380px, (min-width: 768px) 45vw, 80vw' })}
         <span class="photo-tag deal__tag">${deliveryTagHTML(d, esc)}</span>
         ${d.badge ? `<p class="deal__badge">${icon('check')}<span>${esc(d.badge)}</span></p>` : ''}
       </div>
@@ -18,9 +18,9 @@ function dealCardHTML(c, d) {
         <h3 class="deal__model display">${esc(d.model)}</h3>
         <p class="deal__specs">${carSpecs(d).map(esc).join(' · ')}</p>
         <dl class="prices">
-          <div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>
-          <div class="prices__row"><dt>Под ключ ${esc(d.from)}</dt><dd>${mln(d.turnkey)}</dd></div>
-          <div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd><span class="money">${mln(saving(d))}</span></dd></div>
+          ${d.priceRu ? `<div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>` : ''}
+          <div class="prices__row prices__row--total"><dt>Под ключ ${esc(d.from)}</dt><dd><span class="money">${mln(d.turnkey)}</span></dd></div>
+          ${d.priceRu ? `<div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd>${mln(saving(d))}</dd></div>` : ''}
         </dl>
         <div class="deal__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--cobalt btn--sm' })}
@@ -51,7 +51,7 @@ export function renderDeals(c) {
     <header class="deals__head">
       <div>
         <h2 class="display h2">Что уже привезли на ваш бюджет</h2>
-        <p class="sub deals__sub">По каждой машине: цена под ключ и срок. Подробный отчёт о выдаче — в постах в Telegram. ${extLink(`Все машины в ${esc(label)}`, channel)}</p>
+        <p class="sub deals__sub">Реальные сделки с ценой под ключ. По каждой машине — пост в Telegram с фото и описанием. ${extLink(`Все машины в ${esc(label)}`, channel)}</p>
       </div>
       ${proofHTML(c, { variant: 'links', cls: 'deals__proof' })}
     </header>
@@ -66,7 +66,7 @@ export function renderDeals(c) {
     <p class="vh" aria-live="polite" data-deals-status></p>
   </div>
   <div class="rail" data-rail tabindex="0" role="group" aria-label="Лента привезённых машин">
-    ${c.deals.map((d) => dealCardHTML(c, d)).join('')}
+    ${c.deals.filter((d) => d.inLists !== false).map((d) => dealCardHTML(c, d)).join('')}
     <div class="deal deal--state" data-state="few" hidden>
       <p class="deal__state-text display">В этом бюджете показали не всё. Остальные машины — в Telegram-канале</p>
       <a class="btn btn--white" href="${esc(channel)}" target="_blank" rel="noopener">${icon('tg')}<span>Открыть канал</span></a>

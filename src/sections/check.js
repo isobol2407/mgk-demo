@@ -31,7 +31,7 @@ export function renderCheck(c) {
       <h2 class="display h2">${esc(ins.title)}</h2>
       <p class="sub">${esc(ins.sub)}</p>
       <ul class="check__list">${items}</ul>
-      ${extLink('Пример отчёта в Telegram', reportHref(c), { cls: 'link check__link' })}
+      ${extLink(esc(report.label ?? 'Пример отчёта в Telegram'), reportHref(c), { cls: 'link check__link' })}
     </div>
   </div>
 </section>`;

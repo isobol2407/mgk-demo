@@ -37,13 +37,13 @@ function titleHTML(c) {
 }
 
 function arcHTML(c) {
-  const deals = c.deals.slice(0, 6);
+  const deals = c.deals.filter((d) => d.inLists !== false).slice(0, 6);
   const key = primaryKey(c);
   const cards = deals
     .map(
       (d, i) => `
       <button class="arc__card" type="button" data-arc-card="${i}" aria-label="${esc(`${d.model}, ${d.year}`)}" tabindex="-1">
-        ${photo(d.photo, { alt: `${d.model}, ${d.year}: выдача ${d.cityIn}`, sizes: '(min-width: 768px) 440px, 80vw', eager: true })}
+        ${photo(d.photo, { alt: `${d.model}, ${d.year}${d.cityIn ? `: выдача ${d.cityIn}` : ''}`, sizes: '(min-width: 768px) 440px, 80vw', eager: true })}
         <span class="photo-tag arc__tag">${deliveryTagHTML(d, esc)}</span>
       </button>`,
     )
@@ -54,7 +54,7 @@ function arcHTML(c) {
       <div class="arc__cap${i === 0 ? ' is-active' : ''}" data-arc-cap="${i}"${i === 0 ? '' : ' inert'}>
         <p class="arc__l1">${esc(d.model)}</p>
         <p class="arc__l2">${carSpecs(d).map(esc).join(' · ')}</p>
-        <p class="arc__l3"><b>${mln(d.turnkey)}</b> под ключ · на ${mln(saving(d))} меньше, чем в России</p>
+        <p class="arc__l3"><b>${mln(d.turnkey)}</b> под ключ${d.priceRu ? ` · на ${mln(saving(d))} меньше, чем в России` : ''}</p>
         <div class="arc__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--white btn--sm' })}
         </div>

@@ -56,7 +56,7 @@ const company = {
       label: 'Telegram',
       chat: 'mgk_auto', // [уточнить] это канал; нужен юзернейм менеджера
       channel: TG_CHANNEL,
-      subscribers: '5 200', // со слов Ильи, 14.11.2026
+      subscribers: '2 300', // со слов Ильи, 17.11.2026
     },
     max: { label: 'MAX', url: 'https://max.ru/id183113902344_biz' },
     vk: { label: 'ВКонтакте', url: 'https://vk.com/mgkauto', chat: 'https://vk.me/mgkauto' },
@@ -87,7 +87,7 @@ const company = {
   messages: {
     write: 'Здравствуйте! У меня вопрос: ',
     pick: 'Здравствуйте! Хочу подобрать машину. Бюджет: ',
-    sameCar: (deal) => `Здравствуйте! Хочу такую же: ${deal.model} ${deal.year}. Сколько сейчас под ключ ${deal.cityIn}?`,
+    sameCar: (deal) => `Здравствуйте! Хочу такую же: ${deal.model} ${deal.year}. Сколько сейчас под ключ${deal.cityIn ? ` ${deal.cityIn}` : ''}?`,
     calc: (city) => `Здравствуйте! Рассчитайте, пожалуйста, цену под ключ ${city.in}. Машина: `,
     budget: 'Здравствуйте! Посчитайте, пожалуйста, машину под мой бюджет: ',
     catalog: 'Здравствуйте! Пришлите, пожалуйста, каталог машин до 160 л.с.',
@@ -110,7 +110,7 @@ const company = {
     // Снимки в заголовке. Сейчас заглушки: фото моделей из открытых архивов,
     // заменить на реальные выдачи у офиса. tilt: наклон в градусах, от −6 до +6.
     shots: [
-      { type: 'image', src: 'shot-1', alt: 'Выдача машины у офиса', tilt: -5 },
+      { type: 'image', src: 'tg-shot-1', alt: 'Выдача машины у офиса МГК', tilt: -5 },
       {
         type: 'video',
         src: 'media/vydacha.mp4',
@@ -120,7 +120,7 @@ const company = {
         demo: true,
         tilt: 4,
       },
-      { type: 'image', src: 'shot-3', alt: 'Выдача машины у офиса', tilt: 6, mobile: false },
+      { type: 'image', src: 'tg-shot-3', alt: 'Выдача машины у офиса МГК', tilt: 6, mobile: false },
     ],
     lead: 'Подбираем, осматриваем на месте и растаможиваем. Договор можно прочитать до звонка. Если не найдём подходящую машину, вернём депозит за 3 рабочих дня.',
     cta: 'Подобрать машину',
@@ -128,21 +128,21 @@ const company = {
   },
 
   // ── Блоки 1 и 2. Привезённые машины ────────────────────────────────────────
-  // Шесть последних сделок: они же стоят в карусели первого экрана.
-  // Модели и города взяты из отзывов на сайте МГК. Цены, даты, сроки, страна и состояние — демо.
-  // turnkey и priceRu в миллионах рублей. Экономия считается сама.
-  // postUrl: ссылка на конкретный пост о выдаче. Пока [заполнить]: кнопка временно ведёт в канал.
-  // badge: плашка на карточке, если подходит. breakdown: true — эта сделка разобрана в блоке 3.
-  // cityShort: короткое имя для тега на фото на телефоне, если город длиннее 9 знаков.
-  // mileage (км, 0 — без пробега), engine и hp: строка о машине под фото. Объём и мощность — паспортные
-  // данные одной из комплектаций модели, пробег — демо. У реальных сделок брать из поста.
+  // Реальные сделки из Telegram-канала МГК (экспорт 16.11.2026): модель, год, двигатель,
+  // пробег, цена под ключ, город и дата — из поста, фото — из того же поста, postUrl — сам пост.
+  // Цены в России в канале нет: priceRu не задан, строки «В России» и «Экономия» скрыты.
+  // Срока доставки в постах нет: days не задан, «за N дней» не показываем. Где город не назван — без города.
+  // turnkey в миллионах рублей. inLists: false — сделка только для блока 3 (демо-разбор цены).
+  // badge: плашка на карточке, если подходит. cityShort: короткое имя для тега на телефоне.
   deals: [
-    { id: 'monjaro', mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', postUrl: ask('ссылка на пост о выдаче'), demo: true, breakdown: true },
-    { id: 'cx5', mileage: 0, hp: 155, engine: '2,0 л', model: 'Mazda CX-5', year: 2024, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '03.10.2026', days: 52, priceRu: 4.1, turnkey: 3.35, photo: 'cx5', postUrl: ask('ссылка на пост о выдаче'), demo: true, badge: 'до 160 л.с. · льготный утильсбор' },
-    { id: 'carnival', mileage: 48000, hp: 202, engine: '2,2 л', model: 'Kia Carnival', year: 2022, condition: 'used', city: 'Екатеринбург', cityShort: 'ЕКБ', cityIn: 'в Екатеринбурге', from: 'из Кореи', date: '27.09.2026', days: 44, priceRu: 4.9, turnkey: 4.05, photo: 'carnival', postUrl: ask('ссылка на пост о выдаче'), demo: true },
-    { id: 'santafe', mileage: 32000, hp: 202, engine: '2,2 л', model: 'Hyundai Santa Fe', year: 2023, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '19.09.2026', days: 46, priceRu: 4.4, turnkey: 3.6, photo: 'santafe', postUrl: ask('ссылка на пост о выдаче'), demo: true },
-    { id: 'l7', mileage: 0, hp: 449, engine: '1,5 л', model: 'LiXiang L7', year: 2025, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '14.09.2026', days: 50, priceRu: 8.1, turnkey: 6.9, photo: 'l7', postUrl: ask('ссылка на пост о выдаче'), demo: true },
-    { id: 'x5', mileage: 61000, hp: 340, engine: '3,0 л', model: 'BMW X5', year: 2021, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '08.09.2026', days: 55, priceRu: 7.9, turnkey: 6.7, photo: 'x5', postUrl: ask('ссылка на пост о выдаче'), demo: true },
+    { id: 'q05', model: 'Changan Qiyuan Q05', year: 2026, engine: 'электро', hp: 163, mileage: 0, condition: 'new', city: 'Казань', cityIn: 'в Казани', from: 'из Китая', date: '30.09.2026', turnkey: 2.65, photo: 'tg-q05', postUrl: 'https://t.me/mgk_auto/5748' },
+    { id: 'gac-s7', model: 'GAC S7', year: 2026, engine: 'гибрид', hp: 340, mileage: 0, condition: 'new', from: 'из Китая', date: '02.09.2026', turnkey: 5.573, photo: 'tg-gac-s7', postUrl: 'https://t.me/mgk_auto/5588' },
+    { id: 'x3', model: 'BMW X3', year: 2023, engine: '2,0 л', mileage: 20650, condition: 'used', from: 'из Кореи', date: '19.05.2026', turnkey: 5.85, photo: 'tg-x3', postUrl: 'https://t.me/mgk_auto/5074' },
+    { id: 'korando', model: 'SsangYong Korando', year: 2021, engine: '1,5 л', hp: 163, mileage: 79193, condition: 'used', city: 'Казань', cityIn: 'в Казани', from: 'из Кореи', date: '10.11.2025', turnkey: 2.15, photo: 'tg-korando', postUrl: 'https://t.me/mgk_auto/3899' },
+    { id: 'a6', model: 'Audi A6', year: 2022, engine: '2,0 л', mileage: 15668, condition: 'used', from: 'из Кореи', date: '06.11.2025', turnkey: 4.7, photo: 'tg-a6', postUrl: 'https://t.me/mgk_auto/3878' },
+    { id: 'carnival', model: 'Kia Carnival', year: 2021, engine: '2,2 л', mileage: 47000, condition: 'used', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Кореи', date: '11.09.2025', turnkey: 3.4, photo: 'tg-carnival', postUrl: 'https://t.me/mgk_auto/3520' },
+    // Демо-сделка для блока 3 «Разбор цены»: в канале нет разбивки цены по статьям
+    { id: 'monjaro', inLists: false, mileage: 0, hp: 238, engine: '2,0 л', model: 'Geely Monjaro', year: 2025, condition: 'new', city: 'Ижевск', cityIn: 'в Ижевске', from: 'из Китая', date: '12.10.2026', days: 48, priceRu: 4.7, turnkey: 3.98, photo: 'monjaro', postUrl: ask('ссылка на пост о выдаче'), demo: true, breakdown: true },
   ],
   // Сколько ещё сделок в канале: подставляется в последнюю карточку ленты «Ещё N машин».
   dealsMore: ask('сколько сделок в Telegram-канале'),
@@ -292,7 +292,7 @@ const company = {
       { title: 'Выдача', pay: ['Остаток', ask('сумма и порядок оплаты остатка')], get: 'Машину, ЭПТС и акт приёма-передачи. Поможем поставить на учёт' },
     ],
     // Пример отчёта об осмотре: ссылка на пост и фото-превью (сейчас заглушки).
-    report: { reportUrl: ask('ссылка на пост с отчётом об осмотре'), photos: ['santafe', 'x5', 'carnival'], placeholder: true },
+    report: { reportUrl: 'https://t.me/mgk_auto/5074', photos: ['tg-x3-rear', 'tg-x3-salon', 'tg-x3-screen'], label: 'Как осмотрели и выкупили BMW X3 в Корее' },
   },
 
   // ── Блок 5. Подбор и контакты ──────────────────────────────────────────────
