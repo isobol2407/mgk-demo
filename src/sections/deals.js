@@ -31,21 +31,23 @@ function dealCardHTML(c, d) {
 }
 
 // Карточка «Ищете конкретную модель?» стоит в ленте третьей: справа видно, что машины продолжаются
-function watchCardHTML() {
+function watchCardHTML(c) {
+  const chips = c.budgets
+    .map((b, i) => `<label class="watch__chip"><input type="radio" name="budget" value="${esc(b.label)}"${i === 0 ? ' checked' : ''} /><span>${esc(b.label)}</span></label>`)
+    .join('');
   return `
     <form class="deal deal--watch" data-watch-card data-action-form onsubmit="return false" aria-labelledby="watch-title">
-      <h3 class="watch__title display" id="watch-title">Ищете конкретную модель?</h3>
-      <p class="watch__text">Скажите, какую машину и за сколько хотите. Напишем, когда такая появится на аукционе или пройдёт наш осмотр.</p>
+      <h3 class="watch__title display" id="watch-title">Скажите, какая машина нужна, — сообщим, когда появится</h3>
       <div class="watch__fields">
         <label class="field"><span class="vh">Модель</span><input name="model" type="text" placeholder="Модель" autocomplete="off" /></label>
-        <label class="field"><span class="vh">Бюджет под ключ до</span><input name="budget" type="text" inputmode="numeric" placeholder="Бюджет под ключ до" autocomplete="off" /></label>
+        <fieldset class="watch__chips"><legend class="vh">Бюджет под ключ</legend>${chips}</fieldset>
       </div>
-      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--white btn--block' })}
+      ${actionBtn('watch', { label: 'Следить в Telegram', cls: 'btn btn--lime btn--block' })}
     </form>`;
 }
 function dealsWithWatch(c) {
   const cards = c.deals.filter((d) => d.inLists !== false).map((d) => dealCardHTML(c, d));
-  cards.splice(2, 0, watchCardHTML());
+  cards.splice(2, 0, watchCardHTML(c));
   return cards.join('');
 }
 

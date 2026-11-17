@@ -44,7 +44,10 @@ function formCtx(btn) {
   const form = btn.closest('[data-action-form]');
   if (!form) return {};
   const out = {};
-  form.querySelectorAll('input[name]').forEach((i) => i.value.trim() && (out[i.name] = i.value.trim()));
+  form.querySelectorAll('input[name]').forEach((i) => {
+    if ((i.type === 'radio' || i.type === 'checkbox') && !i.checked) return;
+    if (i.value.trim()) out[i.name] = i.value.trim();
+  });
   return out;
 }
 

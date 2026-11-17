@@ -88,7 +88,7 @@ export function renderHero(c) {
       <div class="hero__cta">
         <button class="btn btn--lime btn--lg" type="button" data-quiz-start aria-haspopup="dialog">${esc(c.hero.cta)}</button>
         <a class="link link--on-cobalt hero__link" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}Прочитать договор</a>
-        <a class="link link--on-cobalt hero__link" href="#calc">${icon('arrow-down')}Уже нашли машину? Пришлите ссылку, посчитаем</a>
+        ${actionBtn('calc_link', { label: 'Уже нашли машину? Пришлите ссылку, посчитаем', cls: 'link link--on-cobalt hero__link' })}
       </div>
       ${proofHTML(c)}
     </div>

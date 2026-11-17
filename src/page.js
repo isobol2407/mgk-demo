@@ -27,7 +27,6 @@ ${renderHeader(company)}
 ${renderHero(company)}
 ${renderDeals(company)}
 ${renderBreakdown(company)}
-${renderCalc(company)}
 ${renderSteps(company)}
 ${renderCheck(company)}
 ${renderTeam(company)}

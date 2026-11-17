@@ -3,7 +3,7 @@
 // Диаграмма переворачивается в таблицу с полным расчётом. На телефоне переворота нет:
 // таблица раскрывается под диаграммой.
 import { esc, val, demoBadge, isAsk, askBadge, isHidden } from '../lib/marks.js';
-import { icon, photo } from '../lib/ui.js';
+import { icon, photo, actionBtn } from '../lib/ui.js';
 import { postHref } from '../lib/links.js';
 import { rub, carSpecs, deliveryText } from '../lib/format.js';
 
@@ -97,7 +97,7 @@ function conditionsCard(c, b) {
     <div class="cond card">
       <h3 class="display h3">Если что-то пошло не так</h3>
       <ul class="cond__list">${items}</ul>
-      <a class="btn btn--cobalt" href="#calc">${icon('arrow-down')}<span>Рассчитать мою машину</span></a>
+      ${actionBtn('calc_link', { label: 'Рассчитать мою машину', cls: 'btn btn--cobalt' })}
     </div>`;
 }
 

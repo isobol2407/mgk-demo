@@ -10,6 +10,8 @@ export function initTimeline() {
   const track = root.querySelector('[data-tl-track]');
   const bars = [...root.querySelectorAll('[data-tl-bar]')];
   const goal = root.querySelector('[data-tl-goal]');
+  const doc = root.querySelector('[data-tl-doc]');
+  const card = root.querySelector('.tl__card');
   const days = Number(root.dataset.days);
 
   const wide = window.matchMedia('(min-width: 1024px)');
@@ -25,6 +27,7 @@ export function initTimeline() {
       b.classList.toggle('is-on', p > 0);
     });
     goal?.classList.toggle('is-on', day >= Number(goal.dataset.day));
+    doc?.classList.toggle('is-on', day >= Number(doc.dataset.day));
   }
 
   function frame() {
@@ -32,6 +35,9 @@ export function initTimeline() {
     const r = root.getBoundingClientRect();
     const travel = root.offsetHeight - stage.offsetHeight;
     const progress = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 1;
+    // Подлёт: пока блок поднимается к верху экрана, карточка раскрывается до краёв экрана
+    const grow = Math.min(1, Math.max(0, 1 - r.top / (window.innerHeight * 0.7)));
+    card.style.setProperty('--g', grow.toFixed(3));
     // Чуть дальше конца шкалы, чтобы последняя полоса успела дорасти
     const day = progress * (days + 4);
     paint(day);
@@ -55,6 +61,7 @@ export function initTimeline() {
       frame();
     } else {
       track.style.transform = '';
+      card.style.setProperty('--g', '0');
       paint(days + 10);
     }
   }

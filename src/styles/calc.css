@@ -107,16 +107,49 @@
   outline-color: var(--white);
 }
 .watch__title {
-  font-size: 32px;
-  line-height: 1;
+  font-size: 34px;
+  line-height: 0.95;
 }
-.watch__text {
-  font-size: 15px;
-  color: var(--on-cobalt-2);
+/* Бюджет — табами, как фильтр ленты: выбранный с обводкой */
+.watch__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.watch__chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.watch__chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: var(--r-s);
+  background: rgb(255 255 255 / 0.14);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease);
+}
+.watch__chip span:hover {
+  background: rgb(255 255 255 / 0.24);
+}
+.watch__chip input:checked + span {
+  background: var(--white);
+  color: var(--cobalt);
+}
+.watch__chip input:focus-visible + span {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
 }
 .watch__fields {
   display: grid;
-  gap: var(--s-2);
+  gap: var(--s-3);
   margin-top: auto;
 }
 .deal--watch .field input {
