@@ -21,9 +21,15 @@ function shotHTML(shot, i) {
 }
 
 function titleHTML(c) {
-  const lines = c.hero.title.map((line) =>
+  // Вторая строка заголовка лаймом, как на баннере МГК (accentLine в данных)
+  const accent = c.hero.accentLine ?? 1;
+  const lines = c.hero.title.map((line, li) =>
     line
-      .map((part) => (typeof part === 'string' ? `<span class="hero__w">${esc(part)}</span>` : shotHTML(c.hero.shots[part.shot], part.shot)))
+      .map((part) =>
+        typeof part === 'string'
+          ? `<span class="hero__w${li === accent ? ' hero__w--accent' : ''}">${esc(part)}</span>`
+          : shotHTML(c.hero.shots[part.shot], part.shot),
+      )
       .join(' '),
   );
   // Между строками обычный пробел и перенос, который работает только от 768 px
@@ -48,7 +54,7 @@ function arcHTML(c) {
       <div class="arc__cap${i === 0 ? ' is-active' : ''}" data-arc-cap="${i}"${i === 0 ? '' : ' inert'}>
         <p class="arc__l1">${esc(d.model)}</p>
         <p class="arc__l2">${carSpecs(d).map(esc).join(' · ')}</p>
-        <p class="arc__l3">Экономия ${mln(saving(d))}</p>
+        <p class="arc__l3"><b>${mln(d.turnkey)}</b> под ключ · на ${mln(saving(d))} меньше, чем в России</p>
         <div class="arc__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--white btn--sm' })}
         </div>
@@ -60,7 +66,8 @@ function arcHTML(c) {
     .join('');
   return `
   <div class="arc" data-arc role="group" aria-roledescription="карусель" aria-label="Привезённые машины. Листайте стрелками" tabindex="0">
-    <div class="arc__stage" data-arc-stage>${cards}</div>
+    <div class="arc__stage" data-arc-stage>
+    ${cards}</div>
     <div class="arc__foot container">
       <div class="arc__dots">${dots}</div>
       <div class="arc__caps" aria-live="off" data-arc-caps>${caps}</div>
@@ -78,7 +85,7 @@ export function renderHero(c) {
     <div class="hero__aside">
       <p class="hero__lead">${esc(c.hero.lead)}</p>
       <div class="hero__cta">
-        <button class="btn btn--white btn--lg" type="button" data-quiz-start aria-haspopup="dialog">${esc(c.hero.cta)}</button>
+        <button class="btn btn--lime btn--lg" type="button" data-quiz-start aria-haspopup="dialog">${esc(c.hero.cta)}</button>
         <a class="link link--on-cobalt" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${icon('doc')}Прочитать договор</a>
         <a class="link link--on-cobalt hero__calc" href="#calc">Уже нашли машину? Пришлите ссылку, посчитаем${icon('arrow-down')}</a>
       </div>

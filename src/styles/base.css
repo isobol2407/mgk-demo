@@ -122,11 +122,31 @@ ol {
   padding-block: var(--section-y);
 }
 .section--paper {
-  background: var(--paper);
+  background: var(--bg-light);
 }
 .section--cobalt {
-  background: var(--cobalt);
+  background: var(--bg-accent);
   color: var(--white);
+}
+/* Финальная полоса: лаймовая на всю ширину, текст тёмно-синий.
+   Локально переопределяем роли «текст на синем», чтобы блок не переписывать */
+.section--final {
+  background: var(--bg-final);
+  color: var(--on-final);
+  --on-cobalt-2: var(--on-final-2);
+  --line-on-cobalt: var(--line-on-final);
+}
+.section--final .sub {
+  color: var(--on-final-2);
+}
+/* Двухцветный заголовок: вторая строка лаймом, только на синем */
+.h-accent {
+  display: block;
+  color: var(--accent-on-blue);
+}
+/* На светлых секциях карточки на подложке, а не белые на белом */
+.section--paper .card {
+  background: var(--surface);
 }
 .display {
   font-family: var(--font-display);
@@ -219,6 +239,14 @@ dd {
 .btn--white:hover {
   background: var(--cobalt-10);
 }
+/* Главная кнопка экрана: лаймовая, одна на экран */
+.btn--lime {
+  background: var(--cta);
+  color: var(--on-cta);
+}
+.btn--lime:hover {
+  background: var(--lime-press);
+}
 .btn--ink {
   background: var(--ink);
   color: var(--white);
@@ -302,7 +330,7 @@ a.link:hover use[href='#i-arrow-down'] {
   min-height: 34px;
   padding: 4px 10px;
   border: 1px solid var(--line);
-  border-radius: var(--r-s);
+  border-radius: var(--r-tag);
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
@@ -379,11 +407,30 @@ a.proof-link:hover span {
   padding: 3px 7px;
   background: rgb(14 15 18 / 0.55);
   color: var(--white);
-  border-radius: var(--r-s);
+  border-radius: var(--r-tag);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+/* Сумма экономии: лаймовая подложка-маркер под цифрой, текст тёмно-синий.
+   При появлении «прокрашивается» слева направо; без скрипта и при reduced-motion видна сразу */
+.money {
+  padding: 1px 6px;
+  border-radius: var(--r-s);
+  background: linear-gradient(var(--money), var(--money)) no-repeat left / 100% 100%;
+  color: var(--on-money);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .money:not(.is-in) {
+    background-size: 0% 100%;
+  }
+  .js .money {
+    transition: background-size 700ms var(--ease);
+  }
 }
 
 /* ===== Плашки «демо» и «уточнить» =====
@@ -399,7 +446,7 @@ a.proof-link:hover span {
   text-transform: none;
   white-space: nowrap;
   padding: 3px 6px 4px;
-  border-radius: var(--r-s);
+  border-radius: var(--r-tag);
 }
 .mark--demo {
   border: 1px solid currentColor;

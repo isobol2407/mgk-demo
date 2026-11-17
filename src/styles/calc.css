@@ -98,7 +98,7 @@
   margin-top: var(--s-6);
   padding: var(--s-5);
   border-radius: var(--r-m);
-  background: var(--white);
+  background: var(--surface);
 }
 .watch__title {
   font-size: 28px;

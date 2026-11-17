@@ -44,7 +44,7 @@
   min-height: 44px;
   padding: 0 16px;
   border-radius: var(--r-s);
-  background: var(--white);
+  background: var(--surface);
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
@@ -69,7 +69,7 @@
   grid-auto-columns: 1fr;
   gap: 2px;
   padding: 2px;
-  background: var(--white);
+  background: var(--surface);
   border-radius: var(--r-s);
 }
 .seg__btn {
@@ -86,7 +86,7 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: var(--white);
+  background: var(--surface);
   border-radius: var(--r-s);
   transition:
     background-color var(--t-fast) var(--ease),
@@ -174,11 +174,9 @@
   align-items: center;
   gap: 6px;
   padding: 4px 10px 4px 6px;
-  background: var(--ok-bg);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  border-radius: var(--r-s);
-  color: var(--ok);
+  background: var(--tag);
+  border-radius: var(--r-tag);
+  color: var(--on-tag);
   font-size: var(--fs-micro);
   font-weight: 600;
   line-height: 1.2;
@@ -219,6 +217,9 @@
 }
 .prices__row--save dd {
   font-size: 17px;
+}
+.prices__row--save dd .money {
+  margin-right: -6px;
 }
 .deal__act {
   display: flex;

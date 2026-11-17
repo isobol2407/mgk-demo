@@ -20,7 +20,7 @@ function dealCardHTML(c, d) {
         <dl class="prices">
           <div class="prices__row"><dt>Такая же в России</dt><dd>${mln(d.priceRu)}</dd></div>
           <div class="prices__row"><dt>Под ключ ${esc(d.from)}</dt><dd>${mln(d.turnkey)}</dd></div>
-          <div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd>${mln(saving(d))}</dd></div>
+          <div class="prices__row prices__row--save"><dt>Экономия${d.demo ? ` ${demoBadge()}` : ''}</dt><dd><span class="money">${mln(saving(d))}</span></dd></div>
         </dl>
         <div class="deal__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--cobalt btn--sm' })}

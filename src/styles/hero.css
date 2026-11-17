@@ -1,7 +1,7 @@
 /* ===== 1. Обещание ===== */
 .hero {
   position: relative;
-  background: var(--cobalt);
+  background: var(--bg-accent);
   color: var(--white);
   padding-top: calc(var(--header-h) + var(--s-4));
   padding-bottom: var(--s-6);
@@ -27,6 +27,9 @@
 }
 .hero__w {
   white-space: nowrap;
+}
+.hero__w--accent {
+  color: var(--accent-on-blue);
 }
 .hero__br {
   display: none;
@@ -271,9 +274,13 @@ html:not(.js) .arc__cap:not(.is-active) {
   font-size: 15px;
   font-weight: 500;
 }
+/* Цена под ключ и разница с Россией: обычным текстом, цена жирнее */
 .arc__l3 {
   font-size: var(--fs-small);
-  color: var(--on-cobalt-2);
+  color: var(--white);
+}
+.arc__l3 b {
+  font-weight: 600;
 }
 /* Тег о выдаче на фото: только у центральной карточки */
 .arc__tag {

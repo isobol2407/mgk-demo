@@ -276,6 +276,7 @@ button.calc__row:hover .calc__name {
 }
 .gain__sum {
   margin-block: var(--s-3) var(--s-5);
+  color: var(--accent-on-blue);
   font-size: clamp(72px, 21vw, 128px);
   line-height: 0.85;
   white-space: nowrap;

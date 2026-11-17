@@ -17,8 +17,8 @@
   break-inside: avoid;
   margin: 0 0 var(--gap) 10px;
   padding: var(--s-4) var(--s-4) var(--s-3);
-  background: var(--white);
   border-radius: var(--r-m) var(--r-m) var(--r-m) 2px;
+  background: var(--surface);
 }
 /* Хвостик пузыря слева внизу */
 .msg::before {
@@ -28,7 +28,7 @@
   bottom: 0;
   width: 10px;
   height: 14px;
-  background: var(--white);
+  background: var(--surface);
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 .msg__from {

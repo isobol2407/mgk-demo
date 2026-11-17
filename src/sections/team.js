@@ -21,7 +21,7 @@ export function renderTeam(c) {
 <section class="team section section--cobalt" id="team">
   <div class="container">
     <header class="sec-head">
-      <h2 class="display h2">${esc(t.title)}</h2>
+      <h2 class="display h2">${esc(t.title)}${t.titleAccent ? ` <span class="h-accent">${esc(t.titleAccent)}</span>` : ''}</h2>
       <p class="sub">${esc(t.sub)}</p>
     </header>
     <ul class="team__grid">${people}</ul>

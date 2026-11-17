@@ -1,16 +1,29 @@
-/* ===== 9. Машины до 160 л.с. ===== */
-.m160__grid {
+/* ===== 9. Машины до 160 л.с.: синий блок, белые карточки-бенто ===== */
+.m160 .h2 {
+  max-width: 20ch;
+}
+.m160 :focus-visible {
+  outline-color: var(--white);
+}
+.m160 .card :focus-visible {
+  outline-color: var(--cobalt);
+}
+.m160__bento {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--s-7);
+  gap: var(--gap);
 }
-.m160 .h2 {
-  max-width: 16ch;
-  margin-bottom: var(--s-5);
+
+/* Карточка условий: те же поля, что у карточек «Разбора цены» */
+.m160__rules-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  padding: var(--s-5);
 }
 .m160__rules {
   display: grid;
-  gap: var(--s-3);
+  gap: var(--s-4);
 }
 .m160__rules li {
   display: grid;
@@ -25,11 +38,22 @@
   color: var(--cobalt);
 }
 .m160__note {
-  margin-top: var(--s-5);
-  max-width: 40ch;
+  max-width: 44ch;
   font-size: var(--fs-small);
   color: var(--ink-2);
 }
+.m160__act {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: auto;
+}
+.m160__other {
+  display: flex;
+  gap: var(--s-2);
+}
+
 .m160__list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -39,13 +63,37 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--paper);
+}
+.m160__media {
+  position: relative;
+  padding: 8px 8px 0;
 }
 .m160__card img {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
+  border-radius: var(--r-s);
+}
+/* Лаймовая плашка-метка, как «до 160 л.с.» в ленте сделок */
+.m160__tag {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px 3px 4px;
+  border-radius: var(--r-tag);
+  background: var(--tag);
+  color: var(--on-tag);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.m160__tag .i {
+  width: 14px;
+  height: 14px;
 }
 .m160__body {
   display: grid;
@@ -67,21 +115,10 @@
 .m160__price-note {
   margin-top: var(--s-2);
   font-size: 12px;
-  color: var(--ink-2);
+  color: var(--on-cobalt-2);
 }
-.m160__act {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s-3);
-  margin-top: var(--s-5);
-}
-.m160__other {
-  display: flex;
-  gap: var(--s-2);
-}
-/* Телефон: карточки горизонтальные в один столбец, все одной высоты.
-   Главная кнопка на всю ширину, MAX и ВК под ней пополам */
+
+/* Телефон: модели горизонтальными карточками одной высоты; кнопка каталога на всю ширину */
 @media (max-width: 767px) {
   .m160__list {
     grid-template-columns: minmax(0, 1fr);
@@ -92,10 +129,21 @@
     grid-template-columns: 128px minmax(0, 1fr);
     align-items: center;
   }
+  .m160__media {
+    height: 100%;
+    padding: 8px 0 8px 8px;
+  }
   .m160__card img {
     height: 100%;
     aspect-ratio: auto;
-    min-height: 92px;
+    min-height: 84px;
+  }
+  .m160__tag {
+    left: 12px;
+    top: 12px;
+  }
+  .m160__tag .i {
+    display: none;
   }
   .m160__body {
     padding: var(--s-3) var(--s-4);
@@ -120,11 +168,15 @@
   }
 }
 
+@media (min-width: 900px) {
+  .m160__rules-card {
+    padding: var(--s-6);
+  }
+}
+/* Десктоп: слева карточка условий на всю высоту, справа модели 2×2 */
 @media (min-width: 1100px) {
-  .m160__grid {
+  .m160__bento {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--s-8);
-    align-items: start;
   }
   .m160__model {
     font-size: 26px;

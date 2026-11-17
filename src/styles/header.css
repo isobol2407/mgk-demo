@@ -27,7 +27,16 @@
   align-items: center;
   gap: var(--s-5);
 }
+/* Логотип МГК: контур с их сайта, цвет как у текста шапки (белый на синем, тёмный на белом) */
+.logo__img {
+  display: block;
+  width: auto;
+  height: 22px;
+  aspect-ratio: 400 / 70;
+}
 .logo {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 26px;

@@ -11,3 +11,6 @@ media-src/*.mp4
 
 # Доступы для деплоя
 .env.deploy
+
+# Экспорт Telegram-чата клиента: личные данные, в git не кладём
+ChatExport_*/

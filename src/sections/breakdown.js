@@ -109,7 +109,7 @@ export function renderBreakdown(c) {
 <section class="price section section--cobalt" id="price">
   <div class="container">
     <header class="sec-head">
-      <h2 class="display h2">Из чего складывается цена под ключ</h2>
+      <h2 class="display h2">Из чего складывается <span class="h-accent">цена под ключ</span></h2>
       <p class="sub">На примере машины, которую мы выдали ${esc(d.cityIn)} ${esc(b.dateLong)}.</p>
     </header>
     <div class="bento">
