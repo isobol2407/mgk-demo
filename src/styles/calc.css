@@ -110,11 +110,11 @@
   font-size: 34px;
   line-height: 0.95;
 }
-/* Бюджет — табами, как фильтр ленты: выбранный с обводкой */
+/* Бюджет — табами в один ряд: четыре равные ячейки, без переноса на вторую строку */
 .watch__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -125,16 +125,23 @@
   pointer-events: none;
 }
 .watch__chip span {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  min-height: 40px;
-  padding: 0 12px;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 2px;
+  white-space: nowrap;
   border-radius: var(--r-s);
   background: rgb(255 255 255 / 0.14);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color var(--t-fast) var(--ease);
+}
+@media (max-width: 767px) {
+  .watch__chip span {
+    font-size: 13px;
+  }
 }
 .watch__chip span:hover {
   background: rgb(255 255 255 / 0.24);

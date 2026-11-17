@@ -31,6 +31,7 @@ import { initActions } from './client/actions.js';
 import { initMarkers } from './client/marker.js';
 import { initTimeline } from './client/timeline.js';
 import { initReviews } from './client/reviews.js';
+import { initFaq } from './client/faq.js';
 import { initDemoNote } from './client/demo.js';
 
 initHeader();
@@ -43,6 +44,7 @@ initActions();
 initMarkers();
 initTimeline();
 initReviews();
+initFaq();
 initQuiz(company);
 initDemoNote();
 

@@ -49,17 +49,43 @@ export function initTimeline() {
   }
   const onScroll = () => raf || (raf = requestAnimationFrame(frame));
 
+  // Высота строки — из места, которое карточка занимает до низа экрана: плашки крупнее на высоких окнах
+  const grid = root.querySelector('.tl__grid');
+  const rows = Number(getComputedStyle(track).getPropertyValue('--rows')) || 1;
+  function fitRows() {
+    root.style.removeProperty('--row-h');
+    const cs = getComputedStyle(card);
+    const inner = card.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const other = track.offsetHeight - grid.offsetHeight + 12; // шапка шкалы и нижний запас сетки
+    const h = Math.min(72, Math.max(36, Math.floor((inner - other) / rows)));
+    root.style.setProperty('--row-h', `${h}px`);
+    pinDoc();
+  }
+  // Полоса шире своих дней, если текст длиннее: комментарий ставим к её настоящему правому краю
+  function pinDoc() {
+    if (!doc) return;
+    const bar = bars[Number(doc.dataset.bar)];
+    if (bar) doc.style.left = `${bar.offsetLeft + bar.offsetWidth}px`;
+  }
+  const onResize = () => {
+    fitRows();
+    onScroll();
+  };
+
   function setup() {
     const live = wide.matches && !reduce.matches;
     root.classList.toggle('is-live', live);
     root.classList.toggle('is-static', !live);
     window.removeEventListener('scroll', onScroll);
-    window.removeEventListener('resize', onScroll);
+    window.removeEventListener('resize', onResize);
     if (live) {
       window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
+      window.addEventListener('resize', onResize);
+      fitRows();
       frame();
     } else {
+      root.style.removeProperty('--row-h');
+      pinDoc();
       track.style.transform = '';
       card.style.setProperty('--g', '0');
       paint(days + 10);
@@ -68,4 +94,6 @@ export function initTimeline() {
   wide.addEventListener('change', setup);
   reduce.addEventListener('change', setup);
   setup();
+  // Ширина полос зависит от шрифта: после его загрузки пересчитываем
+  document.fonts?.ready.then(() => (root.classList.contains('is-live') ? onResize() : pinDoc()));
 }

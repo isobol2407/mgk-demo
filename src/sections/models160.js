@@ -1,6 +1,7 @@
-// 9. Машины до 160 л.с. Синий блок: заголовок в две строки, под ним ряд из четырёх карточек —
-// три условия льготы и лаймовая карточка-кнопка «Получить каталог» с иконками мессенджеров.
-// Ниже четыре модели с ценой.
+// 9. Машины до 160 л.с. Синий блок: заголовок в две строки. На десктопе две колонки:
+// слева столбиком три условия льготы и лаймовая карточка-кнопка «Получить каталог»,
+// справа четыре модели с ценой (2×2). Условия не стоят над машинами, чтобы не читались
+// как описание конкретной машины.
 import { esc } from '../lib/marks.js';
 import { icon, photo } from '../lib/ui.js';
 import { actionAttrs } from '../lib/actions.js';
@@ -47,8 +48,10 @@ export function renderModels160(c) {
       <h2 class="display h2">${esc(m.title)}${m.titleAccent ? ` <span class="h-accent">${esc(m.titleAccent)}</span>` : ''}</h2>
       <p class="sub">${esc(m.note)}</p>
     </header>
-    <ul class="m160__rules">${rules}${cta}</ul>
-    <ul class="m160__list">${cards}</ul>
+    <div class="m160__layout">
+      <ul class="m160__rules">${rules}${cta}</ul>
+      <ul class="m160__list">${cards}</ul>
+    </div>
   </div>
 </section>`;
 }

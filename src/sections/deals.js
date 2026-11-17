@@ -4,7 +4,6 @@ import { esc, val, demoBadge, isAsk, isHidden } from '../lib/marks.js';
 import { icon, photo, actionBtn, extLink, proofHTML } from '../lib/ui.js';
 import { primaryKey, messengerLabel, chatAttrs } from '../lib/messenger.js';
 import { mln, saving, budgetOf, carSpecs, deliveryTagHTML } from '../lib/format.js';
-import { postHref } from '../lib/links.js';
 
 function dealCardHTML(c, d) {
   return `
@@ -24,7 +23,6 @@ function dealCardHTML(c, d) {
         </dl>
         <div class="deal__act">
           ${actionBtn('same', { ctx: { model: d.model, year: d.year }, label: 'Хочу такую же', cls: 'btn btn--cobalt btn--sm' })}
-          ${extLink('Пост о выдаче', postHref(c, d), { cls: 'link link--muted' })}
         </div>
       </div>
     </article>`;

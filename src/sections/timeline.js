@@ -25,6 +25,18 @@ export function timelineHTML(c, head = '') {
     .join('');
   const m = t.milestone;
   const a = t.after;
+  // Комментарий про договор (как комментарий в Figma): острый угол указывает на конец полосы «Договор»
+  const k = t.contract;
+  const kBar = k ? t.bars[k.bar ?? 1] : null;
+  const doc = kBar
+    ? `<div class="tl__doc" data-tl-doc data-bar="${k.bar ?? 1}" data-day="${kBar.to}" style="--row:${k.bar ?? 1};left:${pos(kBar.to)}">
+                <span class="tl__doc-pin" aria-hidden="true">${icon('doc')}</span>
+                <span class="tl__doc-body">
+                  <span class="tl__doc-t">${esc(k.label)}</span>
+                  <a class="link tl__doc-a" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${esc(k.cta)}${icon('arrow-ur')}</a>
+                </span>
+              </div>`
+    : '';
   return `
     <div class="tl" data-tl data-days="${D}">
       <div class="tl__stage" data-tl-stage>
@@ -36,10 +48,7 @@ export function timelineHTML(c, head = '') {
             <div class="tl__grid">
               ${bars}
               <div class="tl__bar tl__bar--after" data-tl-bar data-from="${a.from}" data-to="${D + 2}" style="--row:${t.bars.length};left:${pos(a.from)};width:${pos(D - a.from)}"><span class="tl__bar-t">${esc(a.label)}</span></div>
-              ${t.contract ? `<div class="tl__doc" data-tl-doc data-day="${t.contract.day + 2}" style="left:${pos(t.contract.day)}">
-                <span class="tl__doc-t">${icon('doc')}${esc(t.contract.label)}</span>
-                <a class="link tl__doc-a" href="${esc(c.contract.url)}" target="_blank" rel="noopener">${esc(t.contract.cta)}${icon('arrow-ur')}</a>
-              </div>` : ''}
+              ${doc}
               <div class="tl__goal" data-tl-goal data-day="${m.day}" style="left:${pos(m.day)}">
                 <span class="tl__goal-t display">${esc(m.label)}</span>${m.pay ? `<span class="tl__pay">${esc(m.pay)}</span>` : ''}
               </div>

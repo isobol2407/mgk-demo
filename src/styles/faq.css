@@ -39,6 +39,7 @@
   border-top: 1px solid rgb(255 255 255 / 0.25);
 }
 .qa {
+  overflow: hidden; /* высота анимируется в src/client/faq.js */
   border-bottom: 1px solid rgb(255 255 255 / 0.25);
 }
 .qa__q {
@@ -65,7 +66,7 @@
   height: 28px;
   transition: transform var(--t) var(--ease);
 }
-.qa[open] .qa__plus {
+.qa[open]:not(.is-closing) .qa__plus {
   transform: rotate(45deg);
 }
 .qa__a {
