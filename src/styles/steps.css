@@ -115,7 +115,7 @@
   transform-box: fill-box;
   transform-origin: 50% 100%;
   transform: rotate(6deg);
-  transition: transform var(--t-slow) var(--ease);
+  transition: transform 250ms var(--ease);
 }
 .doc__sheet {
   fill: var(--white);

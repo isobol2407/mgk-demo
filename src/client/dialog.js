@@ -1,6 +1,7 @@
 // Закрытие модалок (<dialog>) с анимацией: открытие было в CSS, закрытие — короче и быстрее.
 // Телефон, модалка «Что дальше»: шторка уезжает вниз. Остальное: лёгкое растворение со сдвигом.
-// Esc перехватываем, чтобы он тоже закрывал с анимацией. При reduced-motion — сразу.
+// Esc закрывает мгновенно (нативно): действие с клавиатуры не анимируем (remove-animations).
+// При reduced-motion — тоже сразу.
 const SHEET = 'cubic-bezier(0.32, 0.72, 0, 1)'; // --ease-drawer
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)'; // --ease
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,10 +32,3 @@ export function closeDialog(dialog, { instant = false } = {}) {
   anim.oncancel = done;
 }
 
-// Esc: вместо мгновенного закрытия — то же закрытие с анимацией
-export function animateEsc(dialog) {
-  dialog.addEventListener('cancel', (e) => {
-    e.preventDefault();
-    closeDialog(dialog);
-  });
-}

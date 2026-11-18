@@ -6,7 +6,7 @@
 // закрывается и открывается модалка «Что произойдёт дальше» со сводкой ответов.
 // Модалка — нативный <dialog>: Esc закрывает, фокус внутри, после закрытия возвращается.
 import { openNext } from './actions.js';
-import { closeDialog, animateEsc } from './dialog.js';
+import { closeDialog } from './dialog.js';
 
 const STEPS = 6;
 
@@ -83,7 +83,6 @@ export function initQuiz(company) {
   // Каждый вариант записывает ответ и ведёт на следующий шаг
   const pick = { 'data-quiz-budget': ['budget', 2], 'data-quiz-purpose': ['purpose', 3], 'data-quiz-condition': ['condition', 4], 'data-quiz-timing': ['timing', 6] };
 
-  animateEsc(dialog);
   dialog.addEventListener('click', (e) => {
     if (e.target === dialog) return closeDialog(dialog); // клик по фону
     const b = e.target.closest('button');
