@@ -35,13 +35,12 @@ export function renderCheck(c) {
       .map((x) => `<span class="how__chip${x.ok ? '' : ' how__chip--bad'}">${icon(x.ok ? 'check' : 'close', 'how__chip-ico')}${esc(x.value)}</span>`)
       .join('');
 
-  let order = 0;
   const steps = ins.items
     .map((x, i) => {
       const n = i + 1;
       const res = st ? chips(n) : '';
       const step = `
-        <li class="how__step" style="--i:${order++};--n:${i}">
+        <li class="how__step">
           <span class="how__n display" aria-hidden="true">${n}</span>
           <span class="how__text"><span class="how__t">${esc(x.title)}</span><span class="how__s">${esc(x.short)}</span></span>
           ${res ? `<span class="how__res">${res}</span>` : ''}
@@ -49,8 +48,8 @@ export function renderCheck(c) {
       const fork =
         st && n === stop
           ? `
-        <li class="how__stop" style="--i:${order++}">${icon('close', 'how__stop-ico')}<span><b>${esc(st.title)} забраковали.</b> ${esc(st.verdict)}</span></li>
-        <li class="how__fork" style="--i:${order++}"><span>Если машина прошла осмотр</span></li>`
+        <li class="how__stop">${icon('close', 'how__stop-ico')}<span><b>${esc(st.title)} забраковали.</b> ${esc(st.verdict)}</span></li>
+        <li class="how__fork"><span>Если машина прошла осмотр</span></li>`
           : '';
       return step + fork;
     })
