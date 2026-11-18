@@ -28,18 +28,16 @@ export function initQuiz(company) {
   const press = (attr, value) =>
     dialog.querySelectorAll(`[${attr}]`).forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute(attr) === value)));
 
-  // Смена шага — вариант на сравнение (dev-переключатель):
-  //   slide (по умолчанию): новый шаг проявляется за 150 мс со сдвигом 8 px по направлению
-  //   (вперёд — справа, «Назад» — слева); при reduced-motion только проявление;
-  //   none: как было, мгновенно. При открытии квиза первый шаг не анимируется.
+  // Смена шага (решение Ильи 19.11.2026): новый шаг проявляется за 150 мс со сдвигом 8 px
+  // по направлению — вперёд справа, «Назад» слева; при reduced-motion только проявление.
+  // При открытии квиза первый шаг не анимируется.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   function show(n, animate = true) {
     const dir = Math.sign(n - step) || 1;
     step = n;
     panes.forEach((p) => (p.hidden = Number(p.dataset.quizPane) !== step));
     const shown = panes.find((p) => !p.hidden);
-    const mode = document.documentElement.dataset.animQuiz || 'slide';
-    if (animate && mode === 'slide' && shown?.animate) {
+    if (animate && shown?.animate) {
       const x = reduceMotion.matches ? 0 : 8 * dir;
       shown.animate(
         [{ opacity: 0, transform: `translateX(${x}px)` }, { opacity: 1, transform: 'none' }],

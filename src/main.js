@@ -52,5 +52,3 @@ initDemoNote();
 
 // Панель пометок для правок с Claude: только в `npm run dev`, в сборку не попадает.
 if (import.meta.env.DEV) import('./dev/agentation.js');
-// Варианты анимации для спорных мест аудита «Анимации от Ковальски»: только в dev
-if (import.meta.env.DEV) import('./dev/anim-picker.js');

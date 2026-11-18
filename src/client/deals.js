@@ -17,17 +17,14 @@ export function initDeals(root, company) {
   const next = root.querySelector('[data-rail-next]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  // Смена фильтра без анимации выглядела как рывок. Вариант на сравнение (dev-переключатель):
-  //   fade (по умолчанию): лента проявляется за 150 мс, только прозрачность;
-  //   wave: первые видимые карточки проявляются по очереди (задержки 0/40/70/95 мс — шаг
-  //         затухает, как советует choreograph) со сдвигом 8 px;
-  //   none: как было, без анимации. Суммы не анимируются ни в одном варианте.
+  // «Волна» после смены фильтра (решение Ильи 19.11.2026): первые видимые карточки проявляются
+  // по очереди со сдвигом 8 px, задержки 0/40/70/95 мс — шаг затухает, как советует choreograph.
+  // При reduced-motion лента просто проявляется за 150 мс. Суммы не анимируются.
   const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
   function reveal() {
-    const mode = document.documentElement.dataset.animDeals || 'fade';
-    if (mode === 'none' || !rail.animate) return;
+    if (!rail.animate) return;
     rail.getAnimations({ subtree: true }).forEach((a) => a.cancel());
-    if (mode === 'wave' && !reduce.matches) {
+    if (!reduce.matches) {
       const DELAYS = [0, 40, 70, 95];
       const items = [...rail.children].filter((el) => !el.hidden).slice(0, DELAYS.length);
       items.forEach((el, k) =>
