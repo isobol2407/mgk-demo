@@ -1,110 +1,150 @@
-/* ===== 6. Проверка машины: пять шагов и случай отказа Kia Mohave =====
-   Решение 18.11.2026 (выбор из прототипов): до 1100 px «Маршрут» — шаги вертикальной линией, ниже случай
-   отчётом, статья сразу под заголовком. От 1100 px «Развилка» — шаги с результатами осмотра, плашка
-   «забраковали» и разделитель «Если машина прошла осмотр»; справа фото случая и статья */
+/* ===== 6. Проверка машины: «Развилка» на всех ширинах =====
+   Решение 18.11.2026 (выбор из прототипов): пять шагов на примере Kia Mohave. У шагов результаты осмотра,
+   после шага с находкой плашка «забраковали», под ней разделитель «Если машина прошла осмотр» и шаги дальше
+   в полную силу. Рядом (до 1100 px — ниже) фото случая и статья */
 .check .h2 {
   max-width: 20ch;
 }
-.check .sec-head {
-  margin-bottom: var(--s-5);
-}
 .check__grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--s-7);
 }
-/* До 1100: колонка справа распадается, статья встаёт под заголовок, случай — после шагов */
 .check__side {
-  display: contents;
-}
-.check__side .post {
-  order: -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
 }
 .check__eyebrow {
-  display: none;
   margin-bottom: var(--s-4);
   font-size: var(--fs-small);
   font-weight: 600;
   color: var(--ink-2);
 }
 
-/* ---- Шаги: «Маршрут» — точки на вертикальной линии, линия прокрашивается при появлении ---- */
-.how {
-  --dot: 44px;
-  position: relative;
-  display: grid;
-  gap: var(--s-5);
+/* ---- Шаги: номер, название, результат осмотра. Появляются по очереди ---- */
+.how__step,
+.how__stop,
+.how__fork {
+  transition:
+    opacity 240ms ease-out calc(var(--i) * 110ms),
+    transform 240ms var(--ease) calc(var(--i) * 110ms);
 }
-.how::before,
-.how::after {
-  content: '';
-  position: absolute;
-  left: calc(var(--dot) / 2 - 1px);
-  top: calc(var(--dot) / 2);
-  bottom: calc(var(--dot) / 2);
-  width: 2px;
-  background: var(--line);
-}
-.how::after {
-  background: var(--cobalt);
-  transform-origin: top;
-  transition: transform 900ms var(--ease);
-}
-.js .how:not(.is-in)::after {
-  transform: scaleY(0);
+.js .how:not(.is-in) :is(.how__step, .how__stop, .how__fork) {
+  opacity: 0;
+  transform: translateY(8px);
 }
 .how__step {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: var(--dot) minmax(0, 1fr);
+  grid-template-columns: 48px minmax(0, 1fr);
   align-items: center;
   column-gap: var(--s-4);
+  row-gap: var(--s-2);
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--line);
+}
+.how__step:last-child {
+  border-bottom: 1px solid var(--line);
 }
 .how__n {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--dot);
-  height: var(--dot);
-  border-radius: 50%;
-  background: var(--cobalt);
-  box-shadow: inset 0 0 0 2px var(--cobalt);
-  color: var(--white);
-  font-size: 24px;
-  line-height: 1;
-  transition:
-    background-color 200ms var(--ease) calc(var(--n) * 160ms + 100ms),
-    color 200ms var(--ease) calc(var(--n) * 160ms + 100ms),
-    box-shadow 200ms var(--ease) calc(var(--n) * 160ms + 100ms);
-}
-.js .how:not(.is-in) .how__n {
-  background: var(--white);
-  box-shadow: inset 0 0 0 2px var(--line);
-  color: var(--ink-2);
+  grid-row: span 2;
+  font-size: 56px;
+  line-height: 0.8;
+  color: var(--cobalt);
 }
 .how__text {
   display: grid;
 }
 .how__t {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.25;
 }
 .how__s {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--ink-2);
 }
-/* Результаты у шагов, плашка и развилка — только в десктопной раскладке */
-.how__res,
-.how__stop,
+/* Результаты осмотра Mohave у шага: синие — чисто, красная — находка */
+.how__res {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.how__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 6px;
+  border-radius: var(--r-tag);
+  background: var(--cobalt-10);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.how__chip-ico {
+  width: 18px;
+  height: 18px;
+  color: var(--cobalt);
+}
+.how__chip--bad {
+  background: var(--danger);
+  color: var(--white);
+}
+.how__chip--bad .how__chip-ico {
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--danger);
+}
+/* Плашка после шага с находкой: что решили. Белая с красной обводкой — проблема, а не комментарий */
+.how__stop {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-tag);
+  background: var(--white);
+  box-shadow: inset 0 0 0 1.5px var(--danger);
+  color: var(--ink);
+}
+.how__stop-ico {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: var(--white);
+}
+/* Развилка: шаги после неё в полную силу — их проходит каждая машина, которая прошла осмотр */
 .how__fork {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-5) 0 var(--s-2);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--cobalt);
+}
+.how__fork::before,
+.how__fork::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--cobalt);
+  opacity: 0.35;
+}
+.how__fork::before {
+  flex: 0 0 48px;
+}
+.how__fork + .how__step {
+  border-top: 0;
 }
 
-/* ---- Случай отказа: фото и короткий отчёт «документы → осмотр → решение» ---- */
+/* ---- Случай отказа: фото и подпись «модель + пост». Отчёт уже стоит у шагов ---- */
 .case {
-  display: grid;
   overflow: hidden;
 }
 .case__media {
@@ -114,11 +154,11 @@
 .case__media img {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--r-s);
 }
-/* Метка «Забраковали»: тёмная, а не лаймовая — лаймовый только про деньги и действие */
+/* Метка «Забраковали»: красная, как находка у шага */
 .case__tag {
   position: absolute;
   left: 20px;
@@ -128,7 +168,7 @@
   gap: 6px;
   padding: 6px 10px 6px 8px;
   border-radius: var(--r-tag);
-  background: var(--ink);
+  background: var(--danger);
   color: var(--white);
   font-size: var(--fs-small);
   font-weight: 600;
@@ -140,65 +180,24 @@
 }
 .case__body {
   display: flex;
-  flex-direction: column;
-  padding: var(--s-5);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4) var(--s-3) var(--s-5);
 }
-.case__meta {
-  font-size: var(--fs-micro);
-  color: var(--ink-2);
+.case__meta,
+.case__rows,
+.case__verdict {
+  display: none;
 }
 .case__title {
-  margin-top: var(--s-1);
-  font-size: clamp(36px, 3.6vw, 48px);
-  line-height: 0.9;
+  font-size: 28px;
+  line-height: 0.95;
 }
-.case__rows {
-  margin-top: var(--s-5);
-}
-/* Всё по левому краю: значок, результат и сразу за ним — где это выяснили */
-.case__row {
-  display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
-  align-items: start;
-  gap: var(--s-3);
-  padding: 10px 0;
-  border-top: 1px solid var(--line);
-  font-size: 16px;
-}
-.case__val {
-  font-weight: 600;
-}
-.case__label {
-  color: var(--ink-2);
-}
-.case__ico {
-  width: 20px;
-  height: 20px;
-  margin-top: 2px;
-  color: var(--cobalt);
-}
-/* Строка-находка: крестик в тёмном круге, как метка «Забраковали» */
-.case__row--bad .case__ico {
-  padding: 4px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--white);
-}
-.case__verdict {
-  align-self: flex-start;
-  margin-top: var(--s-4);
-  padding: var(--s-3) var(--s-4);
-  border-radius: var(--r-tag);
-  background: var(--ink);
-  color: var(--white);
-  font-weight: 600;
-}
-/* Ссылка на пост — якорь в правом нижнем углу карточки */
 .case__link {
-  align-self: flex-end;
   min-height: 44px;
-  margin-top: auto;
-  padding-top: var(--s-4);
+  white-space: nowrap;
 }
 /* Кнопка видео на фото (демо): белый круг, по клику модалка «здесь будет видео осмотра» */
 .case__play {
@@ -315,208 +314,38 @@
   }
 }
 
-/* От 768: в карточке случая фото слева, отчёт справа */
-@media (min-width: 768px) and (max-width: 1099px) {
-  .case {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+/* От 768: результаты осмотра справа от шага */
+@media (min-width: 768px) {
+  .how__step {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
   }
-  .case__media {
-    padding: 8px 0 8px 8px;
+  .how__n {
+    grid-row: auto;
   }
-  .case__media img {
-    height: 100%;
-    aspect-ratio: auto;
-    min-height: 320px;
-  }
-  .case__body {
-    padding: var(--s-6);
+  .how__res {
+    justify-content: flex-end;
   }
 }
-
-/* ===== Десктоп: «Развилка» ===== */
+/* Десктоп: шаги слева, справа узкая колонка с вертикальным фото случая и статьёй.
+   Колонка держится на экране, пока читаешь шаги */
 @media (min-width: 1100px) {
   .check .h2 {
     max-width: none;
   }
-  .check .sec-head {
-    margin-bottom: var(--s-7);
-  }
   .check__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
     align-items: start;
   }
-  /* Фото случая и статья держатся рядом, пока читаешь шаги */
+  .case__media img {
+    aspect-ratio: 4 / 5;
+  }
   .check__side {
     position: sticky;
     top: calc(var(--header-h) + var(--s-5));
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap);
-  }
-  .check__side .post {
-    order: 0;
-  }
-  .check__eyebrow {
-    display: block;
-  }
-
-  /* Шаги списком: номер, название, результат осмотра справа. Появляются по очереди */
-  .how {
-    display: block;
-  }
-  .how::before,
-  .how::after {
-    content: none;
-  }
-  .how__step,
-  .how__stop,
-  .how__fork {
-    transition:
-      opacity 240ms ease-out calc(var(--i) * 110ms),
-      transform 240ms var(--ease) calc(var(--i) * 110ms);
-  }
-  .js .how:not(.is-in) :is(.how__step, .how__stop, .how__fork) {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  .how__step {
-    grid-template-columns: 48px minmax(0, 1fr) auto;
-    column-gap: var(--s-4);
-    padding: var(--s-4) 0;
-    border-top: 1px solid var(--line);
-  }
-  .how__step:last-child {
-    border-bottom: 1px solid var(--line);
-  }
-  .how__n,
-  .js .how:not(.is-in) .how__n {
-    display: block;
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    background: none;
-    box-shadow: none;
-    color: var(--cobalt);
-    font-size: 56px;
-    line-height: 0.8;
-    transition: none;
-  }
-  .how__t {
-    font-size: 20px;
-  }
-  .how__s {
-    font-size: 16px;
-  }
-  /* Результаты осмотра Mohave у шага: синие — чисто, тёмная — находка */
-  .how__res {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 6px;
-  }
-  .how__chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 10px 5px 6px;
-    border-radius: var(--r-tag);
-    background: var(--cobalt-10);
-    color: var(--ink);
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .how__chip-ico {
-    width: 18px;
-    height: 18px;
-    color: var(--cobalt);
-  }
-  .how__chip--bad {
-    background: var(--ink);
-    color: var(--white);
-  }
-  .how__chip--bad .how__chip-ico {
-    padding: 3px;
-    border-radius: 50%;
-    background: var(--white);
-    color: var(--ink);
-  }
-  /* Плашка после шага с находкой: что решили */
-  .how__stop {
-    display: grid;
-    grid-template-columns: 20px minmax(0, 1fr);
-    align-items: start;
-    gap: var(--s-3);
-    margin: 0 0 var(--s-2);
-    padding: var(--s-3) var(--s-4);
-    border-radius: var(--r-tag);
-    background: var(--ink);
-    color: var(--white);
-  }
-  .how__stop-ico {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-  }
-  /* Развилка: шаги после неё в полную силу — их проходит каждая машина, которая прошла осмотр */
-  .how__fork {
-    display: flex;
-    align-items: center;
-    gap: var(--s-3);
-    padding: var(--s-5) 0 var(--s-2);
-    font-size: var(--fs-small);
-    font-weight: 600;
-    color: var(--cobalt);
-  }
-  .how__fork::before,
-  .how__fork::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--cobalt);
-    opacity: 0.35;
-  }
-  .how__fork::before {
-    flex: 0 0 48px;
-  }
-  .how__fork + .how__step {
-    border-top: 0;
-  }
-
-  /* Карточка случая: фото и подпись «модель + пост». Отчёт уже стоит у шагов слева */
-  .case__media img {
-    aspect-ratio: 4 / 3;
-  }
-  .case__body {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s-3);
-    padding: var(--s-3) var(--s-4) var(--s-3) var(--s-5);
-  }
-  .case__meta,
-  .case__rows,
-  .case__verdict {
-    display: none;
-  }
-  .case__title {
-    margin-top: 0;
-    font-size: 28px;
-    line-height: 0.95;
-  }
-  .case__link {
-    align-self: center;
-    margin-top: 0;
-    padding-top: 0;
-    white-space: nowrap;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .how::after,
-  .how__n,
   .how__step,
   .how__stop,
   .how__fork {
