@@ -17,6 +17,30 @@ export function initDeals(root, company) {
   const next = root.querySelector('[data-rail-next]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  // Смена фильтра без анимации выглядела как рывок. Вариант на сравнение (dev-переключатель):
+  //   fade (по умолчанию): лента проявляется за 150 мс, только прозрачность;
+  //   wave: первые видимые карточки проявляются по очереди (задержки 0/40/70/95 мс — шаг
+  //         затухает, как советует choreograph) со сдвигом 8 px;
+  //   none: как было, без анимации. Суммы не анимируются ни в одном варианте.
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  function reveal() {
+    const mode = document.documentElement.dataset.animDeals || 'fade';
+    if (mode === 'none' || !rail.animate) return;
+    rail.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+    if (mode === 'wave' && !reduce.matches) {
+      const DELAYS = [0, 40, 70, 95];
+      const items = [...rail.children].filter((el) => !el.hidden).slice(0, DELAYS.length);
+      items.forEach((el, k) =>
+        el.animate(
+          [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 200, delay: DELAYS[k], easing: EASE, fill: 'backwards' },
+        ),
+      );
+      return;
+    }
+    rail.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, easing: EASE });
+  }
+
   let budget = ''; // пусто: любой бюджет
   let condition = 'all';
 
@@ -59,12 +83,14 @@ export function initDeals(root, company) {
       // Повторное нажатие снимает фильтр
       budget = budget === b.dataset.budgetFilter ? '' : b.dataset.budgetFilter;
       apply();
+      reveal();
     }),
   );
   condBtns.forEach((b) =>
     b.addEventListener('click', () => {
       condition = b.dataset.conditionFilter;
       apply();
+      reveal();
     }),
   );
 

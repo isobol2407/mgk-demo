@@ -293,8 +293,10 @@ html:has(dialog[open]) {
   width: 16px;
   height: 16px;
 }
-.quiz__foot .link:hover .i {
-  transform: translateX(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .quiz__foot .link:hover .i {
+    transform: translateX(-2px);
+  }
 }
 
 @media (min-width: 768px) {

@@ -6,6 +6,7 @@
 // закрывается и открывается модалка «Что произойдёт дальше» со сводкой ответов.
 // Модалка — нативный <dialog>: Esc закрывает, фокус внутри, после закрытия возвращается.
 import { openNext } from './actions.js';
+import { closeDialog, animateEsc } from './dialog.js';
 
 const STEPS = 6;
 
@@ -27,9 +28,24 @@ export function initQuiz(company) {
   const press = (attr, value) =>
     dialog.querySelectorAll(`[${attr}]`).forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute(attr) === value)));
 
-  function show(n) {
+  // Смена шага — вариант на сравнение (dev-переключатель):
+  //   slide (по умолчанию): новый шаг проявляется за 150 мс со сдвигом 8 px по направлению
+  //   (вперёд — справа, «Назад» — слева); при reduced-motion только проявление;
+  //   none: как было, мгновенно. При открытии квиза первый шаг не анимируется.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function show(n, animate = true) {
+    const dir = Math.sign(n - step) || 1;
     step = n;
     panes.forEach((p) => (p.hidden = Number(p.dataset.quizPane) !== step));
+    const shown = panes.find((p) => !p.hidden);
+    const mode = document.documentElement.dataset.animQuiz || 'slide';
+    if (animate && mode === 'slide' && shown?.animate) {
+      const x = reduceMotion.matches ? 0 : 8 * dir;
+      shown.animate(
+        [{ opacity: 0, transform: `translateX(${x}px)` }, { opacity: 1, transform: 'none' }],
+        { duration: 150, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+      );
+    }
     stepLabel.textContent = `Шаг ${step} из ${STEPS}`;
     bars.forEach((bar, i) => bar.classList.toggle('is-on', i < step));
     backBtn.hidden = step === 1;
@@ -59,7 +75,8 @@ export function initQuiz(company) {
     if (budget) press('data-quiz-budget', budget);
     if (modelInput) modelInput.value = '';
     dialog.showModal();
-    show(fromStep);
+    step = fromStep;
+    show(fromStep, false);
   }
 
   document.querySelectorAll('[data-quiz-start]').forEach((btn) => btn.addEventListener('click', () => open(1)));
@@ -68,11 +85,12 @@ export function initQuiz(company) {
   // Каждый вариант записывает ответ и ведёт на следующий шаг
   const pick = { 'data-quiz-budget': ['budget', 2], 'data-quiz-purpose': ['purpose', 3], 'data-quiz-condition': ['condition', 4], 'data-quiz-timing': ['timing', 6] };
 
+  animateEsc(dialog);
   dialog.addEventListener('click', (e) => {
-    if (e.target === dialog) return dialog.close(); // клик по фону
+    if (e.target === dialog) return closeDialog(dialog); // клик по фону
     const b = e.target.closest('button');
     if (!b) return;
-    if (b.matches('[data-quiz-close]')) return dialog.close();
+    if (b.matches('[data-quiz-close]')) return closeDialog(dialog);
     if (b.matches('[data-quiz-back]')) return show(Math.max(1, step - 1));
     if (b.matches('[data-quiz-skip]')) {
       answers.model = '';

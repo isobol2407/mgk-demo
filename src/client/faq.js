@@ -1,8 +1,12 @@
 // Вопросы: плавное раскрытие <details>. Высота плавно доезжает до новой (Web Animations),
 // ответ проявляется, плюс поворачивается в крестик. Без скрипта и при reduced-motion
 // <details> работает как обычно, мгновенно.
-const DUR = 420;
+// Скорость — вариант на сравнение (переключатель в dev, src/dev/anim-picker.js):
+//   fast (по умолчанию, аудит «Анимации от Ковальски»): 300 мс, ответ без задержки;
+//   old: как было — 420 мс и задержка ответа 80 мс.
+const TIMING = { fast: [300, 0], old: [420, 80] };
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const timing = () => TIMING[document.documentElement.dataset.animFaq] ?? TIMING.fast;
 
 export function initFaq() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -14,6 +18,7 @@ export function initFaq() {
     summary.addEventListener('click', (e) => {
       if (reduce.matches) return;
       e.preventDefault();
+      const [DUR, DELAY] = timing();
       const from = item.offsetHeight;
       anim?.cancel();
       const closing = item.open && !item.classList.contains('is-closing');
@@ -35,7 +40,7 @@ export function initFaq() {
         anim = item.animate({ height: [`${from}px`, `${to}px`] }, { duration: DUR, easing: EASE });
         answer.animate(
           { opacity: [0, 1], transform: ['translateY(-6px)', 'none'] },
-          { duration: DUR, delay: 80, easing: EASE, fill: 'backwards' },
+          { duration: DUR, delay: DELAY, easing: EASE, fill: 'backwards' },
         );
         anim.onfinish = () => (anim = null);
       }

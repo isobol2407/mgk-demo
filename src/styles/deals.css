@@ -50,7 +50,12 @@
   white-space: nowrap;
   transition:
     background-color var(--t-fast) var(--ease),
-    color var(--t-fast) var(--ease);
+    color var(--t-fast) var(--ease),
+    transform var(--t-press) var(--ease);
+}
+.chip:active,
+.seg__btn:active {
+  transform: scale(0.97);
 }
 .chip:hover,
 .seg__btn:hover {
@@ -91,7 +96,11 @@
   transition:
     background-color var(--t-fast) var(--ease),
     color var(--t-fast) var(--ease),
-    opacity var(--t-fast) var(--ease);
+    opacity var(--t-fast) var(--ease),
+    transform var(--t-press) var(--ease);
+}
+.arrow:active:not(:disabled) {
+  transform: scale(0.97);
 }
 .arrow:hover:not(:disabled) {
   background: var(--cobalt);
@@ -269,8 +278,10 @@
   border-radius: var(--r-s);
   transition: transform var(--t-fast) var(--ease);
 }
-.deal--end:hover .deal__end-arrow {
-  transform: translate(2px, -2px);
+@media (hover: hover) and (pointer: fine) {
+  .deal--end:hover .deal__end-arrow {
+    transform: translate(2px, -2px);
+  }
 }
 .deal__end-arrow .i {
   width: 22px;

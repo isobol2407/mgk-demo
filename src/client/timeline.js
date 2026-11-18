@@ -3,6 +3,9 @@
 // по шкале дней. Шкала едет вбок, этапы дорастают слева направо, в конце выскакивает
 // плашка «Ключи у вас». Только transform и clip-path, без перерасчёта раскладки.
 // От 1024 px и без reduced-motion. Иначе — шкала целиком, без закрепления (CSS .is-static).
+// Производительность (аудит «Анимации от Ковальски»): размеры меряются при изменении окна,
+// на кадре — одно чтение раскладки; clip-path пишется прямо в карточку и полосы, а не через
+// CSS-переменную на родителе (она пересчитывала бы стили всех потомков на каждом кадре).
 export function initTimeline() {
   const root = document.querySelector('[data-tl]');
   if (!root) return;
@@ -23,27 +26,39 @@ export function initTimeline() {
       const from = Number(b.dataset.from);
       const to = Number(b.dataset.to);
       const p = Math.min(1, Math.max(0, (day - from) / (to - from)));
-      b.style.setProperty('--p', p.toFixed(3));
+      b.style.clipPath = `inset(0 ${((1 - p) * 100).toFixed(2)}% 0 0 round var(--r-m))`;
       b.classList.toggle('is-on', p > 0);
     });
     goal?.classList.toggle('is-on', day >= Number(goal.dataset.day));
     doc?.classList.toggle('is-on', day >= Number(doc.dataset.day));
   }
 
+  // Размеры, которые не меняются при прокрутке: меряются при изменении окна и после шрифтов
+  let travel = 0;
+  let view = 0;
+  let full = 0;
+  let lastGrow = -1;
+  function measure() {
+    travel = root.offsetHeight - stage.offsetHeight;
+    view = track.parentElement.clientWidth;
+    full = track.scrollWidth;
+  }
+
   function frame() {
     raf = 0;
-    const r = root.getBoundingClientRect();
-    const travel = root.offsetHeight - stage.offsetHeight;
-    const progress = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 1;
+    const top = root.getBoundingClientRect().top; // единственное чтение раскладки за кадр
+    const progress = travel > 0 ? Math.min(1, Math.max(0, -top / travel)) : 1;
     // Подлёт: пока блок поднимается к верху экрана, карточка раскрывается до краёв экрана
-    const grow = Math.min(1, Math.max(0, 1 - r.top / (window.innerHeight * 0.7)));
-    card.style.setProperty('--g', grow.toFixed(3));
+    const grow = Math.min(1, Math.max(0, 1 - top / (window.innerHeight * 0.7)));
+    if (grow !== lastGrow) {
+      lastGrow = grow;
+      const k = (1 - grow).toFixed(3);
+      card.style.clipPath = `inset(0 calc(var(--edge) * ${k}) calc(var(--s-6) * ${k}) round calc(var(--r-m) * ${k} + 0px))`;
+    }
     // Чуть дальше конца шкалы, чтобы последняя полоса успела дорасти
     const day = progress * (days + 4);
     paint(day);
     // «Сегодня» держится на 60 % ширины карточки, шкала едет под ним
-    const view = track.parentElement.clientWidth;
-    const full = track.scrollWidth;
     const x = Math.min(full - view, Math.max(0, (day / days) * full - view * 0.6));
     track.style.transform = `translate3d(${-x}px, 0, 0)`;
   }
@@ -60,6 +75,7 @@ export function initTimeline() {
     const h = Math.min(72, Math.max(36, Math.floor((inner - other) / rows)));
     root.style.setProperty('--row-h', `${h}px`);
     pinDoc();
+    measure();
   }
   // Полоса шире своих дней, если текст длиннее: комментарий ставим к её настоящему правому краю
   function pinDoc() {
@@ -87,7 +103,8 @@ export function initTimeline() {
       root.style.removeProperty('--row-h');
       pinDoc();
       track.style.transform = '';
-      card.style.setProperty('--g', '0');
+      card.style.clipPath = '';
+      lastGrow = -1;
       paint(days + 10);
     }
   }

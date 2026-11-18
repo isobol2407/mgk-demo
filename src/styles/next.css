@@ -140,15 +140,16 @@ html:has(dialog.next[open]) {
   }
 }
 @media (prefers-reduced-motion: no-preference) {
+  /* Телефон: шторка снизу, кривая как в iOS. Закрытие — src/client/dialog.js */
   .next[open] {
-    animation: next-up 320ms var(--ease);
+    animation: next-up 400ms var(--ease-drawer);
   }
   .next[open]::backdrop {
     animation: quiz-fade 320ms var(--ease);
   }
   @media (min-width: 768px) {
     .next[open] {
-      animation-name: next-in;
+      animation: next-in 320ms var(--ease);
     }
   }
 }

@@ -55,8 +55,10 @@ a.car:hover .car__link {
   color: var(--ink);
   text-decoration-color: currentColor;
 }
-a.car:hover .car__link .i {
-  transform: translate(2px, -2px);
+@media (hover: hover) and (pointer: fine) {
+  a.car:hover .car__link .i {
+    transform: translate(2px, -2px);
+  }
 }
 a.car:focus-visible {
   outline-color: var(--white);
@@ -138,10 +140,10 @@ a.car:focus-visible {
   grid-template-rows: 0fr;
   padding-block: 0;
   border-radius: 0 0 var(--r-m) var(--r-m);
-  transition: grid-template-rows var(--t-slow) var(--ease);
+  transition: grid-template-rows var(--t) var(--ease);
 }
 .flip__front {
-  transition: border-radius 0s linear var(--t-slow);
+  transition: border-radius 0s linear var(--t);
 }
 .flip.is-open .flip__front {
   border-radius: var(--r-m) var(--r-m) 0 0;

@@ -4,6 +4,7 @@
 // Клик по фону тоже закрывает. Подсвечивается мессенджер, на который нажали.
 import { ACTIONS, DEMO_MODE } from '../lib/actions.js';
 import { typograph } from '../lib/typo.js';
+import { closeDialog, animateEsc } from './dialog.js';
 
 let dialog;
 let lastTrigger = null;
@@ -80,7 +81,8 @@ export function initActions() {
   });
 
   dialog.addEventListener('click', (e) => {
-    if (e.target === dialog || e.target.closest('[data-next-close]')) dialog.close();
+    if (e.target === dialog || e.target.closest('[data-next-close]')) closeDialog(dialog);
   });
+  animateEsc(dialog);
   dialog.addEventListener('close', () => lastTrigger?.focus?.({ preventScroll: true }));
 }

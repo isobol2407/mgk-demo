@@ -48,7 +48,7 @@ export function renderCheck(c) {
       const fork =
         st && n === stop
           ? `
-        <li class="how__stop">${icon('close', 'how__stop-ico')}<span><b>${esc(st.title)} забраковали.</b> ${esc(st.verdict)}</span></li>
+        <li class="how__stop"><span class="how__stop-rail" aria-hidden="true"></span>${icon('close', 'how__stop-ico')}<span><b>${esc(st.title)} забраковали.</b> ${esc(st.verdict)}</span></li>
         <li class="how__fork"><span>Если машина прошла осмотр</span></li>`
           : '';
       return step + fork;
@@ -97,7 +97,10 @@ export function renderCheck(c) {
     <div class="check__grid">
       <div class="check__main">
         ${st ? `<p class="check__eyebrow">На примере ${esc(st.title)} · ${esc(st.place)}, ${esc(st.date)}</p>` : ''}
-        <ol class="how" data-check>${steps}</ol>
+        <div class="how-wrap" data-check>
+          <div class="how__rail" aria-hidden="true"><span class="how__fill"></span></div>
+          <ol class="how">${steps}</ol>
+        </div>
       </div>
       <div class="check__side">
         ${story}

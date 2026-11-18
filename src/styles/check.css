@@ -23,14 +23,17 @@
   color: var(--ink-2);
 }
 
-/* ---- Шкала «Рельс». Без JS и при reduced-motion — залита целиком, всё включено ---- */
+/* ---- Шкала «Рельс». Без JS и при reduced-motion — залита целиком, всё включено.
+   Скрипт пишет transform и opacity прямо в элементы (не через CSS-переменную на родителе:
+   она пересчитывала бы стили всех шагов на каждом кадре прокрутки) ---- */
+.how-wrap {
+  position: relative;
+}
 .how {
   position: relative;
   padding-left: 44px;
 }
-.how::before,
-.how::after {
-  content: '';
+.how__rail {
   position: absolute;
   left: 13px;
   top: 0;
@@ -38,10 +41,11 @@
   width: 2px;
   background: var(--line);
 }
-.how::after {
+.how__fill {
+  position: absolute;
+  inset: 0;
   background: var(--cobalt);
   transform-origin: top;
-  transform: scaleY(var(--f, 1));
 }
 /* Точка шага на шкале: пустая → синяя, когда заливка дошла */
 .how__step::before {
@@ -60,8 +64,7 @@
     box-shadow var(--t-fast) var(--ease);
 }
 /* На плашке «забраковали» шкала красная и толще */
-.how__stop::before {
-  content: '';
+.how__stop-rail {
   position: absolute;
   z-index: 1;
   left: -32px;
@@ -71,7 +74,6 @@
   border-radius: 2px;
   background: var(--danger);
   transform-origin: top;
-  transform: scaleY(var(--p, 1));
 }
 .how__n,
 .how__t {
@@ -88,14 +90,7 @@
 .how.is-live .how__step:not(.is-on) .how__t {
   color: var(--ink-2);
 }
-/* Результаты выезжают за заливкой */
-.how.is-live .how__res {
-  opacity: var(--c, 0);
-  transform: translateX(calc((1 - var(--c, 0)) * -12px));
-}
-.how.is-live .how__stop {
-  opacity: calc(0.2 + var(--p, 0) * 0.8);
-}
+/* Результаты выезжают за заливкой, плашка проявляется — значения ставит скрипт */
 .how.is-live .how__fork {
   opacity: 0.25;
   transition: opacity var(--t-fast) var(--ease);
@@ -298,10 +293,16 @@
   height: 28px;
   margin-left: 3px;
 }
-.case__play:hover {
-  background: var(--cobalt);
-  color: var(--white);
-  transform: scale(1.06);
+@media (hover: hover) and (pointer: fine) {
+  .case__play:hover {
+    background: var(--cobalt);
+    color: var(--white);
+    transform: scale(1.06);
+  }
+}
+.case__play:active {
+  transform: scale(0.97);
+  transition-duration: var(--t-press);
 }
 .case__play:focus-visible {
   outline: 2px solid var(--white);
@@ -368,6 +369,10 @@
     transform: translate(2px, -2px);
   }
 }
+.post:active {
+  transform: scale(0.98);
+  transition-duration: var(--t-press);
+}
 .post:focus-visible {
   outline-color: var(--cobalt);
 }
@@ -424,14 +429,13 @@
   .how {
     padding-left: 28px;
   }
-  .how::before,
-  .how::after {
+  .how__rail {
     left: 5px;
   }
   .how__step::before {
     left: -28px;
   }
-  .how__stop::before {
+  .how__stop-rail {
     left: -24px;
   }
 }

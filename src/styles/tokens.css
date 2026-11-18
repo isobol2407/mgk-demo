@@ -83,6 +83,8 @@
   /* Движение: спокойное, без пружин */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1); /* шторка снизу на телефоне (как в iOS) */
+  --t-press: 160ms; /* отклик на нажатие: scale(0.97) */
   --t-fast: 180ms;
   --t: 300ms;
   --t-slow: 700ms;

@@ -35,7 +35,18 @@
   margin: 0;
 }
 .rv-slide.is-active {
-  animation: rv-in 360ms var(--ease);
+  animation: rv-in 200ms var(--ease);
+}
+/* Меньше движения: новый отзыв только проявляется, без сдвига */
+@media (prefers-reduced-motion: reduce) {
+  .rv-slide.is-active {
+    animation-name: rv-fade;
+  }
+}
+@keyframes rv-fade {
+  from {
+    opacity: 0;
+  }
 }
 @keyframes rv-in {
   from {
@@ -93,7 +104,13 @@
   height: 44px;
   border-radius: 50%;
   background: var(--white);
-  transition: background-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  transition:
+    background-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    transform var(--t-press) var(--ease);
+}
+.rv-arrow:active {
+  transform: scale(0.97);
 }
 .rv-arrow--next {
   background: var(--ink);
