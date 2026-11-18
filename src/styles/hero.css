@@ -117,9 +117,17 @@
     transform: rotate(var(--tilt, 0deg));
   }
 }
+/* Хореография первого экрана (choreograph): заголовок стоит сразу, снимки ложатся по порядку
+   чтения с затухающим шагом — 100, 220, 310 мс (шаги 120 и 90), карусель подхватывает волну
+   на 280 мс (src/client/arc.js). Колонка с кнопкой не анимируется: ничего не ждёт.
+   Было: карусель на 150 мс раньше снимков, снимки ровным шагом 140 мс по 900 мс */
 @media (prefers-reduced-motion: no-preference) {
   .shot {
-    animation: shot-in 900ms var(--ease) both;
+    animation: shot-in 700ms var(--ease) both;
+    animation-delay: calc(100ms + var(--i, 0) * 120ms - var(--i, 0) * (var(--i, 0) - 1) * 15ms);
+  }
+  html[data-was~='hero'] .shot {
+    animation-duration: 900ms;
     animation-delay: calc(250ms + var(--i, 0) * 140ms);
   }
 }

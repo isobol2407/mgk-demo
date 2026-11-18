@@ -5,6 +5,8 @@
 import { ACTIONS, DEMO_MODE } from '../lib/actions.js';
 import { typograph } from '../lib/typo.js';
 import { closeDialog } from './dialog.js';
+import { initSheet } from './sheet.js';
+import { was } from './was.js';
 
 let dialog;
 let lastTrigger = null;
@@ -17,6 +19,8 @@ export function openNext(id, { key = 'telegram', ctx = {}, trigger = null } = {}
   if (!dialog || !a) return;
   lastTrigger = trigger ?? document.activeElement;
   const title = typeof a.title === 'function' ? a.title(ctx) : a.title;
+  // Квиз пройден: у подзаголовка «Готово» прорисовывается галочка (редкий момент успеха)
+  dialog.classList.toggle('is-done', id === 'quiz_done' && !was('done'));
   dialog.querySelector('[data-next-sub]').innerHTML = typograph(esc(title));
   dialog.querySelector('[data-next-steps]').innerHTML = a
     .steps(ctx)
@@ -66,6 +70,7 @@ export function initActions() {
     };
   }
   if (!dialog || typeof dialog.showModal !== 'function' || !DEMO_MODE) return;
+  initSheet(dialog);
 
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-action]');

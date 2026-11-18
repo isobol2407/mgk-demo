@@ -14,6 +14,7 @@ export function renderSteps(c) {
     .map(
       (step, i) => `
       <li class="step">
+        <span class="step__fill" aria-hidden="true"></span>
         <span class="step__n display" aria-hidden="true">${i + 1}</span>
         <div class="step__body">
           <h3 class="step__title display">${esc(step.title)}</h3>

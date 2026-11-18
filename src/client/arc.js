@@ -18,6 +18,8 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
+import { was } from './was.js';
+
 export function initArc(root) {
   const stage = root.querySelector('[data-arc-stage]');
   const cards = [...root.querySelectorAll('[data-arc-card]')];
@@ -252,14 +254,17 @@ export function initArc(root) {
   pos = -1.6;
   layout();
   stage.classList.add('is-ready');
+  // Карусель подхватывает волну снимков (на 280 мс, когда ложится второй снимок), едет
+  // меньше — 32 px, и докручивается быстрее. Было: старт на 150 мс, раньше снимков, 48 px
+  const old = was('hero');
   stage.animate(
     [
-      { opacity: 0, transform: 'translateY(48px)' },
+      { opacity: 0, transform: `translateY(${old ? 48 : 32}px)` },
       { opacity: 1, transform: 'none' },
     ],
-    { duration: 900, delay: 150, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' },
+    { duration: old ? 900 : 800, delay: old ? 150 : 280, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' },
   );
-  animateTo(0, 1700, easeOut, () => {
+  animateTo(0, old ? 1700 : 1400, easeOut, () => {
     introDone = true;
     scheduleAuto(1400);
   });

@@ -1,0 +1,131 @@
+/* Демо-стенд анимаций: тёмное «стекло», как пикер скилла prototype, — служебная панель,
+   не часть дизайна сайта. Только в dev. */
+.astand {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 2147483647;
+  width: min(660px, calc(100vw - 16px));
+  transform: translateX(-50%);
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(10, 10, 10, 0.86);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 8px 24px rgba(0, 0, 0, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  color: #fff;
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.astand button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.astand :focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+.astand__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.astand__name {
+  flex: none;
+  padding-left: 4px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.astand__tabs {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.astand__tab {
+  flex: none;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.55) !important;
+  white-space: nowrap;
+}
+.astand__tab:hover {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.astand__tab[aria-selected='true'] {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+}
+.astand__tab.is-was::after {
+  content: ' · было';
+  color: #ffb4a8;
+}
+.astand__fold {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+.astand__body {
+  display: grid;
+  gap: 8px;
+  padding: 10px 4px 2px;
+}
+.astand.is-folded .astand__body {
+  display: none;
+}
+.astand__hint {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+.astand__hint b {
+  color: #fff;
+  font-weight: 600;
+}
+.astand__note {
+  margin: 0;
+  color: #ffd66b;
+}
+.astand__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.astand__seg {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.astand__seg button {
+  height: 26px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+.astand__seg button[aria-pressed='true'] {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #fff !important;
+}
+.astand__show {
+  height: 32px;
+  padding: 0 14px !important;
+  border-radius: 999px;
+  background: #fff !important;
+  color: #0a0a0a !important;
+  font-weight: 600 !important;
+}
+.astand__show:active {
+  transform: scale(0.97);
+}

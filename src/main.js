@@ -33,6 +33,7 @@ import { initTimeline } from './client/timeline.js';
 import { initReviews } from './client/reviews.js';
 import { initFaq } from './client/faq.js';
 import { initCheck } from './client/check.js';
+import { initStepsLine } from './client/stepsline.js';
 import { initDemoNote } from './client/demo.js';
 
 initHeader();
@@ -47,8 +48,11 @@ initTimeline();
 initReviews();
 initFaq();
 initCheck();
+initStepsLine();
 initQuiz(company);
 initDemoNote();
 
 // Панель пометок для правок с Claude: только в `npm run dev`, в сборку не попадает.
 if (import.meta.env.DEV) import('./dev/agentation.js');
+// Демо-стенд «Было / Стало» для анимаций раунда «Анимации от Ковальски»: только в dev
+if (import.meta.env.DEV) import('./dev/anim-stand.js');

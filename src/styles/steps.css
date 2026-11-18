@@ -4,6 +4,7 @@
 }
 /* Телефон и планшет: шаги вертикально, линия слева */
 .steps__list {
+  position: relative; /* от него считаются положения шагов для заливки линии (stepsline.js) */
   display: grid;
 }
 .step {
@@ -27,6 +28,33 @@
 }
 .step:last-child::before {
   display: none;
+}
+/* Телефон и планшет: линии между шагами наливаются синим за прокруткой, цифра загорается,
+   когда до неё дошла заливка (src/client/stepsline.js, find-animation-opportunities).
+   Заливка — отдельный элемент поверх серой линии, скрипт пишет ему transform напрямую.
+   Без скрипта, при reduced-motion и в «Было» стенда — как раньше: серые линии, синие цифры */
+.step__fill {
+  display: none;
+  position: absolute;
+  left: 27px;
+  top: 76px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--cobalt);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.steps__list.is-live .step__fill {
+  display: block;
+}
+.steps__list.is-live .step:last-child .step__fill {
+  display: none;
+}
+.steps__list.is-live .step__n {
+  transition: color var(--t-fast) var(--ease);
+}
+.steps__list.is-live .step:not(.is-on) .step__n {
+  color: var(--cobalt-20);
 }
 /* Номера шагов огромными цифрами тем же узким шрифтом */
 .step__n {

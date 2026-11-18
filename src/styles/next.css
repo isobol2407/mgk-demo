@@ -164,3 +164,72 @@ html:has(dialog.next[open]) {
     transform: translateY(16px);
   }
 }
+
+/* ── Квиз пройден: галочка у «Готово» (find-animation-opportunities, редкий момент успеха).
+   Круг прорисовывается, когда окно почти встало, галочка — за ним (причина → следствие) ── */
+.next__ok {
+  display: none;
+}
+.next.is-done .next__ok {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin: 0 8px -4px 0;
+  color: var(--cobalt);
+}
+.next__ok circle,
+.next__ok path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .next.is-done[open] .next__ok circle {
+    animation: ok-draw 300ms var(--ease) 200ms both;
+  }
+  .next.is-done[open] .next__ok path {
+    animation: ok-draw 200ms var(--ease) 450ms both;
+  }
+}
+@keyframes ok-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Телефон: шторку можно смахнуть вниз за верх окна (src/client/sheet.js, gestures).
+   Пока палец на экране, окно идёт за ним 1:1, фон тускнеет вместе со сдвигом ── */
+.next__grab {
+  display: none;
+}
+@media (max-width: 767px) {
+  .next__grab {
+    display: block;
+    justify-self: center;
+    width: 40px;
+    height: 4px;
+    margin: calc(var(--s-2) * -1) 0 calc(var(--s-1) * -1);
+    border-radius: 2px;
+    background: var(--line);
+  }
+  html[data-was~='sheet'] .next__grab {
+    display: none;
+  }
+  .next__grab,
+  .next__head {
+    touch-action: none;
+  }
+  .next::backdrop {
+    opacity: calc(1 - var(--drag, 0));
+    transition: opacity 300ms var(--ease-drawer);
+  }
+  .next.is-dragging::backdrop {
+    transition: none;
+  }
+}

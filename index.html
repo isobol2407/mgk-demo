@@ -1,7 +1,12 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+      document.documentElement.classList.add('js');
+      // Демо-стенд анимаций: ?was=hero+menu — эти блоки ведут себя «как было» (src/client/was.js)
+      var w = new URLSearchParams(location.search).get('was');
+      if (w) document.documentElement.dataset.was = w;
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Шаблон-демо: страница закрыта от поиска -->
