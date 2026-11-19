@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Оффер МГК Авто</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@800;900&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}
+/* Лист для продажника: синяя шапка в стиле демо МГК, дальше спокойный документ с таблицами пакетов */
+:root {
+  --blue: #0B2BE0;
+  --blue-deep: #06158F;
+  --lime: #C8F52E;
+  --on-lime: #0A0F2C;
+  --bg: #FFFFFF;
+  --fg: #0A0F2C;
+  --fg-2: #5B6178;
+  --surface: #F1F2F6;
+  --line: rgba(10, 15, 44, 0.12);
+  --link: #0B2BE0;
+  --font-display: "Sofia Sans Extra Condensed", Impact, "Arial Narrow", sans-serif;
+  --font-text: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1030; --fg: #EEF0F8; --fg-2: #A3A9C2; --surface: #151B45;
+    --line: rgba(238, 240, 248, 0.14); --link: #9DB0FF; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1030; --fg: #EEF0F8; --fg-2: #A3A9C2; --surface: #151B45;
+  --line: rgba(238, 240, 248, 0.14); --link: #9DB0FF; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-text); font-size: 16px; line-height: 1.55; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: 880px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.hero { background: linear-gradient(135deg, var(--blue), var(--blue-deep)); color: #FFFFFF; }
+.hero .wrap { padding-block: 48px 40px; display: grid; gap: 20px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+h1 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: 0.9; font-size: clamp(44px, 9vw, 84px); margin: 0; text-wrap: balance; }
+h1 span { color: var(--lime); }
+.lead { font-size: 18px; max-width: 60ch; margin: 0; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 15px; }
+.hero-links a { color: #FFFFFF; }
+
+main .wrap { padding-block: 40px 64px; display: grid; gap: 56px; }
+section { display: grid; gap: 16px; min-width: 0; }
+h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: 0.95; font-size: clamp(32px, 5vw, 44px); margin: 0; text-wrap: balance; }
+h3 { font-size: 18px; font-weight: 600; margin: 0; }
+p { margin: 0; max-width: 65ch; }
+.muted { color: var(--fg-2); font-size: 14px; }
+
+.price-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.price { font-family: var(--font-display); font-weight: 900; font-size: 56px; line-height: 1; font-variant-numeric: tabular-nums; }
+.price-mark { background: var(--lime); color: var(--on-lime); padding: 0 10px; border-radius: 8px; }
+
+.table { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-2); font-weight: 500; background: var(--surface); }
+td:first-child { font-weight: 600; width: 34%; }
+td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.flow { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; counter-reset: step; }
+.flow li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.flow li:last-child { border-bottom: 0; }
+.flow li::before { content: counter(step); font-family: var(--font-display); font-weight: 900; font-size: 32px; line-height: 1; color: var(--link); }
+
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border-radius: 8px; padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.tag { justify-self: start; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 8px; border: 1px solid var(--line); color: var(--fg-2); }
+
+.bundle { border: 2px solid var(--link); border-radius: 8px; padding: 20px; display: grid; gap: 10px; }
+.bundle-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; }
+.bundle-price { font-family: var(--font-display); font-weight: 900; font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.features th { vertical-align: bottom; }
+.features th .tag { display: inline-block; margin-top: 6px; text-transform: none; letter-spacing: 0; }
+.features td:first-child { width: auto; font-weight: 500; }
+.features td:not(:first-child), .features th:not(:first-child) { text-align: center; white-space: nowrap; }
+.tag-base { border-color: var(--link); color: var(--link); }
+.tag-plus { background: var(--lime); border-color: var(--lime); color: var(--on-lime); }
+.yes { display: inline-block; font-size: 13px; font-weight: 600; padding: 1px 8px; border-radius: 8px; background: var(--surface); color: var(--link); }
+.no { color: var(--fg-2); }
+.qa { display: grid; gap: 0; border-top: 1px solid var(--line); }
+details { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; padding: 14px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--link); }
+details[open] summary::after { content: "–"; }
+details p { padding-bottom: 16px; }
+.say { border-left: 3px solid var(--link); padding-left: 12px; font-style: italic; }
+
+ol.questions { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 65ch; }
+footer .wrap { padding-block: 24px 40px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Оффер для МГК Авто · 19.11.2026</div>
+    <h1>Новая главная <span>для mgk-auto.ru</span></h1>
+    <p class="lead">Главная уже собрана в фирменном стиле МГК и на их реальных машинах из Telegram-канала. Подгоняем под их условия, ставим на их домен и подключаем заявки: каждая приходит менеджеру с машиной, бюджетом и контактом клиента.</p>
+    <div class="hero-links">
+      <a href="https://mgk.sobol-studio.ru" target="_blank" rel="noopener">Демо сайта ↗</a>
+      <a href="https://www.mgk-auto.ru/" target="_blank" rel="noopener">Их текущий сайт ↗</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section aria-labelledby="s-demo">
+      <h2 id="s-demo">Что уже готово</h2>
+      <p>13 блоков: первый экран с каруселью выданных машин, привезённые машины с фильтром по бюджету, разбор цены под ключ, проверка машины, этапы, команда, отзывы, машины до 160 л.с., вопросы, квиз-подбор, контакты. Мобильная версия. Все кнопки ведут в мессенджер с готовым текстом.</p>
+      <p class="muted">Это значит: клиент покупает не макет, а почти готовый сайт. Его остаётся наполнить и запустить.</p>
+    </section>
+
+    <section aria-labelledby="s-base">
+      <h2 id="s-base">Базовый пакет</h2>
+      <div class="price-row">
+        <span class="price"><span class="price-mark">50 000 ₽</span></span>
+        <span class="muted">10 рабочих дней с аванса и материалов</span>
+      </div>
+      <div class="table">
+        <table>
+          <thead><tr><th>Что входит</th><th>Пояснение</th></tr></thead>
+          <tbody>
+            <tr><td>Главная целиком</td><td>Все блоки из демо.</td></tr>
+            <tr><td>Подгонка под бизнес</td><td>Каждый блок наполняем их данными: машины, цены, условия, договор, отзывы, команда, контакты. Стиль не меняем: он уже их.</td></tr>
+            <tr><td>Мобильная версия</td><td>Проверена на телефоне, планшете и ноутбуке.</td></tr>
+            <tr><td>Заявки туда, куда вы хотите</td><td>Через Telegram-бота: он принимает клиента с сайта, берёт согласие и контакт и отправляет карточку заявки в рабочий чат, группу менеджеров или на почту.</td></tr>
+            <tr><td>Обновление машин</td><td>Через Google-таблицу: менеджер добавляет строку с фото и данными, машина появляется на сайте.</td></tr>
+            <tr><td>Запуск на их домене</td><td>Плюс базовая настройка для поиска: заголовки, описание, превью для ссылок.</td></tr>
+            <tr><td>Правки</td><td>Одна волна по содержанию после наполнения и одна финальная.</td></tr>
+            <tr><td>Поддержка</td><td>Месяц после запуска: мелкие правки и замена машин.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">Домен и хостинг оформляются на клиента отдельно.</p>
+    </section>
+
+    <section aria-labelledby="s-extra">
+      <h2 id="s-extra">Доплаты</h2>
+      <div class="table">
+        <table>
+          <thead><tr><th>Опция</th><th>Цена</th><th>Что это</th></tr></thead>
+          <tbody>
+            <tr><td>Подключение CRM</td><td class="num">+10–15 тыс. ₽</td><td>Каждая заявка сразу создаётся лидом в Битрикс24 или amoCRM: имя, телефон, машина, бюджет, откуда пришёл. Поля и воронку настраиваем с их менеджером. Самая трудоёмкая часть.</td></tr>
+            <tr><td>Расширенный бот в Telegram</td><td class="num">+15–25 тыс. ₽</td><td>Базовый бот плюс подбор, каталог, напоминания и показ машин. Чем отличается — в разделе «Как работает бот».</td></tr>
+            <tr><td>Бот в MAX</td><td class="num">+15 тыс. ₽</td><td>Тот же бот, но в MAX. Перед обещанием уточнить у Ильи.</td></tr>
+            <tr><td>Смена стиля</td><td class="num">отдельно</td><td>Новая палитра, шрифты, компоновка. Плюс 2–3 дня и согласование.</td></tr>
+            <tr><td>Перенос на Тильду</td><td class="num">отдельно</td><td>Чтобы тексты правили сами. По сути новая вёрстка, 1–2 недели.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bundle">
+        <div class="bundle-head">
+          <h3>Всё вместе</h3>
+          <span class="bundle-price">+20 000 ₽</span>
+        </div>
+        <p>CRM, расширенный бот в Telegram и бот в MAX одним пакетом. По отдельности выходит 40–55 тысяч. Заявки сразу попадают и менеджерам, и в CRM, клиент может написать в любом из двух мессенджеров.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-bot">
+      <h2 id="s-bot">Как работает бот</h2>
+      <h3>Простой бот, в базовом пакете</h3>
+      <ol class="flow">
+        <li><span>Клиент жмёт кнопку на сайте, например «Хочу такую же». Открывается бот МГК и уже знает, с какой кнопки пришёл человек: какая машина, какой бюджет из квиза.</span></li>
+        <li><span>Бот: «Вы интересовались Geely Monjaro 2025. Чтобы менеджер связался, нужен номер». Рядом ссылки на политику и согласие на обработку данных и кнопка «Согласен». Это требование закона о персональных данных.</span></li>
+        <li><span>После согласия появляется кнопка «Поделиться номером»: одно нажатие, вводить вручную не нужно.</span></li>
+        <li><span>Менеджерам приходит карточка: имя, ник, телефон, машина или ответы квиза, с какой кнопки пришёл. Менеджер пишет клиенту сам, со своего аккаунта.</span></li>
+        <li><span>Клиенту бот отвечает «Заявку передали» и даёт ссылку на канал с выдачами. Кто не хочет оставлять номер, может просто написать менеджеру.</span></li>
+      </ol>
+      <p class="muted">Бот не консультирует, не считает цену и не притворяется человеком. Его задача: чтобы ни одна заявка не потерялась.</p>
+
+      <h3>Чем отличаются варианты</h3>
+      <div class="table">
+        <table class="features">
+          <thead>
+            <tr>
+              <th>Что умеет</th>
+              <th>Без бота<br><span class="tag">как в демо</span></th>
+              <th>Простой бот<br><span class="tag tag-base">в 50 000 ₽</span></th>
+              <th>Расширенный<br><span class="tag tag-plus">доплата</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Готовый текст с машиной или бюджетом</td><td><span class="yes">есть</span></td><td><span class="yes">есть</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Знает, с какой кнопки и машины пришёл клиент</td><td><span class="no">—</span></td><td><span class="yes">есть</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Согласие на обработку данных и номер в одно нажатие</td><td><span class="no">—</span></td><td><span class="yes">есть</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Карточка заявки в чат менеджеров или на почту</td><td><span class="no">—</span></td><td><span class="yes">есть</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Подбор в боте для тех, кто пришёл не с сайта: из канала, рекламы</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Каталог до 160 л.с. присылает сразу</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Напоминает, если клиент начал и бросил</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">есть</span></td></tr>
+            <tr><td>Показывает привезённые машины в бюджете клиента</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td><span class="yes">есть</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">Кто уже прошёл квиз на сайте, в боте вопросы повторно не получает: бот знает ответы и сразу просит контакт.</p>
+    </section>
+
+    <section aria-labelledby="s-qa">
+      <h2 id="s-qa">Если спросят</h2>
+      <div class="qa">
+        <details>
+          <summary>А заявки можно в нашу CRM?</summary>
+          <p class="say">«Заявки приходят куда скажете — в рабочий чат или на почту. Если ведёте CRM, подключим и её, это отдельная настройка под вашу воронку».</p>
+        </details>
+        <details>
+          <summary>Можно поменять дизайн?</summary>
+          <p>Сайт уже в их фирменном стиле, по баннеру «Утильсбор». В базе меняем содержание под их условия, стиль не трогаем. Новый стиль — отдельная доплата и плюс 2–3 дня.</p>
+        </details>
+        <details>
+          <summary>У нас сайт на Тильде, почему не там?</summary>
+          <p>Можем и на Тильде, но работать будет хуже: страница грузится медленнее, а продвигать в поиске проще сайт на своём коде. Тильда удобнее только правкой текстов. Карточки машин у вас и так будут править сами, через таблицу. Тексты правим в рамках поддержки, по любым вопросам по сайту можно обращаться к Илье напрямую.</p>
+        </details>
+        <details>
+          <summary>Почему 10 дней, если сайт готов?</summary>
+          <p>Сайт готов, но его надо наполнить их данными, поставить бота и запустить на домене. Срок зависит от того, как быстро они пришлют материалы: договор, разбивку цены, отзывы, фото.</p>
+        </details>
+        <details>
+          <summary>Сколько платить каждый месяц?</summary>
+          <p>Домен у них уже есть, за него платят как сейчас. Хостинг сайта: 500–800 ₽ в месяц, мощный не нужен. Сервер бота: около 1 000 ₽ в месяц, он в России, это требование закона о персональных данных. Всё оформляется на них.</p>
+        </details>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-ask">
+      <h2 id="s-ask">Что узнать на встрече</h2>
+      <ol class="questions">
+        <li>Куда сейчас падают заявки с сайта и из Telegram? Есть CRM: Битрикс24, amoCRM, другая?</li>
+        <li>Кто отвечает в Telegram: один менеджер, несколько, общий аккаунт?</li>
+        <li>Нужен ли MAX так же, как Telegram?</li>
+        <li>Кто будет обновлять машины на сайте и как часто?</li>
+        <li>На mgk-auto.ru есть другие страницы, кроме главной? Их сохраняем?</li>
+        <li>Кто регистратор домена и у кого доступ.</li>
+        <li>Можно ли выложить договор целиком? Есть реальная разбивка цены по одной машине?</li>
+        <li>Рейтинг и число отзывов на Яндекс.Картах и Авито, число подписчиков канала.</li>
+      </ol>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="muted">Цены доплат — ориентир. По нестандартным вопросам сначала к Илье, потом обещать клиенту.</p>
+  </div>
+</footer>
+</body>
+</html>
